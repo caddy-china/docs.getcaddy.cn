@@ -1,4 +1,4 @@
-baseurl = "https://docs.notadd.com/"
+baseurl = "https://docs.getcaddy.cn/"
 languageCode = "zh-cn"
 title = "caddy 中文文档 Docs"
 theme = "hugo-material-docs"
