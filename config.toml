@@ -1,0 +1,96 @@
+baseurl = "https://docs.notadd.com/"
+languageCode = "zh-cn"
+title = "Notadd 官方文档 Docs"
+theme = "hugo-material-docs"
+metadataformat = "yaml"
+canonifyurls = true
+# Enable Google Analytics by entering your tracking id
+googleAnalytics = ""
+
+[params]
+	# General information
+	author = "notadd"
+	description = "基于Laravel的下一代PHP开发框架"
+	copyright = "Released under the Apache2 license"
+
+	# Repository
+	provider = "GitHub"
+	repo_url = "https://github.com/notadd/notadd"
+
+	version = "0.5.2"
+	logo = "images/logo.png"
+	favicon = "images/favicon.ico"
+
+	permalink = "#"
+
+	# Custom assets
+	custom_css = []
+	custom_js  = []
+
+	# Syntax highlighting theme
+	highlight_css  = "/stylesheets/highlight/atom-one-light.css"
+
+	[params.palette]
+    	primary = "teal"
+    	accent  = "teal"
+
+    [params.font]
+    	text = "Ubuntu"
+    	code = "Ubuntu Mono"
+
+
+[social]
+	twitter = ""
+	github  = "notadd"
+	email   = "notadd@ibenchu.com"
+
+
+# [[menu.main]]
+# 	name   = "Notadd"
+# 	url    = "/"
+# 	weight = 0
+
+[[menu.main]]
+	name   = "关于"
+	url    = "introductions/"
+	weight = 10
+
+
+[[menu.main]]
+	name   = "开始使用"
+	url    = "gettingstarted/"
+	weight = 20
+
+[[menu.main]]
+	name   = "HOWTO文档"
+	url    = "howtos/"
+	weight = 30
+
+[[menu.main]]
+	name   = "相关技术"
+	url    = "technologies/"
+	weight = 40
+
+[[menu.main]]
+	name   = "二次开发"
+	url    = "develops/"
+	weight = 50
+
+[[menu.main]]
+	name   = "API 文档"
+	url    = "apis/"
+	weight = 60
+[[menu.main]]
+	name   = "技术规范"
+	url    = "standards/"
+	weight = 70
+[[menu.main]]
+	name   = "使用laradock部署"
+	url    = "laradock/"
+	weight = 80
+
+[blackfriday]
+	smartypants	= true
+	fractions = true
+	smartDashes = true
+	plainIDAnchors = true
