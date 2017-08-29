@@ -1,6 +1,6 @@
 baseurl = "https://docs.getcaddy.cn/"
 languageCode = "zh-cn"
-title = "caddy 中文文档 Docs"
+title = "Caddy 中文文档 Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
