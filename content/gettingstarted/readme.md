@@ -1,6 +1,5 @@
 ---
 title: 开始使用
-type: index
 ---
 
 ## 安装说明
