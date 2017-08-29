@@ -120,7 +120,39 @@ caddy
 
 ```bash
 C:\Caddy\caddy.exe -host example.com
+```
 
+### MacOS/Linux
 
+```bash
+caddy -host example.com
+```
+
+当您第一次使用真实的域名（不是localhost）运行 Caddy 时，系统会要求您输入您的电子邮件地址。这是因为 Caddy 需要验证您是否拥有该域名，并自动申请SSL证书。
+
+提交电子邮件地址后，您会看到类似的错误permission denied？这是因为，Caddy正试图绑定 80 和 443 端口，但这样做需要root或管理员权限：
+
+### Windows
+
+右键单击cmd.exe，然后单击“以管理员身份运行”。然后再运行 Caddy:
+
+```
+C:\Caddy\caddy.exe -host example.com
+```
+
+### Macos/Linux
+
+使用sudo以root方式运行Caddy：
+
+```bash
+sudo caddy -host example.com
+```
+
+在正式 Linux 服务器上
+
+```bash
+sudo setcap cap_net_bind_service=+ep $(which caddy)
+$ caddy -host example.com
+```
 
 
