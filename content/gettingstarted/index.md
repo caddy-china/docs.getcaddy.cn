@@ -226,5 +226,90 @@ localhost:8080
 caddy
 ```
 
+如果Caddyfile位于不同的位置或具有不同的名称，请告诉Caddy它的位置：
 
-``
+#### Windows
+
+```bash
+caddy -conf C:\path\to\Caddyfile
+```
+
+#### MacOS/Linux
+
+```bash
+caddy -conf ../path/to/Caddyfile
+```
+站点地址之后的行以指令开头。指令是凯蒂识别的关键字。例如，gzip 是一个 HTTP 指令：
+
+```
+localhost:8080
+gzip
+```
+
+指令可能在它们之后有一个或多个参数：
+
+```
+localhost:8080
+gzip
+log ../access.log
+```
+
+一些指令需要超过一行的配置。对于这些指令，您可以打开一个指令块并设置更多的参数。开放的大括号必须在一行的末尾：
+
+```
+localhost:8080
+gzip
+log ../access.log
+markdown /blog {
+    css /blog.css
+    js  /scripts.js
+}
+```
+
+如果指令块为空，则应该省略大括号。
+
+包含空格的参数必须用引号括起来`"`。
+
+Caddyfile还可以以#字符开头的注释：
+
+# Comments can start a line
+foobar # or go at the end
+要使用单个Caddyfile配置多个站点，您必须使用每个站点周围的大括号来分离其配置：
+
+mysite.com {
+    root /www/mysite.com
+}
+
+sub.mysite.com {
+    root /www/sub.mysite.com
+    gzip
+    log ../access.log
+}
+与指令一样，开放的大括号必须在同一行的末尾。关闭大括号必须在自己的线上。所有指令必须出现在网站的定义中。
+
+对于共享相同配置的站点，请指定多个地址：
+
+localhost:8080, https://site.com, http://mysite.com {
+    ...
+}
+站点地址也可以在特定路径下定义，或者具有通配符代替左侧的单个域标签：
+
+example.com/static, *.example.com {
+    ...
+}
+请注意，使用站点地址中的路径将以最长匹配的前缀路由请求。如果您的基本路径是目录，您可能希望以正斜杠后缀该路径/。
+
+在地址和参数中允许使用环境变量。它们必须用大括号括起来，您可以使用Unix或Windows变量格式：
+
+localhost:{$PORT}
+root {%SITE_ROOT%}
+
+任何语法都可以在任何平台上运行。单个环境变量不会扩展到多个参数/值。
+
+有没有的传承或脚本在Caddyfile和你不能指定同一个网站地址不止一次。是的，有时这意味着你复制+粘贴几条重复的行。如果你有很多重复的行，可以使用import指令来减少重复。
+
+好吧，这应该是足够让你在凯迪文档中识字的。去征服！
+
+
+
+
