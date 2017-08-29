@@ -185,7 +185,6 @@ example.com
 echo example.com > Caddyfile
 ```
 
-#### Windows/Macos/Linux
 
 运行 Caddy ，会找到当前目录的 Caddyfile 文件
 
@@ -209,4 +208,23 @@ caddy -conf C:\path\to\Caddyfile
 caddy -conf ../path/to/Caddyfile
 ```
 
-学习如何使用 Caddyfile ，将会使它变得更容易
+学习如何使用 Caddyfile ，将会使它变得更容易。
+
+## Caddyfile 配置
+
+Caddyfile是一个配置Caddy运行方式的文本文件。
+
+Caddyfile的第一行始终是要提供的站点的地址。例如：
+
+```
+localhost:8080
+```
+
+当您将其保存在 Caddyfile 的文件中时，Caddy会在您启动时寻找当前目录的 Caddyfile：
+
+```
+caddy
+```
+
+
+``
