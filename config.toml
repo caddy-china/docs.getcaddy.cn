@@ -31,8 +31,8 @@ googleAnalytics = ""
 	highlight_css  = "/stylesheets/highlight/atom-one-light.css"
 
 	[params.palette]
-    	primary = "teal"
-    	accent  = "teal"
+    	primary = "blue"
+    	accent  = "blue"
 
     [params.font]
     	text = "Ubuntu"
