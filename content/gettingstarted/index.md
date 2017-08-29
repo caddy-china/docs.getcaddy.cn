@@ -45,17 +45,19 @@ title: 快速开始
 
 ### Windows
 
+```
 将zip文件解压到目录
+```
 
 ### MacOS
 
-```shell
+```bash
 unzip caddy*.zip caddy
 ```
 
 ### Linux
 
-```
+```bash
 tar -xzf caddy*.tar.gz caddy
 ```
 
