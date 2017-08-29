@@ -165,9 +165,48 @@ http://example.com
 
 使用真实的域名触发了 Caddy 的 HTTPS 功能，它们在 80 和443 端口上运行。如果您只是使用 localhost 主机名，Caddy将继续在 2015 的端口上运行，除非您使用 `-port` 选项进行更改。
 
-在命令行界面是伟大的快速 Caddy 配置。但是如果你想每次都使用同一个配置怎么办？ Caddyfile ！
+在命令行界面可以快速配置 Caddy。但是如果你想每次都使用同一个配置怎么办？ Caddyfile ！
 
 Caddyfile 是一个文本文件，告诉 Caddy 如何服务。我们来做一个：
 
+#### Windows
 
+在您的网站的文件夹中创建一个名为 Caddyfile（扩展名不为.txt）的文件，并在其中放置一行（使用您的实际域名或localhost）：
 
+```bash
+example.com
+```
+
+#### Macos/Linux
+
+使用您的实际域名（或localhost）：
+
+```bash
+echo example.com > Caddyfile
+```
+
+#### Windows/Macos/Linux
+
+运行 Caddy ，会找到当前目录的 Caddyfile 文件
+
+```bash
+caddy
+```
+
+ Caddyfile 的第一行始终是要提供的站点的域名或IP。
+
+如果 Caddyfile 与目前的目录不一样，可以告诉 Caddy ， Caddyfile 在哪里：
+
+#### Windows
+
+```bash
+caddy -conf C:\path\to\Caddyfile
+```
+
+#### MacOS/Linux
+
+```bash
+caddy -conf ../path/to/Caddyfile
+```
+
+学习如何使用 Caddyfile ，将会使它变得更容易
