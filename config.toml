@@ -89,7 +89,7 @@ googleAnalytics = ""
 	url    = "server/"
 	weight = 80
 [[menu.main]]
-	name   = "常用方案"
+	name   = "常用教程"
 	url    = "demo/"
 	weight = 90
 	
