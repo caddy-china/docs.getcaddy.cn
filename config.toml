@@ -1,6 +1,6 @@
 baseurl = "https://docs.notadd.com/"
 languageCode = "zh-cn"
-title = "Notadd 官方文档 Docs"
+title = "caddy 中文文档 Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -9,15 +9,15 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "notadd"
-	description = "基于Laravel的下一代PHP开发框架"
-	copyright = "Released under the Apache2 license"
+	author = "caddy"
+	description = "自动配置 HTTPS 的 HTTP2 服务器"
+	copyright = "Released under the MIT license"
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/notadd/notadd"
+	repo_url = "https://github.com/mholt/caddy"
 
-	version = "0.5.2"
+	version = "0.10.7"
 	logo = "images/logo.png"
 	favicon = "images/favicon.ico"
 
