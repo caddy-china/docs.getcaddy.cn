@@ -122,7 +122,7 @@ caddy
 C:\Caddy\caddy.exe -host example.com
 ```
 
-### MacOS/Linux
+#### MacOS/Linux
 
 ```bash
 caddy -host example.com
@@ -132,7 +132,7 @@ caddy -host example.com
 
 提交电子邮件地址后，您会看到类似的错误permission denied？这是因为，Caddy正试图绑定 80 和 443 端口，但这样做需要root或管理员权限：
 
-### Windows
+#### Windows
 
 右键单击cmd.exe，然后单击“以管理员身份运行”。然后再运行 Caddy:
 
@@ -140,7 +140,7 @@ caddy -host example.com
 C:\Caddy\caddy.exe -host example.com
 ```
 
-### Macos/Linux
+#### Macos/Linux
 
 使用sudo以root方式运行Caddy：
 
@@ -152,7 +152,22 @@ sudo caddy -host example.com
 
 ```bash
 sudo setcap cap_net_bind_service=+ep $(which caddy)
-$ caddy -host example.com
+caddy -host example.com
 ```
+
+如果您有权限，并运行 Caddy ，您会看到：
+
+```bash
+Activating privacy features... done.
+https://example.com
+http://example.com
+```
+
+使用真实的域名触发了 Caddy 的 HTTPS 功能，它们在 80 和443 端口上运行。如果您只是使用 localhost 主机名，Caddy将继续在 2015 的端口上运行，除非您使用 `-port` 选项进行更改。
+
+在命令行界面是伟大的快速 Caddy 配置。但是如果你想每次都使用同一个配置怎么办？ Caddyfile ！
+
+Caddyfile 是一个文本文件，告诉 Caddy 如何服务。我们来做一个：
+
 
 
