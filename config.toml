@@ -62,33 +62,37 @@ googleAnalytics = ""
 	weight = 20
 
 [[menu.main]]
-	name   = "HOWTO文档"
-	url    = "howtos/"
+	name   = "HTTP服务器"
+	url    = "http-server/"
 	weight = 30
 
 [[menu.main]]
-	name   = "相关技术"
-	url    = "technologies/"
+	name   = "标准HTTP指令"
+	url    = "http/"
 	weight = 40
 
 [[menu.main]]
-	name   = "二次开发"
-	url    = "develops/"
+	name   = "DNS服务商"
+	url    = "dns/"
 	weight = 50
 
 [[menu.main]]
-	name   = "API 文档"
-	url    = "apis/"
+	name   = "指令/中间件"
+	url    = "middleware/"
 	weight = 60
 [[menu.main]]
-	name   = "技术规范"
-	url    = "standards/"
+	name   = "事件/钩子"
+	url    = "hooks/"
 	weight = 70
 [[menu.main]]
-	name   = "使用laradock部署"
-	url    = "laradock/"
+	name   = "服务器类型"
+	url    = "server/"
 	weight = 80
-
+[[menu.main]]
+	name   = "常用方案"
+	url    = "demo/"
+	weight = 90
+	
 [blackfriday]
 	smartypants	= true
 	fractions = true
