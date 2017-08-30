@@ -52,15 +52,8 @@ title: 快速开始
 | Windows | macOS | Linux |
 |----|----|-----|
 | 
-| 右键 .zip 文件，然后选择「全部提取」。选择要提取的到的任意文件夹，只要你不取消。完成后你可以删除。 | 双击 .zip 文件夹，或者运行：<br />
-```shell
-unzip caddy*.zip caddy
-```
-| 运行命令：<br />
-```shell
-tar -xzf caddy*.tar.gz caddy
-```
-|
+| 右键 .zip 文件，然后选择「全部提取」。选择要提取的到的任意文件夹，只要你不取消。完成后你可以删除。 | 双击 .zip 文件夹，或者运行：<br /> `unzip caddy*.zip caddy` | 运行命令：<br /> `tar -xzf caddy*.tar.gz caddy` |
+
 
 接下来，我们将把Caddy二进制文件移动到一个可以轻松执行的文件夹中。
 
