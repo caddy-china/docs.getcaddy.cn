@@ -16,8 +16,6 @@ title: 开始使用
 {{< /note >}}
 
 
-，则 
-
 
 接下来，[学习使用 Caddyfile 配置 Caddy](#caddyfile)。
 
