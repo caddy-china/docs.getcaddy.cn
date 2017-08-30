@@ -1,5 +1,5 @@
 baseurl = "https://docs.getcaddy.cn/"
-languageCode = "zh-cn"
+languageCode = "zh-hans"
 title = "Caddy 中文文档 Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
@@ -50,47 +50,47 @@ googleAnalytics = ""
 # 	url    = "/"
 # 	weight = 0
 
-[[menu.main]]
-	name   = "关于"
-	url    = "introductions/"
-	weight = 10
+# [[menu.main]]
+#	name   = "关于"
+#	url    = "introductions/"
+#	weight = 10
 
 
 [[menu.main]]
 	name   = "开始使用"
-	url    = "gettingstarted/"
+	url    = "get-started/"
 	weight = 20
 
 [[menu.main]]
-	name   = "HTTP服务器"
+	name   = "HTTP 服务器"
 	url    = "http-server/"
 	weight = 30
 
 [[menu.main]]
-	name   = "标准HTTP指令"
+	name   = "标准 HTTP 指令"
 	url    = "http/"
 	weight = 40
 
 [[menu.main]]
-	name   = "DNS服务商"
+	name   = "DNS 服务商"
 	url    = "dns/"
 	weight = 50
 
 [[menu.main]]
-	name   = "指令/中间件"
-	url    = "middleware/"
+	name   = "指令／中间件"
+	url    = "directive-middleware/"
 	weight = 60
 [[menu.main]]
-	name   = "事件/钩子"
-	url    = "hooks/"
+	name   = "事件钩子"
+	url    = "event-hooks/"
 	weight = 70
 [[menu.main]]
 	name   = "服务器类型"
-	url    = "server/"
+	url    = "server-type/"
 	weight = 80
 [[menu.main]]
 	name   = "常用教程"
-	url    = "demo/"
+	url    = "examples/"
 	weight = 90
 	
 [blackfriday]
