@@ -5,13 +5,18 @@ title: 开始使用
 <a name="quick-start"></a>
 ## 快速开始 {#quick-start}
 
-1. [下载 Caddy](https://caddyserver.com/download) 并将其放在你的 **PATH** （环境变量） 当中。
+1. [下载 Caddy](https://caddyserver.com/download) 并将其放在你的 **PATH** （环境变量） 当中。[译者注：Linux 一般为 /bin/local/ 目录]
 2. `cd` 到你网站的目录。
 3. 运行 `caddy` 。
 
 完成！从你的浏览器打开 `http://localhost:2015` 看一下是否工作。默认情况下，Caddy 服务器工作在当前目录下。
 
-如果你看到 404 错误，则 Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导？阅读[初学者教程](#beginner)）
+{{< note title="如果你看到 404 错误" >}}
+说明Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导？阅读[初学者教程](#beginner)）
+{{< /note >}}
+
+
+，则 
 
 
 接下来，[学习使用 Caddyfile 配置 Caddy](#caddyfile)。
