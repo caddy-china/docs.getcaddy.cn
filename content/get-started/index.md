@@ -2,27 +2,24 @@
 title: 快速开始
 ---
 
+<a name="quick-start" />
+## 快速开始 {#quick-start}
 
-## 快速开始
+1. [下载 Caddy](https://caddyserver.com/download) 并将其放在你的 **PATH** （环境变量） 当中。
+2. `cd` 到你网站的目录。
+3. 运行 `caddy` 。
 
-1. [下载](https://caddyserver.com/download)然后解压到path目录（Linux一般是/bin/ win一般在环境变量中的path对应目录）
+完成！从你的浏览器打开 `http://localhost:2015` 看一下是否工作。默认情况下，Caddy 服务器工作在当前目录下。
 
-
-2.打开网站所在目录
-
-3. 运行`caddy`
-
-
-打开浏览器 http://localhost:2015  默认情况下， Caddy 运行以当前目录为网站目录
-
-如果您看到404错误，则证明Caddy正在工作，但您的站点的根目录缺少索引文件（index.html/index.php等）。（需要更多的指导？阅读初学者教程。）
+如果你看到 404 错误，则 Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导？阅读[初学者教程](#beginner)）
 
 
-接下来，学习使用Caddyfile配置Caddy
+接下来，[学习使用 Caddyfile 配置 Caddy](#caddyfile)。
 
-## 初学者教程
+<a name="beginner" />
+## 初学者教程 {#beginner}
 
-本教程将帮助您第一次安装，运行和配置Caddy。假设你从来没有使用过Web服务器！（如果有，快速启动。）尽管 Caddy 很容易使用，但仍然希望你能够熟悉它：
+本教程版主你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，操作[快速开始](#quick-start)）尽管 Caddy 很容易使用，但是仍然希望你能已经熟悉使用你的机器。
 
 - 提取，移动和重命名文件
 - 管理用户和文件权限
@@ -31,13 +28,21 @@ title: 快速开始
 
 有了这些前提条件，说明你已经准备好了。
 
-### 下载
+<h4>Topics</h4>
 
-从下载页面[下载Caddy](https://caddyserver.com/download)。几乎任何操作系统和架构都可以使用 Caddy 。Caddy 的下载页面与其他的Web服务器相比是独一无二的：它允许您使用插件自定义您的构建。
+1. [下载](#download)
+2. [安装](#install)
+3. [运行](#run)
+4. [配置](#configure)
 
-对于本教程，您不需要任何插件。
+<a name="download" />
+### 下载 {#download}
 
-有时我们的构建服务器进行维护。如果下载页面关闭，您可以随时从GitHub[下载最新版本](https://github.com/mholt/caddy/releases/latest)（不需要插件）。
+从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy 下载页面和其他 web 服务器一样都是唯一的：它运行你使用插件自定义你的构建。
+
+对于本教程，你不需要任何插件。
+
+又是我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
 
 ### 安装
 
