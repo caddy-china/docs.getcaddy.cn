@@ -28,7 +28,7 @@ title: 快速开始
 
 有了这些前提条件，说明你已经准备好了。
 
-<h4>Topics</h4>
+### **Topics** {#topic}
 
 1. [下载](#download)
 2. [安装](#install)
@@ -36,7 +36,7 @@ title: 快速开始
 4. [配置](#configure)
 
 <a name="download" />
-### 下载 {#download}
+#### 下载 {#download}
 
 从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy 下载页面和其他 web 服务器一样都是唯一的：它运行你使用插件自定义你的构建。
 
@@ -44,27 +44,23 @@ title: 快速开始
 
 又是我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
 
-### 安装
+<a name="install" />
+#### 安装 {#install}
 
-您下载的文件是压缩档案。您将需要提取Caddy二进制文件（可执行文件）。
+你下载的文件是压缩包。你需要提取 Caddy 二进制文件（可执行文件）。
 
-#### Windows
-
-```
-将zip文件解压到目录
-```
-
-#### MacOS
-
-```bash
+| Windows | macOS | Linux |
+|----|----|-----|
+| 
+| 右键 .zip 文件，然后选择「全部提取」。选择要提取的到的任意文件夹，只要你不取消。完成后你可以删除。 | 双击 .zip 文件夹，或者运行：<br />
+```shell
 unzip caddy*.zip caddy
 ```
-
-#### Linux
-
-```bash
+| 运行命令：<br />
+```shell
 tar -xzf caddy*.tar.gz caddy
 ```
+|
 
 接下来，我们将把Caddy二进制文件移动到一个可以轻松执行的文件夹中。
 
