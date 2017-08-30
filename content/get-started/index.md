@@ -2,7 +2,7 @@
 title: 快速开始
 ---
 
-<a name="quick-start" />
+<a name="quick-start"></a>
 ## 快速开始 {#quick-start}
 
 1. [下载 Caddy](https://caddyserver.com/download) 并将其放在你的 **PATH** （环境变量） 当中。
@@ -16,7 +16,7 @@ title: 快速开始
 
 接下来，[学习使用 Caddyfile 配置 Caddy](#caddyfile)。
 
-<a name="beginner" />
+<a name="beginner"></a>
 ## 初学者教程 {#beginner}
 
 本教程版主你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，操作[快速开始](#quick-start)）尽管 Caddy 很容易使用，但是仍然希望你能已经熟悉使用你的机器。
@@ -35,7 +35,7 @@ title: 快速开始
 3. [运行](#run)
 4. [配置](#configure)
 
-<a name="download" />
+<a name="download"></a>
 #### 下载 {#download}
 
 从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy 下载页面和其他 web 服务器一样都是唯一的：它运行你使用插件自定义你的构建。
@@ -44,7 +44,7 @@ title: 快速开始
 
 又是我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
 
-<a name="install" />
+<a name="install"></a>
 #### 安装 {#install}
 
 你下载的文件是压缩包。你需要提取 Caddy 二进制文件（可执行文件）。
