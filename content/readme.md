@@ -4,8 +4,6 @@ title: Caddy 中文文档
 type: index
 ---
 
-# caddy 中文文档
-
 ## 如何使用  Caddy
 
 ### 1. 制作一个 Caddy文件
@@ -33,7 +31,7 @@ proxy /api localhost:5001 localhost:5002
 ```
 ### 运行 Caddy
 
-你需要做的是运行 `caddy` ！ 如果 `Caddyfile` 位于当前文件夹中，则自动加载您的`Caddyfile` 。对于生产环境，默认情况下会启用 HTTPS ！
+你需要做的是运行 `caddy` ！ 如果 `Caddyfile` 位于当前文件夹中，则自动加载您的`Caddyfile` 。对于生产环境，默认情况下会启用 HTTPS （自动申请证书）！
 
 ```
 $ caddy
