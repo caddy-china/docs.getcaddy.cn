@@ -1,5 +1,5 @@
 ---
-title: 快速开始
+title: 开始使用
 ---
 
 <a name="quick-start"></a>
@@ -36,7 +36,7 @@ title: 快速开始
 4. [配置](#configure)
 
 <a name="download"></a>
-#### 下载 {#download}
+### 下载 {#download}
 
 从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy 下载页面和其他 web 服务器一样都是唯一的：它运行你使用插件自定义你的构建。
 
@@ -45,202 +45,134 @@ title: 快速开始
 又是我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
 
 <a name="install"></a>
-#### 安装 {#install}
+### 安装 {#install}
 
 你下载的文件是压缩包。你需要提取 Caddy 二进制文件（可执行文件）。
 
 | Windows | macOS | Linux |
 |----|----|-----|
-| 
 | 右键 .zip 文件，然后选择「全部提取」。选择要提取的到的任意文件夹，只要你不取消。完成后你可以删除。 | 双击 .zip 文件夹，或者运行：<br /> `unzip caddy*.zip caddy` | 运行命令：<br /> `tar -xzf caddy*.tar.gz caddy` |
 
+接下来，我们把 Caddy 二进制文件移动到一个可以轻松执行的文件夹中。
 
-接下来，我们将把Caddy二进制文件移动到一个可以轻松执行的文件夹中。
+| Windows | macOS／Linux |
+|----|----|
+| 将可执行文件移动到任何容易获取的文件夹。例如 `C:\Caddy` 。 | 任何 `$PATH` 位置都可以：<br /> `mv ./caddy /usr/local/bin` <br /> 如果你得到 **权限拒绝** 的错误，你需要运行 `sudo` 。 |
 
-#### Windows
+现在 Caddy 在我们可以轻松获取的地方，让我们来[运行](#run)吧！
 
-```
-将可执行文件移动到任何容易获取的文件夹。例如，C:\Caddy。
-```
+<a name="run"></a>
+### 运行 {#run}
 
-#### MacOS/Linux
+默认情况下，Caddy 将使用当前目录（正在执行的目录，而不是二进制文件所在文件夹）作为站点的根目录。这使得运行本地网站变得容易！
 
-任何位置都可以执行：
+使用终端或命令行，切换到你的站点所在文件夹：
 
-```bash
-mv ./caddy /usr/local/bin
-```
-
-
-### 运行
-
-默认情况下，Caddy 将使用当前目录（正在执行的目录，而不是二进制文件夹的文件夹）作为站点的根目录。这使得运行本地网站变得容易！
-
-使用终端或命令行，切换到您的站点所在的文件夹：
-
-```bash
+```shell
 cd path/to/my/site
 ```
 
-#### Windows
+并运行 Caddy ：
 
-假设您将`caddy.exe`文件放在`C:\Caddy`中，运行：
-```bash
-C:\Caddy\caddy.exe
-```
+| Windows | macOS／Linux |
+|----|----|
+| 假设你将 .exe 文件放在 C:\Caddy 中，运行：<br /> `C:\Caddy\caddy.exe` | `caddy` |
 
-#### MacOS/Linux
+在你的浏览器中打开 http://localhost:2015 。如果你看到 404 错误，则 Caddy 正在工作，但是你的站点缺少索引文件。
 
-```
-caddy
-```
+你可以按 **Ctrl + C** 退出 Caddy，它将尽可能优雅地终止。
 
-在浏览器中 加载http://localhost:2015 。如果您看到404错误，则Caddy正在工作，但您的站点缺少索引文件。
+<a name="caddyfile"></a>
+### 配置 {#configure}
 
-您可以按Ctrl + C 退出 Caddy, 它将终止运行。
+你的完整已经适合生产环境，但是并不理想，因为我们将它运行在 `localhost` 上（您的家庭电脑）：
 
-### 配置
+1. 该站点正在 2015 端口上运行，而不是 80（标准 HTTP 端口）。
+2. 该站点不受 HTTPS 保护。
 
-您的网站已经运行！但这不是最终目的，因为我们将它运行在 localhost ：
+通过提供给 Caddy 网站的名称很容易解决这两个问题。通过「name」，我们的意思是一个域名。我们将使用 `example.com` ，但是你要使用你的真实域名。如果你的计算机可以从网络 80 和 443 端口访问，则下一部分将正常工作，你的域名指向你的计算机。如果没有，或者你没有真正的域名，请使用 `localhost` 作为你的域名。
 
-1. 该网站在2015年的端口上服务，而不是80（标准HTTP端口）。
-2. 该站点不受HTTPS保护。
+站点的名称也可以作为 host 或者 hostname 。指定 host 的一种方法是使用命令参数：
 
-通过告诉Caddy要提供的网站的域名，很容易解决这两个问题。通过域名，我们将使用 example.com （使用您的真实域名）。如果可以访问服务器的 80 和 443 端口，则面将正常工作，而您的域名可以指向您的服务器。如果只是在本地电脑运行，或者您没有真正的域名，请 localhost 用作您的域名。
+| Windows | macOS／Linux |
+|----|----|
+| `C:\Caddy\caddy.exe -host example.com` | `caddy -host example.com` |
 
-使用命令指定域名：
+你第一次使用真实的 hostname （而不是 localhost）运行 Caddy 时，系统会要求你输入你的 E-Mail 地址。因为 Caddy 需要验证你是否拥有该域名，并自动申请 SSL 证书。
 
-#### Windows
+提交你的 E-Mail 后，你是否看到类似 `permission denied` 的错误？这是因为 Caddy 正在试图绑定 80 和 443 端口为一个真实的站点，但是这样需要 root 或者管理员权限：
 
-```bash
-C:\Caddy\caddy.exe -host example.com
-```
+| Windows | macOS／Linux |
+|----|----|
+| 右键 cmd.exe ，然后单击「以管理员身份运行」。然后再运行 Caddy：<br /> `C:\Caddy\caddy.exe -host example.com` | 使用 sudo 以 root 方式运行 Caddy：<br /> `sudo caddy -host example.com` |
 
-#### MacOS/Linux
-
-```bash
-caddy -host example.com
-```
-
-当您第一次使用真实的域名（不是localhost）运行 Caddy 时，系统会要求您输入您的电子邮件地址。这是因为 Caddy 需要验证您是否拥有该域名，并自动申请SSL证书。
-
-提交电子邮件地址后，您会看到类似的错误permission denied？这是因为，Caddy正试图绑定 80 和 443 端口，但这样做需要root或管理员权限：
-
-#### Windows
-
-右键单击cmd.exe，然后单击“以管理员身份运行”。然后再运行 Caddy:
+如果你有权限，并在此运行 Caddy，你会看到：
 
 ```
-C:\Caddy\caddy.exe -host example.com
-```
-
-#### Macos/Linux
-
-使用sudo以root方式运行Caddy：
-
-```bash
-sudo caddy -host example.com
-```
-
-在正式 Linux 服务器上
-
-```bash
-sudo setcap cap_net_bind_service=+ep $(which caddy)
-caddy -host example.com
-```
-
-如果您有权限，并运行 Caddy ，您会看到：
-
-```bash
 Activating privacy features... done.
 https://example.com
 http://example.com
 ```
 
-使用真实的域名触发了 Caddy 的 HTTPS 功能，它们在 80 和443 端口上运行。如果您只是使用 localhost 主机名，Caddy将继续在 2015 的端口上运行，除非您使用 `-port` 选项进行更改。
+使用真实的域名触发了 Caddy 的隐私功能，它们运行在 80 和 443 端口上。如果你仅使用 `localhost` 作为主机名，则 Caddy 将继续使用 2015 端口工作，除非你使用 `-port` 选项进行更改。
 
-在命令行界面可以快速配置 Caddy。但是如果你想每次都使用同一个配置怎么办？ Caddyfile ！
+[命令行](cli)非常适合快速配置 Caddy。但是如果你想每次重用同一个配置这么办呢？使用 Caddyfile 很简单。
 
-Caddyfile 是一个文本文件，告诉 Caddy 如何服务。我们来做一个：
+**Caddyfile** 是一个文本文件，告诉 Caddy 如何提供服务，它通常和你的网站在一起，我们来做一个：
 
-#### Windows
+| Windows | macOS／Linux |
+|----|----|
+| 在你的网站文件夹创建一个名为 Caddyfile （拓展名不为 .txt）的文本文件，并在其中放置一行（使用你的实际域名或 localhost）：<br /> `example.com` | 使用你的实际域名（或 localhost）：<br /> `echo example.com > Caddyfile` |
 
-在您的网站的文件夹中创建一个名为 Caddyfile（扩展名不为.txt）的文件，并在其中放置一行（使用您的实际域名或localhost）：
+运行 Caddy 会自动找到 Caddyfile 文件：
 
-```bash
-example.com
-```
+| Windows | macOS／Linux |
+|----|----|
+| `C:\Caddy\caddy.exe` | `caddy` |
 
-#### Macos/Linux
+这是因为 Caddy 的第一行始终要提供站点的地址（或名称）。
 
-使用您的实际域名（或localhost）：
+如果 Caddyfile 不在当前目录，可以告诉 Caddy 从哪里得到 Caddyfile：
 
-```bash
-echo example.com > Caddyfile
-```
+| Windows | macOS／Linux |
+|----|----|
+| `C:\Caddy\caddy.exe -conf C:\path\to\Caddyfile` | `caddy -conf ../path/to/Caddyfile` |
 
+你几乎指导这是危险的。接下来，学习[学习如何运用 Caddyfile](#caddyfile)。你会喜欢写是多么容易。
 
-运行 Caddy ，会找到当前目录的 Caddyfile 文件
+<a name="caddyfile"></a>
+## Caddyfile {#caddyfile}
 
-```bash
-caddy
-```
+本教程将向你介绍使用 Caddyfile 配置 Caddy 的简便性。
 
- Caddyfile 的第一行始终是要提供的站点的域名或IP。
+Caddyfile 是一个配置 Caddy 运行方式的文本文件。
 
-如果 Caddyfile 与目前的目录不一样，可以告诉 Caddy ， Caddyfile 在哪里：
-
-#### Windows
-
-```bash
-caddy -conf C:\path\to\Caddyfile
-```
-
-#### MacOS/Linux
-
-```bash
-caddy -conf ../path/to/Caddyfile
-```
-
-学习如何使用 Caddyfile ，将会使它变得更容易。
-
-## Caddyfile 配置
-
-Caddyfile是一个配置Caddy运行方式的文本文件。
-
-Caddyfile的第一行始终是要提供的站点的地址。例如：
+**Caddyfile 迪一行始终是要提供站点的地址**，例如：
 
 ```
 localhost:8080
 ```
 
-当您将其保存在 Caddyfile 的文件中时，Caddy会在您启动时寻找当前目录的 Caddyfile：
+当你将其保存在名为 Caddyfile 的文件中时，Caddy 会在你启动的时候找到它：
 
-```
-caddy
-```
+| Windows | macOS／Linux |
+|----|----|
+| `C:\Caddy\caddy.exe` | `caddy` |
 
-如果Caddyfile位于不同的位置或具有不同的名称，请告诉Caddy它的位置：
+如果 Caddyfile 位于不同位置或者具有其他名称，请告诉 Caddy 它的位置：
 
-#### Windows
+| Windows | macOS／Linux |
+|----|----|
+| `C:\Caddy\caddy.exe -conf C:\path\to\Caddyfile` | `caddy -conf ../path/to/Caddyfile` |
 
-```bash
-caddy -conf C:\path\to\Caddyfile
-```
-
-#### MacOS/Linux
-
-```bash
-caddy -conf ../path/to/Caddyfile
-```
-站点地址之后的行以指令开头。指令是凯蒂识别的关键字。例如，gzip 是一个 HTTP 指令：
+站点地址之后的行以指令开头。指令是 Caddy 识别的关键字。例如，[gzip](gzip) 是一个 HTTP 指令：
 
 ```
 localhost:8080
 gzip
 ```
 
-指令可能在它们之后有一个或多个参数：
+指令可以在后面跟一个或者多个参数：
 
 ```
 localhost:8080
@@ -248,7 +180,7 @@ gzip
 log ../access.log
 ```
 
-一些指令需要超过一行的配置。对于这些指令，您可以打开一个指令块并设置更多的参数。开放的大括号必须在一行的末尾：
+一些指令需要比一行更多的配置。对于这些指令，您可以打开一个块并设置更多参数，开放的大括号必须独占一行结束：
 
 ```
 localhost:8080
@@ -260,18 +192,18 @@ markdown /blog {
 }
 ```
 
-如果指令块为空，则应该省略大括号。
+如果指令块为空，则应该完全省略大括号。
 
-包含空格的参数必须用引号`"`括起来。
+包含空格的参数必须使用引号 `"` 扩起来。
 
-Caddyfile 以`#` 字符开头可以注释：
+Caddyfile 也可以使用 `#` 开头的注释：
 
 ```
 # Comments can start a line
 foobar # or go at the end
 ```
 
-要使用单个 Caddyfile 文件配置多个站点，您必须使用每个站点用大括号来分离：
+使用单个 Caddyfile 配置多个站点，你 **必须** 使用大括号来分离没个站点的配置：
 
 ```
 mysite.com {
@@ -284,9 +216,10 @@ sub.mysite.com {
     log ../access.log
 }
 ```
-与指令一样，开放的大括号必须在同一行的末尾。关闭大括号必须在自己的线上。所有指令必须出现在网站的定义中。
 
-对于共享相同配置的站点，请指定多个地址：
+和指令一样，开启的大括号必须在同一行的末尾，关闭大括号必须独占一行。**所有的指令必须在网站的定义中**。
+
+对于共享配置的站点，请指定多个地址：
 
 ```
 localhost:8080, https://site.com, http://mysite.com {
@@ -294,7 +227,7 @@ localhost:8080, https://site.com, http://mysite.com {
 }
 ```
 
-站点地址也可以在特定路径下定义，或者具有通配符代替左侧的单个域标签：
+站点地址也可以在特定路径下定义，或者具有通配符代替左侧的单域名标签：
 
 ```
 example.com/static, *.example.com {
@@ -302,20 +235,17 @@ example.com/static, *.example.com {
 }
 ```
 
-请注意，使用站点地址中的路径将以最长匹配的前缀路由请求。如果您的基本路径是目录，您可能希望以正斜杠后缀该路径/。
+请注意，使用站点地址中的路径将以最长匹配的前缀路由请求。如果你的基本路径是目录，则可以使用正斜线 `/` 后缀路径。
 
-在地址和参数中允许使用环境变量。它们必须用大括号括起来，您可以使用 Unix 或 Windows 变量格式：
+在地址和参数中允许使用环境变量。它们必须使用大括号括起来，你可以使用 Unix 或者 Windows 变量格式：
 
 ```
 localhost:{$PORT}
 root {%SITE_ROOT%}
 ```
 
-这两种语法都适用于任何平台。单个环境变量不会扩展成多个参数/值。
+任何语法都可以在任意平台上运行。单个环境变量不会拓展到多个参数／值。
 
-在Caddyfile中没有继承或脚本，您可能不止一次指定同一个站点地址。是的，有时这意味着你复制+粘贴一些重复的行。如果有很多重复的行，可以使用import指令来减少重复。
+Caddyfile 中 **没有继承或脚本**，**你可能不会多次指定相同的站点地址**。是的，这意味着有时你需要多 复制+粘贴 几条重复的行。如果你有很多重复的行，可以使用 [import](import) 指令来减少重复。
 
-更多请查看文档。
-
-
-
+好吧，这该足够让你了解 Caddy 文档，去征服吧！
