@@ -9,10 +9,10 @@ title: 开始使用
 2. `cd` 到你网站的目录。
 3. 运行 `caddy` 。
 
-完成！从你的浏览器打开 `http://localhost:2015` 看一下是否工作。默认情况下，Caddy 服务器工作在当前目录下。
+完成了！从你的浏览器打开 `http://localhost:2015` 看一下是否运行。在默认情况下，Caddy服务于当前的工作目录。
 
 {{< note title="如果你看到 404 错误" >}}
-说明Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导？阅读[初学者教程](#beginner)）
+说明 Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导吗？阅读[初学者教程](#beginner)）
 {{< /note >}}
 
 
@@ -20,16 +20,17 @@ title: 开始使用
 接下来，[学习使用 Caddyfile 配置 Caddy](#caddyfile)。
 
 <a name="beginner"></a>
-## 初学者教程 {#beginner}
+## 新手教程 {#beginner}
 
-本教程版主你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，操作[快速开始](#quick-start)）尽管 Caddy 很容易使用，但是仍然希望你能已经熟悉使用你的机器。
+本教程将帮助你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，那就[快速开始](#quick-start)）尽管 Caddy 很容易使用，但仍然期望您已经熟悉使用您的机器。
 
 - 提取，移动和重命名文件
 - 管理用户和文件权限
 - 使用终端或命令行
 - 配置防火墙
 
-有了这些前提条件，说明你已经准备好了。
+
+有了这些前提条件，您就可以开始了。
 
 ### **Topics** {#topic}
 
@@ -41,11 +42,12 @@ title: 开始使用
 <a name="download"></a>
 ### 下载 {#download}
 
-从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy 下载页面和其他 web 服务器一样都是唯一的：它运行你使用插件自定义你的构建。
+从 [下载页面](https://caddyserver.com/download) 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy的下载页面不同于其他web服务器:它允许您使用插件自定义您的构建。
+
 
 对于本教程，你不需要任何插件。
 
-又是我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
+有时我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 [GitHub](https://github.com/mholt/caddy) 下载 [最新版本](https://github.com/mholt/caddy/releases/latest)
 
 <a name="install"></a>
 ### 安装 {#install}
@@ -54,13 +56,13 @@ title: 开始使用
 
 | Windows | macOS | Linux |
 |----|----|-----|
-| 右键 .zip 文件，然后选择「全部提取」。选择要提取的到的任意文件夹，只要你不取消。完成后你可以删除。 | 双击 .zip 文件夹，或者运行：<br /> `unzip caddy*.zip caddy` | 运行命令：<br /> `tar -xzf caddy*.tar.gz caddy` |
+| 右键 .zip 文件，然后选择「全部提取」。提取到任意文件夹，完成后你可以删除压缩包。 | 双击 .zip 文件夹，或者运行：<br /> `unzip caddy*.zip caddy` | 运行命令：<br /> `tar -xzf caddy*.tar.gz caddy` |
 
 接下来，我们把 Caddy 二进制文件移动到一个可以轻松执行的文件夹中。
 
 | Windows | macOS／Linux |
 |----|----|
-| 将可执行文件移动到任何容易获取的文件夹。例如 `C:\Caddy` 。 | 任何 `$PATH` 位置都可以：<br /> `mv ./caddy /usr/local/bin` <br /> 如果你得到 **权限拒绝** 的错误，你需要运行 `sudo` 。 |
+| 将可执行文件移动到容易获取的文件夹。例如 `C:\Caddy` 。 | 任何 `$PATH` 位置都可以：<br /> `mv ./caddy /usr/local/bin` <br /> 如果你得到 **权限拒绝** 的错误，你需要运行 `sudo` 。 |
 
 现在 Caddy 在我们可以轻松获取的地方，让我们来[运行](#run)吧！
 
@@ -81,19 +83,21 @@ cd path/to/my/site
 |----|----|
 | 假设你将 .exe 文件放在 C:\Caddy 中，运行：<br /> `C:\Caddy\caddy.exe` | `caddy` |
 
-在你的浏览器中打开 http://localhost:2015 。如果你看到 404 错误，则 Caddy 正在工作，但是你的站点缺少索引文件。
+{{< note title="如果你看到 404 错误" >}}
+说明 Caddy 正在工作，但是你的站点的根目录缺少索引文件。
+{{< /note >}}
 
-你可以按 **Ctrl + C** 退出 Caddy，它将尽可能优雅地终止。
+你可以按 **Ctrl + C** 退出 Caddy，它将尽可能终止。
 
 <a name="caddyfile"></a>
 ### 配置 {#configure}
 
-你的完整已经适合生产环境，但是并不理想，因为我们将它运行在 `localhost` 上（您的家庭电脑）：
+你的站点已经适合生产环境，但是并不理想，因为我们将它运行在 `localhost` 上（您的家庭电脑）：
 
 1. 该站点正在 2015 端口上运行，而不是 80（标准 HTTP 端口）。
 2. 该站点不受 HTTPS 保护。
 
-通过提供给 Caddy 网站的名称很容易解决这两个问题。通过「name」，我们的意思是一个域名。我们将使用 `example.com` ，但是你要使用你的真实域名。如果你的计算机可以从网络 80 和 443 端口访问，则下一部分将正常工作，你的域名指向你的计算机。如果没有，或者你没有真正的域名，请使用 `localhost` 作为你的域名。
+通过提供给 Caddy 网站的名称很容易解决这两个问题。通过「name」，我们的意思是一个域名。我们将使用 `example.com` ，但是你要使用你的真实域名。如果你的计算机可以通过网络 80 和 443 端口获得更广泛的互联网访问，你的域名指向你所在的计算机，则接下来将正常工作[译者注：HTTPS 和 HTTP2 将会正常工作]。如果没有，或者你没有真正的域名，请暂时使用 `localhost` 作为你的域名。
 
 站点的名称也可以作为 host 或者 hostname 。指定 host 的一种方法是使用命令参数：
 
@@ -119,13 +123,13 @@ http://example.com
 
 使用真实的域名触发了 Caddy 的隐私功能，它们运行在 80 和 443 端口上。如果你仅使用 `localhost` 作为主机名，则 Caddy 将继续使用 2015 端口工作，除非你使用 `-port` 选项进行更改。
 
-[命令行](cli)非常适合快速配置 Caddy。但是如果你想每次重用同一个配置这么办呢？使用 Caddyfile 很简单。
+[命令行](cli)非常适合快速配置 Caddy。但是如果你想每次重用同一个配置怎么办呢？使用 Caddyfile 很简单。
 
 **Caddyfile** 是一个文本文件，告诉 Caddy 如何提供服务，它通常和你的网站在一起，我们来做一个：
 
 | Windows | macOS／Linux |
 |----|----|
-| 在你的网站文件夹创建一个名为 Caddyfile （拓展名不为 .txt）的文本文件，并在其中放置一行（使用你的实际域名或 localhost）：<br /> `example.com` | 使用你的实际域名（或 localhost）：<br /> `echo example.com > Caddyfile` |
+| 在你的网站文件夹创建一个名为 Caddyfile （拓展名不为 .txt）的文本文件[译者注：无拓展名]，并在其中放置一行（使用你的实际域名或 localhost）：<br /> `example.com` | 使用你的实际域名（或 localhost）：<br /> `echo example.com > Caddyfile` |
 
 运行 Caddy 会自动找到 Caddyfile 文件：
 
@@ -141,12 +145,12 @@ http://example.com
 |----|----|
 | `C:\Caddy\caddy.exe -conf C:\path\to\Caddyfile` | `caddy -conf ../path/to/Caddyfile` |
 
-你几乎指导这是危险的。接下来，学习[学习如何运用 Caddyfile](#caddyfile)。你会喜欢写是多么容易。
+你几乎知道这是危险的。接下来，学习[学习如何运用 Caddyfile](#caddyfile)。你会喜欢，因为这很容易。
 
 <a name="caddyfile"></a>
 ## Caddyfile {#caddyfile}
 
-本教程将向你介绍使用 Caddyfile 配置 Caddy 的简便性。
+本教程将向你介绍如何为 Caddy 配置 Caddyfile 。
 
 Caddyfile 是一个配置 Caddy 运行方式的文本文件。
 
