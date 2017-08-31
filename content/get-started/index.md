@@ -497,7 +497,7 @@ Caddyfile 是用 UTF-8 编码的纯 Unicode 文本。每个代码点是不同的
 
 `\n`仅用（换行）字符分隔。`\r`除非引用，否则回车将被丢弃。空白、未引号的行是允许和忽略的。
 
-评论被词法分析器丢弃。注释以不引用的哈希开始，#并继续到行尾。评论可能会开始一行或出现在行的中间作为不引用标记的一部分。为了本文档的目的，不再考虑注释和空白行。
+注释被词法分析器丢弃。注释以不引用的哈希开始，#并继续到行尾。注释可能会开始一行或出现在行的中间作为不引用标记的一部分。为了本文档的目的，不再考虑注释和空白行。
 
 然后由解析器对结构进行令牌的评估。
 
@@ -582,4 +582,89 @@ directive {
     ...
 }
 ```
-在指令块内，每行的第一个token可能被视为**subdirective 子目录**或**property 属性**，具体取决于它的使用方式（可以应用其他术语）。和以前一样，他们可以有论据：
+在指令块内，每行的第一个token可能被视为**subdirective 子目录**或**property 属性**，具体取决于它的使用方式（其他也适用）。和以前一样，他们可以有参数：
+
+```
+directive arg1 {
+    subdir arg2 arg3
+    ...
+}
+```
+
+子指令无法打开新的块。换句话说，不支持嵌套的指令块。如果指令块为空，则花括号应完全省略。
+
+### Environment Variables 环境变量
+
+任何 token （标签，指令，参数等）可能包含或仅包含一个环境变量，该变量采用 Unix 窗体或Windows 窗体，用大括号`{}`括起来，不加空格:
+
+```
+label_{$ENV_VAR_1}
+directive {%ENV_VAR_2%}
+```
+任何一种形式都适用于任何操作系统 单个环境变量不会扩展到多个 token，参数或值。
+
+### Import 导入
+
+
+
+[import](/http/#import) 指令是一个特殊的例子，因为它可以出现在定义块之外。其结果是，没有任何标签可以接受“导入”的值。
+
+在导入行中，该行将被替换为导入文件的内容，未修改。更多信息请参阅 [import 文档](/http/#import)
+
+### 例子
+
+一个非常简单的Caddyfile，只有一个条目：
+
+```
+label1
+
+directive1 argument1
+directive2
+```
+
+将先前的示例附加到另一个条目中，介绍了大括号的需要:
+
+```
+label1 {
+	directive1 arg1
+	directive2
+}
+label2, label3 {
+	directive3 arg2
+	directive4 arg3 arg4
+}
+```
+
+有些人喜欢总是使用大括号，即使只有一个条目; 这很好，但不必要：
+
+```
+label1 {
+	directive1 arg1
+	directive2
+}
+```
+例如，指令打开一个块:
+
+```
+label1
+
+directive arg1 {
+    subdir arg2 arg3
+}
+directive arg4
+```
+
+类似地，但在一个缩进的定义体中，并有一个注释:
+
+
+```
+label1 {
+	directive1 arg1
+	directive2 arg2 {
+	    subdir1 arg3 arg4
+	    subdir2
+	    # nested blocks not supported
+	}
+	directive3
+}
+```
