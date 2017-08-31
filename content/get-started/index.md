@@ -262,45 +262,210 @@ Caddyfile 中 **没有继承或脚本**，**你可能不会多次指定相同的
 
 本页介绍了 Caddy 的命令行界面。要获得快速参考并查看默认值，请运行 `-help` 或 `-h` ，例如：`caddy -h` 。
 
-### Flags
+### Flags 命令参数
 
-- agree 
+- -agree 
 
 表示您已阅读并同意让我们加密订阅者协议。如果没有指定此标志，则可能会在运行时提示您同意条款。因此，在自动化环境中建议使用此标志。
 
-- ca
+- -ca
 
 基础 URL 到证书颁发机构的 ACME 服务器目录。用于创建TLS证书。
 
--catimeout
+- -catimeout
 
 更改 ACME CA HTTP 的超时时间。通常不需要更改此项，除非您的网络遇到与 ACME CA 服务器的重大延迟。在这些情况下，提高此值可以帮助您。接受持续时间值; 默认是10s。
 
--conf
+- -conf
 
 用于配置 Caddy 的 Caddyfile 。必须是文件的有效路径，无论是相对还是绝对。
 
--cpu
+- -cpu
 
 CPU上限。可以是百分比（例如“75％”）或指定要使用多少个内核的数字（例如3）。
 
--disable-http-challenge
+- -disable-http-challenge
 
 禁用用于获取证书的 ACME HTTP 的验证。
 
--disable-tls-sni-challenge
+- -disable-tls-sni-challenge
 
 禁用获得证书的 ACME tls - sni 的验证。
 
--email
+- -email
 
 如果没有为 Caddyfile 指定证书，则使用电子邮件地址来生成 [TLS 证书](/http/#tls)。这不是必须的，但强烈建议这样，如果你丢失了私钥，你可以恢复你的帐户。如果没有电子邮件，Caddy 可能会在运行时提示您发送邮件地址。如果在Caddyfile中没有指定，则建议在自动化环境中使用此选项。
 
-- grace
+- -grace
 
-持续时间。如果你非常频繁地重新加载(每秒多次)，那么就缩短这段时间。语法与Go的时间相同。Parse Duration function (5s, 1m30s, etc).
+持续时间。如果你非常频繁地重新加载(每秒多次)，那么就缩短这段时间。语法与Go的相同。Parse Duration function (5s, 1m30s, etc).
 
-- 
+- -help 或 -h
 
+显示基本标志帮助。在显示帮助后，Caddy 将终止;它不会为网站服务。
+
+-host
+
+要侦听的默认主机名或IP地址。
+
+- -http-port
+
+用于HTTP的端口(默认为80)。改变这种情况会产生意想不到的后果，要小心。ACME HTTP 验证需要端口80。
+
+
+- -https-port
+
+端口用于 HTTPS (默认的443)。改变这种情况会产生意想不到的后果，要小心。ACME tls - sni 验证需要端口 443。
+
+- -http2
+
+HTTP/2 的支持。通过设置为 false 来禁用它。要禁用特定站点，使用 [tls](/http/#tls) 指令的 “alpn” 设置。
+
+- -log
+
+使流程日志。该值必须是日志文件、`stdout` 或 `stderr` 的路径。如果不存在日志文件，Caddy 将创建该日志文件。该文件将用于记录运行时发生的信息和错误。日志文件在变大时被滚动覆盖，因此在长时间运行的过程中使用是安全的。
+
+- -pidfile
+
+pidfile ，使用自动化的环境。Caddy 将编写一个包含当前进程 ID 的文件。
+
+- -plugins
+
+列出已注册为 Caddy 的插件。显示后，Caddy 将终止 ; 它不会为网站服务。
+
+- -port
+
+本地监听端口。
+
+- -quic
+
+使实验 QUIC 支持。请参阅[QUIC wiki页面](https://github.com/mholt/caddy/wiki/QUIC)，了解如何使用 QUIC 实验功能。
+
+- -quiet
+
+静默模式。启用后 Caddy 不会打印信息初始化输出，服务可正常运行。
+
+-revoke
+
+用于撤销SSL证书的主机名。在撤销完成后，Caddy 将停止;如果使用此选项，则将停止站点。
+
+{{< note title="注意" >}}
+证书必须在Caddy 的管理下。撤销是指仅限私钥。不要撤销证书以更新它。
+{{< /note >}}
+
+
+
+-root
+
+路径到默认站点根目录，用于服务文件。
+
+-type
+
+更改服务器类型，默认是 http。如果您的 Caddyfile 是另一个服务器类型，请使用此选项来告诉它使用哪个服务器类型。
+
+-validate
+
+解析 Caddyfile 并退出。如果语法有效，消息将被打印到 stdout 和进程日志(如果有的话)，并将退出，状态为0。如果不是，将返回一个非零退出状态的错误。
+
+-version
+
+打印版本。它也可以打印生成信息，如果不是从标记的版本。印刷后，Caddy将终止;如果使用此选项，则不提供站点。
+
+### Signals 信号
+
+在符合 posix的 系统中，Caddy可以通过 Signals 信号来控制。在这里，我们粗略地列出它们，从最有力的动作到强制的动作。
+
+- TERM
+
+强行退出而不执行关机挂钩。
+
+- INT
+
+在执行关闭钩子后，强制退出流程。这是在 Windows 上运行的唯一“信号”(Ctrl + C)。即使关闭钩子仍在运行，第二个 SIGINT 也会立即终止。
+
+HUP
+
+强制地停止服务器，但不会执行关闭钩子。.
+
+QUIT
+
+在执行关闭钩子后，强制地停止服务器。
+
+USR1
+
+重新加载配置文件，然后强制地重新启动服务器。
+
+
+### 短 Caddyfile
+
+Caddy 也接受非标记参数，这被理解为速记 Caddyfile 文本。这对于快速的临时服务器实例非常有用。
+每个未标记的参数是用于服务默认主机和端口的 Caddyfile 中的一行。记得在引号中包含空格或其他特殊字符。
+
+例如，让您浏览默认主机和端口上文件的服务器:
+
+```
+$ caddy browse
+```
+
+在一个自定义端口上即时地为 markdown 文件提供服务:
+
+```
+$ caddy -port 8080 markdown
+```
+
+带有访问日志，实现上述功能：
+
+```
+$ caddy -port 8080 browse markdown "log access.log"
+```
+
+此简易功能仅用于快速，简单的配置。
+
+### Pipe a Caddyfile
+
+
+高级用户可能希望将 Caddyfile 的内容从开发环境中导入 Caddy 。如果您在Caddyfile 中使用 pipe，则必须使用带有 `stdin` 值的 `-conf` 标志，例如
+
+```
+$ echo "localhost:1234" | caddy -conf stdin
+```
+
+当您使用从您可以控制的父进程中动态生成的 Caddyfile 启动 Caddy 时，配置 Caddyfile 是非常方便的。
+
+
+{{< warning title="警告" >}}
+如果您在 Caddyfile 中使用 pipe，则稍后在程序中将无法从 stdin 读取，因为父进程必须发送 EOF才能关闭 pipe，以便 Caddy 可以解除阻止并开始投放。这将导致问题，例如，如果 Caddy 必须提示您提供电子邮件地址或协议条款。所以当 pipe 输入时，使用标志来避免后来需要 stdin（例如 -email 标志）
+{{< /warning >}}
+
+### 环境变量
+
+凯蒂识别某些环境变量。
+
+
+
+- HOME
+
+主文件夹。如果使用托管 TLS（自动HTTPS），则可以在此处创建一个.caddy文件夹，并且可能在将来会持续其他状态，或者配置为这样做。
+
+CADDYPATH
+
+如果设置，则Caddy将使用此文件夹来存储资源，而不是默认的$HOME/.caddy。
+
+CASE_SENSITIVE_PATH
+
+如果0或者false，Caddy会在访问文件系统上的资产或匹配中间件处理程序的请求时，以不区分大小写的方式处理请求路径。默认值为1 / true（区分大小写的路径）
+
+退出代码 
+
+- 0 - 正常或预期退出
+- 1 - 服务器完成启动之前的错误
+- 2 - 双重SIGINT（强制退出）
+- 3 - 用SIGQUIT错误停止
+- 4 - 关闭回调（s）返回错误
+
+需要说明的是，如果退出状态为1，则不能自动重新启动。
 
 ## Caddyfile 语法
+
+
+
