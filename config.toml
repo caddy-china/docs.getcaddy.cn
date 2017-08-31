@@ -58,24 +58,20 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "开始使用"
-	url    = "get-started/"
+	url    = "/get-started/"
 	weight = 20
-
 [[menu.main]]
 	name   = "HTTP 服务器"
-	url    = "http-server/"
+	url    = "/http-server/"
 	weight = 30
-
 [[menu.main]]
 	name   = "标准 HTTP 指令"
-	url    = "http/"
+	url    = "/http/"
 	weight = 40
-
 [[menu.main]]
 	name   = "DNS 服务商"
-	url    = "dns/"
+	url    = "/dns/"
 	weight = 50
-
 [[menu.main]]
 	name   = "指令／中间件"
 	url    = "directive-middleware/"
