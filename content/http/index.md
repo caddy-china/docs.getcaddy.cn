@@ -146,6 +146,38 @@ fastcgi / 127.0.0.1:9001 php {
 
 ## index
 
+索引设置用于 “index” 文件的文件名列表。当请求目录路径而不是特定的文件时，将对目录进行检查，以检查现有的索引文件。将提供第一个匹配的文件名。
+
+按照这个顺序，默认的索引文件是:
+
+1. index.html
+2. index.htm
+3. index.txt
+4. default.html
+5. default.htm
+6. default.txt
+
+当使用 index 指令时，将不会附加此列表。
+
+### 语法
+
+```
+index filenames...
+```
+
+- filenames...
+
+以空格分隔的文件名作为索引的列表。至少需要一个名称。
+
+### 例子
+
+只使用 goaway.pn g和 easteregg.html 作为索引文件：
+
+```
+index goaway.png easteregg.html
+```
+
+
 ## internal
 
 ## limits
