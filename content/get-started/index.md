@@ -476,20 +476,22 @@ CASE_SENSITIVE_PATH
 
 **主题**
 
-- 1. 文件格式和编码
-- 2. 词汇语法
-- 3. 结构体
-- 4. 标签
-- 5. 指令
-- 6. 环境变量
-- 7. 进口
-- 8. 例子
+- 1. [文件格式和编码](#fileformat)
+- 2. [词汇语法](#lexical-syntax)
+- 3. [结构体](#structure)
+- 4. [标签](#labels)
+- 5. [指令](#directives)
+- 6. [环境变量](#environment-variables)
+- 7. [import](#import)
+- 8. [例子](#examples)
 
-### 文件格式和编码
+<a name="fileformat"></a>
+### 文件格式和编码 {#fileformat}
 
 Caddyfile 是用 UTF-8 编码的纯 Unicode 文本。每个代码点是不同的; 具体来说，小写和大写字符是不同的。前导字节顺序标记（0xFEFF）（如果存在）将被忽略。
 
-### 词汇语法
+<a name="lexical-syntax"></a>
+### 词汇语法 {#lexical-syntax}
 
 `token` 是在Caddyfile空格分隔的字符的序列。以引号开始的令牌从`"`字面上读取（包括空格），直到`"`未转义的下一个引号实例。引用文字可以像这样反斜杠转义：`\"`。只有引号是可以避免的。“自动引用”无效。
 
@@ -508,6 +510,7 @@ Caddyfile 是用 UTF-8 编码的纯 Unicode 文本。每个代码点是不同的
 
 然后由解析器对 token 进行评估。
 
+<a name="structure"></a>
 ### 结构体
 
 Caddyfile 没有全局作用域。Caddyfile 中最全局的单元是一个**entry 条目**。条目由一个标签列表和一个与这些标签关联的定义组成。**label 标签**是一个字符串标识符，**definition 定义**是一个集合在一起的 token 的主体(一个或多个行):
@@ -533,7 +536,8 @@ list of labels {
 
 Caddyfile 的第一行始终是一个标签行。注释行、空行和导入行会导致异常。
 
-- Labels 标签
+<a name="labels"></a>
+### Labels 标签
 
 标签是出现在块外的唯一标记（除了一个例外是导入指令）。标签行可能只有一个标签：
 
@@ -564,6 +568,7 @@ label5
 
 一个带有多个标签的定义被复制到每个标签上，就好像它们是单独定义的，但同样定义相同。
 
+<a name="directives"></a>
 ### Directives 指令
 
 定义的主体遵循标签行。定义体中的每一行的第一个标记是一个**directive 指令**。在同一条线上的指令之后的每一个标记都是一个**argument 参数**。参数是可选的:
@@ -593,6 +598,7 @@ directive arg1 {
 
 子指令无法打开新的块。换句话说，不支持嵌套的指令块。如果指令块为空，则花括号应完全省略。
 
+<a name="environment-variables"></a>
 ### Environment Variables 环境变量
 
 任何 token （标签，指令，参数等）可能包含或仅包含一个环境变量，该变量采用 Unix 窗体或Windows 窗体，用大括号`{}`括起来，不加空格:
@@ -603,6 +609,7 @@ directive {%ENV_VAR_2%}
 ```
 任何一种形式都适用于任何操作系统 单个环境变量不会扩展到多个 token，参数或值。
 
+<a name="import"></a>
 ### Import 导入
 
 
@@ -611,6 +618,7 @@ directive {%ENV_VAR_2%}
 
 在导入行中，该行将被替换为导入文件的内容，未修改。更多信息请参阅 [import 文档](/http/#import)
 
+<a name="examples"></a>
 ### 例子
 
 一个非常简单的Caddyfile，只有一个条目：
