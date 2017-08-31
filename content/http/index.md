@@ -322,6 +322,256 @@ markdown /blog {
 
 ## proxy
 
+proxy 方便了基本的反向代理和稳健的负载均衡器。该 proxy 支持多个后端和添加自定义标头。负载均衡功能包括多个策略，运行状况检查和故障转移。Caddy 还可以代理 WebSocket 连接。
+
+该中间件添加了可以以[日志](#log)格式使用的[占位符](/http-server/#placeholders)：{upstream} - 请求被代理的上游主机的名称。
+
+### 语法
+
+在其最基本的形式中，简单的反向代理使用以下语法：
+
+```
+proxy from to
+```
+- from
+
+是要被代理的请求的基本路径
+
+- to
+
+是要代理的目标端点（可能包括端口范围）
+
+**但是，包括负载平衡在内的高级功能可以用扩展语法来使用：**
+
+```
+proxy from to... {
+	policy name [value]
+	fail_timeout duration
+	max_fails integer
+	max_conns integer
+	try_duration duration
+	try_interval duration
+	health_check path
+	health_check_port port
+	health_check_interval interval_duration
+	health_check_timeout timeout_duration
+	header_upstream name value
+	header_downstream name value
+	keepalive number
+	without prefix
+	except ignored_paths...
+	upstream to
+	insecure_skip_verify
+	preset
+}
+```
+- from
+
+是要被代理的请求的基本路径。
+
+- to
+
+是要代理的目的端点。需要至少一个，但可以指定多个。如果未指定方案（http / https），则使用http。Unix 套接字也可以通过前缀 “unix：”来使用。
+
+- policy
+
+使用负载均衡策略; 仅适用于多个后端。可以是随机的，least_conn，round_robin，first，ip_hash，uri_hash 或 header。如果选择 header ，还必须提供 header 名称。默认是随机的。
+
+- fail_timeout
+
+指定记录对后端的请求失败最长时间。超时>0 启用了请求失败计数，并且在失败的情况下需要在后台进行负载均衡。如果失败的请求数量累积到 max_fail s值，则主机将被视为已关闭，并且不会将请求路由到该主机，直到失败的请求开始被忘记为止。默认情况下，这是禁用（0s），意味着失败的请求将不会被记住，后端将始终被视为可用。必须是持续时间值（如“10s”或“1m”）。
+
+- max_fails
+
+在考虑后端关闭之前需要的 fail_timeout 中的失败请求数。如果 fail_timeout 为0，则不使用。必须至少为1，默认值为1。
+
+- max_conns
+
+每个后端的最大并发请求数。0表示无限制。达到极限时，其他请求将失败，并显示 Bad Gateway（502）。默认值为0。
+
+- try_duration 
+
+为每个请求选择可用的上游主机多长时间。默认情况下，此重试被禁用（“0s”）。客户端可能会挂起这么长时间，而代理尝试找到可用的上游主机。仅当对初始选择的上游主机的请求失败时才使用此值。
+
+- try_interval
+
+是在选择另一个上游主机来处理请求之间等待多长时间。默认值为250ms。只有在向上游主机的请求失败时才相关。请注意，使用 try_duration 将其设置为0可能会导致非常严格的循环，并且如果所有主机都停留，则可以占满CPU。
+
+- health_check
+
+将使用路径来检查每个后台的运行状况。如果后端返回200-399的状态码，则该后端被认为是健康的。如果没有，后端标记为 health_check_interval 不健康，并且请求不会被路由到它。如果未提供此选项，则禁用健康检查。
+
+- health_check_port
+
+将使用端口来执行运行状况检查，而不是为上游提供的端口。如果您使用内部端口进行调试，则健康检查端点会从公共视图中隐藏，这很有用。
+
+- health_check_interval
+
+指定不健康后端的每个健康检查之间的时间。默认间隔为30秒（“30秒”）。
+
+
+- health_check_timeout
+
+设置健康检查请求的最后期限。如果健康检查在 health_check_timeout 内没有响应，则健康状况检查被认为是失败的。默认值为60秒（“60s”）。
+
+
+- header_upstream 
+
+将文件头传递给后端。字段名称是 name，值是 value。多个标题可以多次指定此选项，也可以使用请求占位符插入动态值。默认情况下，现有的字段头将被替换，但您可以通过使用加号（+）前缀字段名称来添加或合并字段值。您可以通过使用减号（ - ）前缀标题名称来删除字段，并将该值留空。
+
+
+- header_downstream
+
+修改后端返回的响应头。它的工作方式与 header_upstream 相同。
+
+- keepalive 
+
+是保持打开到后端的最大空闲连接数。默认启用;设置为0，禁用 keepalives。在繁忙的服务器上设置更高的值。
+
+
+- without
+
+在将请求代理向上游之前，没有URL前缀。例如，请求/api /foo /api将会导致代理请求/foo。
+
+- except
+
+一个空格分隔的路径列表，以排除在代理之外。与 ignored_paths 匹配的请求将通过 thrued。
+
+- upstream 
+
+指定另一个后端。如果需要，它可以使用像":8080-8085"这样的端口范围。当有很多后端路由时，它经常被使用多次。
+
+-insecure_skip_verify 
+
+覆盖了后端TLS证书的验证，基本上通过HTTPS禁用安全功能。
+
+- preset 
+
+配置代理以满足某些条件的可选速记方式。请参阅下面的预设。
+
+
+{{< note title="注意" >}}
+为了在失败事件中执行适当的冗余负载均衡，必须设置fail_timeout 和 try_duration 值为>0。
+{{< /note >}}
+
+第一个选项之后的所有内容都是可选的，包括由大括号括起来的属性块。
+
+
+### 预设
+
+以下的预设有:
+
+- websocket
+
+指示此代理正在转发WebSocket连接。这是简写:
+
+```
+header_upstream Connection {>Connection}
+header_upstream Upgrade {>Upgrade}
+```
+{{< note title="注意" >}}
+HTTP/2 不支持协议升级。
+{{< /note >}}
+
+- transparent
+
+从原始请求中传递主机信息，这是大多数后端应用程序所期望的。简写:
+ 
+ ```
+ header_upstream Host {host}
+header_upstream X-Real-IP {remote}
+header_upstream X-Forwarded-For {remote}
+header_upstream X-Forwarded-Proto {scheme}
+```
+
+### 策略
+
+有几种负载均衡策略可用:
+
+- random (default)
+
+随机选择后端。
+
+- least_conn
+
+选择后端与最少的活动连接。
+
+- round_robin
+
+以循环方式选择后端。
+
+- frist
+
+按照在Caddyfile中定义的顺序选择第一个可用的后端。
+
+- ip_hash 
+
+通过散列请求 IP 来选择后端，根据后端的总数均匀分布在哈希空间上。
+
+- uri_hash
+
+通过散列请求 URI 来选择后端，根据后端的总数均匀分布在哈希空间上
+
+- header 
+
+通过散列由策略名称后面的[value]指定的给定标题的值进行选择，基于总后端数量均匀分布在散列空间
+
+### 例子
+
+将/ api内的所有请求代理到后台系统：
+
+```
+proxy /api localhost:9005
+```
+
+负载均衡三个后端之间的所有请求（使用随机策略）：
+
+```
+proxy / web1.local:80 web2.local:90 web3.local:100
+```
+
+与上述相同，具有 header 关联性：
+
+```
+proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy header X-My-Header
+}
+```
+
+循环风格：
+
+``
+proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy round_robin
+}
+```
+
+使用健康检查和代理标头来传递主机名，IP和方案上游：
+
+```
+proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy round_robin
+	health_check /health
+	transparent
+}
+```
+
+代理WebSocket连接：
+
+```
+proxy /stream localhost:8080 {
+	websocket
+}
+```
+
+排除 /static 或 /robots.txt 的代理请求：
+
+```
+proxy / backend:1234 {
+	except /static /robots.txt
+}
+```
+
 ## push
 
 ## redir
