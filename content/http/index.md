@@ -186,6 +186,136 @@ index goaway.png easteregg.html
 
 ## markdown
 
+markdown 可以根据需要将 `markdown文件` 作为 HTML 页面服务。您可以指定整个自定义模板，或者仅在页面上使用 CSS 和 JavaScript 文件，以自定义的外观和行为。
+
+### 语法
+
+```
+markdown [basepath] {
+	ext         extensions...
+	[css|js]    file
+	template    [name] path
+	templatedir defaultpath
+}
+```
+- basepath 
+
+是匹配的基本路径。如果请求 URL 没有以此路径前缀，则 Markdow n将不会激活。默认是站点的根目录。
+
+- extensions...
+
+以空格分隔的文件扩展名列表，用作 Markdown（默认为.md，.markdown 和.mdown）; 这与使用缺省文件扩展名的ext指令不同。
+
+- css
+
+表明下一个参数是在页面上使用的 css 文件
+
+- js
+
+指出下一个参数是包含在页面上的 JavaScript 文件。
+
+- file
+
+添加到页面的JS或CSS文件。
+
+
+- template
+
+定义了一个带有给定名称的模板在给定的路径上。要指定默认模板，请省略名称。Markdown 文件可以使用其前面的名称来选择模板。
+
+- templatedir 
+
+设置在列出模板时使用给定的 defaultpath 的默认路径。
+
+
+您可以多次使用 js 和 css 参数来为默认模板添加更多的文件。如果您想接受默认值，应该完全省略花括号。
+
+### 前端 (文档元数据)
+
+Markdown 文件可能从前面的事情开始，这是一个关于文件的特殊格式的元数据块。例如，它可以描述用于呈现文件的 HTML 模板，或者定义标题标签的内容。前面的内容可以是 YAML、TOML 或 JSON 格式。
+
+TOML 以 `+++` 开始和结束：
+
+```
++++
+template = "blog"
+title = "Blog Homepage"
+sitename = "A Caddy site"
++++
+```
+
+YAML 以 `---` 开始和结束：
+
+```
+---
+template: blog
+title: Blog Homepage
+sitename: A Caddy site
+---
+```
+
+JSOn 用 `{}` 包起来
+
+```
+{
+	"template": "blog",
+	"title": "Blog Homepage",
+	"sitename": "A Caddy site"
+}
+```
+
+前面的字段 "author", "copyright", "description" 和 "subject" 将用于`<meta>`在呈现的页面上创建标签。
+
+### Markdown 模板
+
+模板文件只是带有模板标签的 HTML 文件，称为 actions ，可以根据所提供的文件插入动态内容。元数据中定义的变量可以从`{{.Doc.variable}}`这样的模板中访问，其中“variable”是变量的名称。该变量`.Doc.body`保存 markdown 文件的主体。
+
+这是一个简单的示例模板（设计）：
+
+```
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{.Doc.title}}</title>
+	</head>
+	<body>
+		Welcome to {{.Doc.sitename}}!
+		<br><br>
+		{{.Doc.body}}
+	</body>
+</html>
+```
+除了这些模板操作之外，所有[标准 Caddy 模板操作](/http-server/#template-actions)都可以在 Markdown 模板中使用。一定要将您渲染的任何HTML(使用 HTML、js 和 urlquery 函数)进行过滤!
+
+### 例子
+
+在没有特殊格式的情况下，在/ blog中设置Markdown页面（假设.md是Markdown扩展名）：
+
+```
+markdown /blog
+```
+
+与上述相同，但使用自定义的 CSS 和 JS 文件：
+
+```
+markdown /blog {
+	ext .md .txt
+	css /css/blog.css
+	js  /js/blog.js
+}
+```
+
+使用自定义模板：
+
+```
+markdown /blog {
+	template default.html
+	template blog  blog.html
+	template about about.html
+}
+```
+
+
 ## mime
 
 ## pprof
