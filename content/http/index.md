@@ -161,7 +161,116 @@ fastcgi / 127.0.0.1:9001 php {
 
 ## gzip
 
+如果客户端支持，gzip 会启用 gzip 压缩。默认情况下，响应不会被 gzip 压缩。如果启用，默认设置将确保未压缩图像，视频和存档（已压缩）。
+
+请注意，即使没有 gzip 指令，Caddy 也可以在.gz（gzip）或.br（brotli）压缩文件中使用，如果它们已经存在于磁盘上，并且客户机支持该编码。
+
+### 语法
+
+```
+gzip
+```
+
+普通的gzip配置对于大多数情况都是足够用的，但是如果需要，您可以像这样：
+
+```
+gzip {
+    ext        extensions...
+    not        paths
+    level      compression_level
+    min_length min_bytes
+}
+```
+
+- **extensions...** 是压缩文件扩展，用空格分隔的列表。支持通配符 `*` 匹配所有扩展。
+- **paths**  是空格分隔的路径列表，不进行压缩.
+- **compression_level**  是从1（最佳速度）到9（最佳压缩）的数字。默认为9。
+- **min_bytes**  是在压缩发生之前所需的响应中的最小字节数。默认值不是最小长度。
+
+### 例子
+
+启用gzip压缩：
+
+```
+gzip
+```
+
+启用非常快速最小压缩，除了在 /images 和 /videos 文件夹（注意，但图像和视频不会被 gzip 压缩）
+
+```
+gzip {
+    level 1
+    not   /images /videos
+}
+```
+
 ## header
+
+header 可以操纵响应头。
+
+请注意，如果您希望从代理后端删除响应标头，则必须在[代理](#proxy)指令中执行此操作。
+
+### 语法
+
+```
+header path name value
+```
+
+- **path** 是匹配的基本路径。
+
+- **name** 是字段的名称。前缀用连字符（`-`）删除标题或加号（`+`）来追加而不是覆盖。
+
+- **value** 是字段的值。也可以使用[占位符](/http-server/#placeholders)插入动态值。
+
+此指令可以多次使用，也可以为同一路径分组多个自定义标题字段：
+
+```
+header path {
+	name value
+}
+```
+
+### 例子
+
+所有页面的自定义 header：
+
+```
+header / X-Custom-Header "My value"
+```
+
+从标题中剥离“隐藏”字段：
+
+```
+header / -Hidden
+```
+
+特定路径的多个自定义标头，同时删除服务器字段：
+
+```
+header /api {
+	Access-Control-Allow-Origin  *
+	Access-Control-Allow-Methods "GET, POST, OPTIONS"
+	-Server
+}
+```
+
+向所有页面添加一些安全标头：
+
+```
+header / {
+	# Enable HTTP Strict Transport Security (HSTS) to force clients to always
+	# connect via HTTPS (do not use if only testing)
+	Strict-Transport-Security "max-age=31536000;"
+	# Enable cross-site filter (XSS) and tell browser to block detected attacks
+	X-XSS-Protection "1; mode=block"
+	# Prevent some browsers from MIME-sniffing a response away from the declared Content-Type
+	X-Content-Type-Options "nosniff"
+	# Disallow the site to be rendered within a frame (clickjacking protection)
+	X-Frame-Options "DENY"
+}
+```
+
+
 
 ## import
 
