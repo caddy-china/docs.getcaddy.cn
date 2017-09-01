@@ -220,7 +220,84 @@ git [repo path] {
 	then_long   command [args...]
 }
 ```
+- **repo** 是存储库的URL; 支持SSH和HTTPS URL。
 
+- **path** 是将存储库克隆到的路径; 默认是站点根。它可以是绝对的或相对的（到站点根）。
+
+- **branch** 是分支或标签; 默认是主分支。`{latest}` 是最新标签的占位符，可确保最新的标签始终拉取。
+
+- **key** 是SSH私钥的路径; 适用于私有存储库。
+
+- **interval** 是拉取间隔的秒数; 默认为3600（1小时），最小为5.间隔-1时候禁用周期性拉取。
+
+- **clone_args** 是额外的 cli 参数,传递给 `git clone` 例如：`--depth=1`。`git clone` 当第一次获取源时调用。
+
+- **pull_args** 是额外的cli args 传递`给git pull` 例如：  `-s recursive -X theirs`。`git pull` 当源被更新时使用。
+
+- **path 和 secret** 用于创建一个 webhook，当 push 后可拉取最新代码 。这仅限于支持的webhooks。目前，Github，Gitlab 和 Travis 挂钩仅支持秘密。
+
+- **type** 是 webhook 类型的使用。webhook类型是默认自动检测的，但它可以被显式设置为一个受支持的 webhook。这是通用 webhook 的一个要求。
+
+- **command** 是成功拉取后执行的命令;然后是**args**，任何参数都可以传递给命令。对于多个命令，您可以有多个这样的行。**then_long**是用于长时间执行的命令，应该在后台运行。
+
+块中的每个属性都是可选的。路径和repo可以在第一行中指定，就像在第一个语法中一样，或者可以在块中指定其他值。
+
+**基本例子**
+
+```
+git github.com/user/myproject subfolder
+```
+公共存储库拉入 站点根目录下的`subfolder` 
+
+**更多的控制**
+
+```
+git {
+	repo     git@github.com:user/myproject
+	branch   v1.0
+	key      /home/user/.ssh/id_rsa
+	path     subfolder
+	interval 86400
+}
+```
+私有库每天被拉入`subfolder`目录`v1.0`一次。
+
+**拉取后执行命令**
+
+```
+git github.com/user/site {
+	path  ../
+	then  hugo --destination=/home/user/hugosite/public
+}
+```
+
+此示例在每次拉取后都会生成 `hugo` 的静态站点。
+
+**指定一个webhook**
+
+```
+git git@github.com:user/site {
+	hook /webhook secret-password
+}
+```
+
+`/webhook` 是路径，`secret-password` 是 hook 密码（如果适用）。 Webhooks 支持 GitHub，Gitlab，BitBucket，Travis 和 Gogs。
+
+如果您的密码包含特殊字符，您可能需要引号。
+
+{{< note title="译者注" >}}
+如果需要支持 码云、coding `hook_type  generic`
+{{< /note >}}
+
+
+**通用webhook**
+
+```
+{
+	"ref" : "refs/heads/branch"
+}
+```
+这是通用 webhook 的预期有效载荷。`branch` 是分支名称，如 `master`。
 
 
 ## http.gopkg
