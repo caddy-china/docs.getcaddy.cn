@@ -728,14 +728,160 @@ rewrite [basepath] {
 	to     destinations...
 }
 ```
+- basepath 
 
+与正则表达式改写前匹配的基本路径。默认为/。
+
+- regexp（简写："r"）
+
+将匹配给定正则表达式模式的路径 。 
+> 超高负载服务器应避免使用正则表达式。
+
+- extensions... 
+
+包含或忽略的文件扩展名（带`.`）以空格分隔。前缀以扩展名 `!` 排除。正斜杠 `/` 符号匹配没有文件扩展名的路径。
+
+- if 
+
+指定重写条件。多个if之间默认为 and (`与`) 的关系。a 和 b 可以是任何字符串，可以使用[请求占位符](/http-server/#placeholders)。 `cond`是条件，可能的值如下所述。
+
+- if_op 
+
+指定 if 之间如何联系; 默认是and[译者注：and = `与` or = `或`]。
+
+- destinations... 
+
+一个或多个空格分隔的路径来重写，支持 [请求占位符](/http-server/#placeholders)以及编号的正则表达式捕获，如{1}，{2}等。重写将按顺序检查每个目标位置并重写存在的第一个目标规则。每一个都被作为一个文件进行检查，或者作为一个目录结束。如果没有其他目标规则，最后一个目标规则将作为默认值。
+
+### if 条件
+
+if关键字是描述的规则的强大方法。它需要的格式 `a cond b`，其中的值 `a` 和 `b` 被 `cond` 分隔开，形成一个条件。它可以是这样的:
+
+- is = a等于b
+- not = a不等于b
+- has = a有b作为子串（b是a的子字符串）
+- not_has = b不是a的子串
+- starts_with = b是a的前缀
+- not_starts_with = b不是a的前缀
+- ends_with = b是a的后缀
+- not_ends_with = b不是a的后缀
+- match = `任何`匹配b，其中b是正则表达式
+- not_match = a不匹配b，其中b是正则表达式
+
+注意：作为一般规则，您可以cond通过使用前缀来对任何条件进行否定`not_`。
+
+### 例子
+
+将所有内容重写为 /index.php。（`rewrite / /index.php`只匹配/）
+
+```
+rewrite / {
+	regexp .*
+	to /index.php
+}
+```
+
+当请求进入/mobile 时，实际上是 /mobile/index
+
+```
+rewrite /mobile /mobile/index
+```
+
+如果文件不是favicon.ico，并且它不是有效的文件或目录，请提供维护页面（如果存在），或者最后重写为index.php。
+
+```
+rewrite {
+	if {file} not favicon.ico
+	to {path} {path}/ /maintenance.html /index.php
+}
+```
+如果用户代理包含"mobile"，且路径不是有效的文件/目录，rewrite 到移动索引页。
+
+```
+rewrite {
+	if {>User-agent} has mobile
+	to {path} {path}/ /mobile/index.php
+}
+```
+用查询字符串 rewrite /app 到 /index 并且带`{1}`匹配`(.*)`。
+
+```
+rewrite /app {
+	r  (.*)
+	to /index?path={1}
+}
+```
+
+将 /app/example 的请求重写到 /index.php?category=example.
+
+```
+rewrite /app {
+	r  ^/(\w+)/?$
+	to /index?category={1}
+}
+```
 
 
 ## root
 
+root 指定站点的根目录。这在网站的根目录（/）与 Caddy 执行的目录不同时非常有用。
+
+默认的root是当前的工作目录。相对的根路径是相对于当前工作目录。
+
+### 语法
+
+```
+root path
+```
+
+- path 
+
+站点根目录
+
+### 例子
+
+从 jake 的p ublic_html 文件夹中运行，而不是当前工作目录:
+
+```
+root /home/jake/public_html
+```
+
+
 ## shutdown
 
 ## startup
+
+启动在服务器开始时执行命令。这对于通过运行脚本或启动后台进程（如php-fpm）来准备服务站点非常有用。（另请参见 [shutdown](#shutdown)）
+
+在启动时执行的每个命令都是阻塞的，除非您使用空格和`&`后缀命令，否则将导致命令在后台运行。命令的输出和错误分别转到`stdout`和`stderr`。没有stdin。
+
+在`Caddyfile`中，命令只执行一次。
+
+### 语法
+
+```
+startup command
+```
+
+- command
+
+执行的命令; 其后可能是参数
+
+
+### 例子
+
+在开始监听之前启动php-fpm：
+
+```
+startup /etc/init.d/php-fpm start、
+```
+
+在 Windows 上，当命令路径包含空格时，可能需要使用引号：
+
+```
+startup "\"C:\Program Files\PHP\v7.0\php-cgi.exe\" -b 127.0.0.1:9123" &
+```
+
 
 ## status
 
