@@ -465,6 +465,139 @@ index goaway.png easteregg.html
 
 ## log
 
+日志启用请求日志。请求日志也从一些白话语中被称为访问日志。
+
+### 语法
+
+没有参数，访问日志将以所有请求的通用日志格式写入access.log：
+
+```
+log
+```
+
+自定义日志文件位置：
+
+```
+log file
+```
+
+是相对于当前工作目录创建（或附加到）日志文件的路径。有关如何指定输出位置的更多详细信息，请参阅日志位置。默认是access.log。
+
+要将此日志限制在某些请求或更改日志格式：
+
+```
+log path file [format]
+```
+
+- **path** 是要匹配的基本请求路径，以便记录。
+- **file** 是相对于当前工作目录创建（或附加到）的日志文件。
+- **format**  是要使用的日志格式; 默认为通用日志格式。
+
+大型日志文件会自动滚动。您可以通过打开一个块来自定义滚动日志：
+
+```
+log path file [format] {
+	rotate_size     mb
+	rotate_age      days
+	rotate_keep     count
+	rotate_compress
+}
+```
+
+- **rotate_size** 是滚动之前日志文件必须达到的大小（以兆字节为单位）。
+- **rotate_age** 是保留旋转日志文件的天数。
+- **rotate_keep** 是要保留的最大旋转日志文件数; 旧的旋转日志文件被修剪。
+- **rotate_compress** 是压缩旋转日志文件的选项。gzip是唯一支持的格式。
+
+### 日志格式
+
+您可以使用任何[占位符](/http-server/#placeholders)值指定自定义日志格式。日志支持请求和响应占位符。
+
+
+目前有两种预置格式。
+
+**{common}（默认）**
+
+```
+{remote} - {user} [{when}] \"{method} {uri} {proto}\" {status} {size}
+```
+
+**{combined} - {common}追加**
+
+```
+\"{>Referer}\" \"{>User-Agent}\"
+```
+
+### 日志位置 
+
+日志位置可以是以下几种：
+
+- 相对于当前工作目录的文件名
+
+- **stdout** 或 **stderr** 写入控制台
+
+- **visible** 将错误（包括完整堆栈跟踪（如果适用））写入响应中（除了本地调试之外，不推荐）
+
+- **syslog** 写入本地系统日志（Windows下除外）
+
+- **syslog://host[:port]** 通过UDP写入本地或远程syslog服务器
+
+- **syslog+udp://host[:port]** 与上述相同
+
+- **syslog+tcp://host[:port]** 通过TCP写入本地或远程syslog服务器
+
+默认的日志位置是`stderr`
+
+### 滚动日志
+
+日志有可能填满磁盘。为了减轻这种情况，错误日志将根据此默认配置自动滚动：
+
+```
+rotate_size 100 # Rotate a log when it reaches 100 MB
+rotate_age  14  # Keep rotated log files for 14 days
+rotate_keep 10  # Keep at most 10 rotated log files
+rotate_compress # Compress rotated log files in gzip format
+```
+
+您可以指定这些子目录来自定义滚动日志。
+
+### 例子
+
+将所有请求记录到access.log：
+
+```
+log
+```
+
+将所有请求记录到stdout：
+
+```
+log stdout
+```
+
+自定义日志格式：
+
+```
+log / stdout "{proto} Request: {method} {path}"
+```
+
+预定格式：
+
+```
+log / stdout "{combined}"
+```
+
+滚动日志：
+
+```
+log requests.log {
+	rotate_size 50  # Rotate after 50 MB
+	rotate_age  90  # Keep rotated files for 90 days
+	rotate_keep 20  # Keep at most 20 log files
+	rotate_compress # Compress rotated log files in gzip format
+}
+```
+
 ## markdown
 
 markdown 可以根据需要将 `markdown文件` 作为 HTML 页面服务。您可以指定整个自定义模板，或者仅在页面上使用 CSS 和 JavaScript 文件，以自定义的外观和行为。
