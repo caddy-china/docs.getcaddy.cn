@@ -89,7 +89,7 @@ cd path/to/my/site
 
 你可以按 **Ctrl + C** 退出 Caddy，它将尽可能终止。
 
-<a name="caddyfile"></a>
+<a name="configure"></a>
 ### 配置 {#configure}
 
 你的站点已经适合生产环境，但是并不理想，因为我们将它运行在 `localhost` 上（您的家庭电脑）：
@@ -465,7 +465,8 @@ CASE_SENSITIVE_PATH
 
 需要说明的是，如果退出状态为1，则不能自动重新启动。
 
-## Caddyfile 语法
+<a name="caddyfile-syntax"></a>
+## Caddyfile 语法 {#caddyfile-syntax}
 
 这个页面描述了Caddyfile的语法。如果这是你第一次写Caddyfile，试试 [Caddyfile引导教程](/get-started/#caddyfile)。此页面不适用于初学者; 它是技术性的，有点无聊。
 
