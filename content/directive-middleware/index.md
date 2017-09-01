@@ -678,12 +678,396 @@ minify /assets {
 
 ## http.ratelimit
 
+ratelimit 用于根据客户端的 IP 地址限制请求处理速率。过多的请求将被终止，返回 429 错误（太多请求），并且 X-RateLimit-RetryAfter头 将被返回。
+
+### 例子
+
+**对于单一资源：**
+
+```
+ratelimit path rate burst unit
+```
+
+路径是要应用速率限制的文件或目录; 速率是每个时间单位的有限请求（r / s，r / m，r / h）（例如1）; 突发是客户端可以超过的最大突发大小; burst> = rate（例如2）; 单位是时间间隔（目前支持：秒，分，小时）。
+
+**对于多种资源：**
+
+```
+ratelimit rate burst unit {
+    whitelist CIDR
+    resources
+}
+```
+
+白名单是将您的信任ips列入白名单的关键字，CIDR是您不想执行限制的IP范围; 资源是要应用速率限制的文件/目录列表，每行一个。
+
+{{< note title="注意" >}}
+如果您不想对某些特殊资源应用速度限制，请在路径前添加^。
+{{< /note >}}
+
+**将客户端限制为每秒2个请求（3个突发）到 /r 中的任何资源：**
+
+```
+ratelimit /r 2 3 second
+```
+
+**对于列出的路径，如果请求来自1.2.3.4或192.168.1.0/30（192.168.1.0〜192.168.1.3），请勿执行速率限制，将客户端限制为每分钟2个请求（突发2），并始终忽略 /DIR/app.js：**
+
+```
+ratelimit 2 2 minute {
+    whitelist 1.2.3.4/32
+    whitelist 192.168.1.0/30
+    /foo.html
+    /dir
+    ^/dir/app.js
+}
+```
+
 ## http.realip
+
+`X-Forwarded-For` 如果您在 CDN 或 Proxy 后面运行，此插件允许您从标头查看实际的客户端IP 。它会使得日志和其他下游指令将看到实际的客户端IP，而不是代理。
+
+实施安全措施，使X-Forwarded-For不会被盗用未经授权的IP范围。
+
+真正的IP模块在您在代理服务器后面运行 Caddy 的情况下很有用。
+
+在这些情况下，实际的客户端IP将被存储在HTTP头中，通常是“X-Forwarded-For”。
+
+这产生的问题是依赖客户端IP地址的其他指令，如`ipfilter`或`git`在这些情况下不会总是正常工作。
+
+这个中间件将无缝安全地从相应的头读取真实的IP地址并将请求中的代理 IP 替换为真实 IP。在 Caddy 的日志、文件和其他插件中使用了新的 IP 。
+
+### 例子
+
+```Caddyfile
+realip [cidr] {
+    header name
+    from   cidr [cidr... ]
+    strict
+}
+```
+
+- **name** 是包含实际IP地址的头的名称。默认为 X-Forwarded-For。
+
+- **cidr** 是预期代理服务器的地址范围。作为安全措施，IP头只能从已知的代理服务器接受。必须是一个有效的 cidr 块符号。这可以多次指定。
+
+- **strict** 如果指定，将拒绝来自具有403状态的未知代理IP的请求。如果没有指定，它将简单地将原始IP保留在适当位置。
+
+### CIDR 块
+
+CIDR是指定IP范围的标准符号。要允许单个IP，请在ip后使用/32指定无掩码：123.222.31.4/32。要允许所有IP（并接受任何人的X-Forwarded-For标头），请使用0.0.0.0/0。大多数云服务应该以这种格式在某个地方发布其ip范围。
+
+**示例**
+
+```Caddyfile
+realip {
+    从1.2.3.4/32
+    从2.3.4.5/32
+}
+```
+
+### 预设
+
+如果您想将Caddy用于云端服务，则提供一些助手。只需在您的 Caddyfile 中指定下面的 Caddy 片段即可使用内置的 IP 列表激活它。
+
+
+| 提供者| 别名| Caddyfile Snippet |
+|-----------------------|--------------|---------------------|
+| Cloudflare            | `cloudflare` | `realip cloudflare` |
+| Google Cloud Platform | `gcp`        | `realip gcp`        |
+| Rackspace Cloud       | `rackspace`  | `realip rackspace`  |
+
+对其他云提供商的拉动请求将受到额外的预设。
+
+#＃# 其他例子
+
+只能从几个已知的IP中读取“X-Forwarded-For”的简单用法：
+
+```Caddyfile
+realip {
+    from 1.2.3.4/32
+    from 2.3.4.5/32
+}
+```
+
+预设和IP的简单使用：
+
+```Caddyfile
+realip cloudflare 1.2.3.4/32
+```
+
+或者 
+
+```Caddyfile
+realip cloudflare {
+    从1.2.3.4/32
+}
+```
+
+或者
+
+```Caddyfile
+realip {
+    from cloudflare
+    from 1.2.3.4/32
+}
+```
+
 
 ## http.reauth
 
 ## http.restic
 
 ## http.upload
+
+使用 API ​​和 HTTP 的 POST 或 PUT 方法上传文件。
+
+使用像 curl 这样的工具，可以方便地使用诸如 构建工具、downloads-to-be 之类的文件
+
+
+### 简单例子
+
+**快速简单上传**
+
+```
+curl \
+  -T /etc/os-release \
+  https://127.0.0.1/wp-upload/os-release
+```
+上传`os-release`到路径`wp-upload`。
+
+**快速删除**
+
+```
+curl -X DELETE \
+  https://127.0.0.1/wp-upload/os-release
+```
+
+删除，`wp-upload/os-release`如果它存在。
+
+**移动或重命名文件**
+
+```
+curl -X MOVE \
+  -H "destination: /wp-upload/old-release" \
+  https://127.0.0.1/wp-upload/os-release
+```
+该文件将以新名称提供。
+
+### 警告
+
+使用TLS进行上传，否则您的数据和授权令牌可能被第三方截取。
+
+此插件会显示文件系统实现向上传者抛出的一些错误，例如目标设备上的空间不足。
+
+Golang 当前解码 MIME Multipart（与POST请求一起使用）的方式会导致您上传的任何文件在上传期间保存在内存中。
+
+### 语法
+
+```
+upload <path> {
+    to                    "<directory>"
+    yes_without_tls
+
+    filenames_form        <none|NFC|NFD>
+    filenames_in          <u0000-uff00> [<u0000-uff00>| …]
+    random_suffix_len     0..N
+    promise_download_from <path>
+
+    max_filesize          0..N
+    max_transaction_size  0..N
+
+    hmac_keys_in          <keyid_0=base64(binary)> [<keyid_1=base64(binary)>| …]
+    timestamp_tolerance   <0..32>
+    silent_auth_errors
+}
+
+```
+这些设置是必需的：
+
+
+ - **path** 路径是插件对任何上传的反应的路由，它将被剥离，并没有任何结果文件和目录的一部分。
+
+ - **to** 是现有的目标目录。必须是引用的绝对路径。当使用Linux时，建议将其放在支持**O_TMPFILE**的文件系统上 ，例如（但不限于）`ext4`或`XFS`。
+
+这些是可选的：
+
+
+ - **yes_without_tls** 插件在没有TLS 的范围内使用，则必须设置 `yes_without_tls` 。
+当您得到指示文件系统的错误时，将其设置为其中一个值不能正确地转换名称。(如果有疑问，可以去NFC;使用NFD的Mac pc。默认是不强制执行任何东西。
+
+ - **filenames_in** 允许您将文件名限制为指定的 Unicode 范围。范围的范围必须以十六进制表示，并以字母`u`开始  。
+使用此设置可以防止用户在希望拉丁和/或中文字母的情况下上传文件，例如西里尔文。
+
+ - **random_suffix_len** 如果> 0，将导致所有文件名获得随机的后缀。
+后缀将以`_`（下划线）字母开始，并放在任何扩展名之前。
+例如，`image.png` 将按照 `image_a107xm.png` 配置值 `6` 进行写入。利用 `promise_download_from` 来获取生成的文件名。关闭时
+默认为`0` 。
+
+ - **promise_download_from** 是一个表示URI引用的字符串，例如路径。
+通过响应 `Location` 所有接收到的文件的 HTTP 头（多次，如果需要），将用于指示上传的文件可以在哪里下载。
+您最有可能要将其设置为上传path。
+默认值为“”，表示不会 `Location` 发送 HTTP 头。
+
+ * 通过**max_filesize** 可以限制单个文件的大小。除非设置`0`，这意味着“无限制”，是默认值，它是以字节为单位。
+
+ - **max_transaction_size** 是类似的，但适用于在一个请求中上传一个或多个文件。例如，当使用`MIME`多部件上传时。
+当前未定义 `max_filesize` > `max_transaction_size` 的行为;
+将 `max_transaction_size` 设置为多个 `max_filesize` 。
+
+一些传输编码，如base64，知道注释。那些，或者超长标题，
+可以使用比例如`max_transaction_size`的更多字节来传输更多的字节。
+通过使用不同的插件(http)来缓解这个问题。限制输入字节数
+不知道任何编码。设置一个上限约为`1.4×2.05×max_transaction_size`。
+这个插件为更好的性能编写文件块。限制以几千字节的整数来计算
+构成一个完整的块。
+
+可选，但如果您想使用内置的授权功能，则需要:
+
+- **hmac_keys_in** 是一个空格分隔的 `username → shared secret` 关联列表。
+后者是二进制数据，使用 base64 编码，推荐长度为32个八位字节。
+
+- **timestamp_tolerance** 通过授权设置请求的有效性，并用于考虑上传者和服务器计算机之间的时钟漂移差异。
+它的功率为2，其默认值为2（如：±4秒= 1 << 2 = 2 ** 2）。通过可靠的同步时钟将其设置为1或0。
+
+- **silent_auth_errors** 如果设置插件的内置授权将不会返回自己的 HTTP 错误。
+相反，请求将被交给下一个中间件，然后这个中间件很可能返回一个 HTTP 错误。这是一种模糊网站接受上传的便捷方式。
+
+### 教程
+
+添加到您的 Caddyfile：
+
+```
+upload /web/path {
+    to "/var/tmp"
+}
+```
+...并上传一个文件：
+
+```
+# HTTP PUT
+curl \
+  -T /etc/os-release \
+  https://127.0.0.1/web/path/from-release
+```
+
+...或更多文件（根据需要创建子目录）：
+
+```
+# HTTP POST
+curl \
+  -F gitconfig=@.gitconfig \
+  -F id_ed25519.pub=@.ssh/id_ed25519.pub \
+  https://127.0.0.1/web/path/
+```
+
+...你可以这样移动和删除：
+
+```
+# MOVE is 'mv'
+curl -X MOVE \
+  -H "Destination: /web/path/to-release" \
+  https://127.0.0.1/web/path/from-release
+
+# DELETE is 'rm -r'
+curl -X DELETE \
+  https://127.0.0.1/web/path/to-release
+```
+
+### 授权：签名
+
+该插件支持请求授权方案签名，尽管不支持其领域或任何其他算法，而不是hmac-sha256。
+这是一个具有预共享密钥和随机数||时间戳的HMAC方案。
+
+发送头授权和其他两个，格式如下，每次上传请求：
+
+```
+Authorization: Signature keyId="(username)",algorithm="hmac-sha256",headers="timestamp token",signature="(see below)"
+Timestamp: (current UNIX time)
+Token: (a nonce)
+```
+
+您可以使用 BASH 和 OpenSSL 生成新密钥（密码，预共享密钥），并将其编码为base64：
+
+```
+SECRET="$(openssl rand -base64 32)"
+
+# printf "%s\n" "${SECRET}"
+# TWF0dCBIb2x0IGRvZXNuJ3QgdXBkYXRlIGhpcyBNYWM=
+
+```
+
+
+一个完整的脚本用于上传某些内容将是：
+
+```
+#!/bin/bash
+# hmac_keys_in mark=Z2VoZWlt
+#
+UPLOADER="mark"
+SECRET="geheim"
+
+TIMESTAMP="$(date --utc +%s)"
+# length and contents are not important, "abcdef" would work as well
+NONCE="$(cat /dev/urandom | tr -d -c '[:alnum:]' | head -c $(( 32 - ${#TIMESTAMP} )))"
+
+SIGNATURE="$(printf "${TIMESTAMP}${NONCE}" \
+             | openssl dgst -sha256 -hmac "${SECRET}" -binary \
+             | openssl enc -base64)"
+
+# order does not matter; any skipped fields in Authorization will be set to defaults
+exec curl -T \
+  --header "Timestamp: ${TIMESTAMP}" \
+  --header "Token: ${NONCE}" \
+  --header "Authorization: Signature keyId='${UPLOADER}',signature='${SIGNATURE}'" \
+  "<filename>" "<url>"
+```
+
+### 配置示例
+
+中欧和西欧某人使用的主机将被配置为接受拉丁语的文件名，一些希腊符文和几个数学符号：
+
+```
+upload /college/curriculum {
+    to "/home/ellen_baker/inbox"
+    filenames_form NFC
+    filenames_in u0000–u007F u0100–u017F u0391–u03C9 u2018–u203D u2152–u217F
+}
+```
+Linux发行版的主机可能会更加严格：
+
+```
+upload /binhost/gentoo {
+    to "/var/portage/packages"
+    filenames_in u0000–u007F
+    timestamp_tolerance 0
+}
+tls {
+    …
+    clientcas /etc/ssl/dist-uploaders-CA.crt
+}
+```
+
+...而在东亚人将与三个朋友共享空间，这样的:
+
+```
+upload /wp-uploads {
+    to "/var/www/senpai/wp-uploads"
+    max_filesize 16777216
+    filenames_in u0000–u007F u0100–u017F u0391–u03C9 u2018–u203D u3000–u303f u3040–u309f u30a0–u30ff u4e00–9faf uff00–uffef
+
+    timestamp_tolerance 3
+    silent_auth_errors
+
+    hmac_keys_in yui=eXVp hina=aGluYQ== olivia=b2xpdmlh james=amFtZXM=
+}
+
+```
+
+
+
+
+
+
 
 ## http.webdav
