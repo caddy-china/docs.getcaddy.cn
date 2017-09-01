@@ -530,6 +530,25 @@ JWT验证只取决于验证正确的签名，并且令牌未到期。您还可�
 
 ## http.minify
 
+Caddy 插件，可实时实现CSS，HTML，JSON，SVG和XML的缩小。它使用[tdewolff的库]（https://github.com/tdewolff/minify）
+
+### 语法
+
+```
+minify paths...  {
+    if          a cond b
+    if_op       [and|or]
+    disable     [js|css|html|json|svg|xml]
+    minifier    option value
+}
+```
+
++ **路径**是空格分隔的文件路径来缩小。如果没有指定，整个网站将被细化。
++ **如果**指定条件。默认情况下，多个if一起合并。** a **和** b **是任何字符串，可以使用[请求占位符]（https://caddyserver.com/docs/placeholders）。** cond **是条件，可能的值在[rewrite]（https://caddyserver.com/docs/rewrite#if）中解释（也有一个`if`语句）。
++ ** if_op **指定如何评估ifs; 默认值为`和`。
++ ** disable **用于指示要禁用哪些minifiers; 默认情况下，它们都被激活。
++ **小组件**设置**的** ** **选项**在该分组。当选项为true或false时，其省略被称为“true”。可能的选项如下所
+
 ## http.nobots
 
 ## http.prometheus
