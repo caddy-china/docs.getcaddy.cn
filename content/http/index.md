@@ -38,6 +38,123 @@ bind 127.0.0.1
 errors [logfile]
 ```
 
+- **logfile** 
+是相对于当前工作目录创建（或附加到）的错误日志文件的路径。有关如何指定输出位置的更多详细信息，请参阅[日志位置](#destination)。默认是`stderr`。
+
+要指定自定义错误页面，请打开一个代码块：
+
+```
+errors [logfile] {
+	code     file
+	rotate_size     mb
+	rotate_age      days
+	rotate_keep     count
+	rotate_compress
+}
+```
+
+- **code** 可以是HTTP状态代码（4xx，5xx或`*`默认错误页面）。
+
+- **file** 是错误页面的静态HTML文件（相对于站点根目录）。
+
+- **rotate_size** 是滚动之前日志文件必须达到的大小（以兆字节为单位）。
+
+- **rotate_age** 是保留滚动日志文件的天数。
+
+- **rotate_keep** 是要保留的最大滚动日志文件数; 旧的滚动日志文件被清除。
+
+- **rotate_compress** 是压缩旋转日志文件的选项。gzip是唯一支持的格式。
+
+<a name="destination"></a>
+### 日志位置 {#destination}
+
+日志位置可以是以下几种：
+
+- 相对于当前工作目录的文件名
+
+- **stdout** 或 **stderr** 写入控制台
+
+- **visible** 将错误（包括完整堆栈跟踪（如果适用））写入响应中（除了本地调试之外，不推荐）
+
+- **syslog** 写入本地系统日志（Windows下除外）
+
+- **syslog://host[:port]** 通过UDP写入本地或远程syslog服务器
+
+- **syslog+udp://host[:port]** 与上述相同
+
+- **syslog+tcp://host[:port]** 通过TCP写入本地或远程syslog服务器
+
+默认的日志位置是`stderr`
+
+### 滚动日志
+
+日志有可能填满磁盘。为了减轻这种情况，错误日志将根据此默认配置自动滚动：
+
+```
+rotate_size 100 # Rotate a log when it reaches 100 MB
+rotate_age  14  # Keep rotated log files for 14 days
+rotate_keep 10  # Keep at most 10 rotated log files
+rotate_compress # Compress rotated log files in gzip format
+```
+
+您可以指定这些子目录来自定义滚动日志。
+
+### 例子
+
+将错误记录到error.log中：
+
+```
+errors
+```
+
+将错误记录到父目录中的自定义文件中：
+
+```
+errors ../error.log
+```
+
+记录错误并提供自定义错误页面：
+
+```
+errors {
+	404 404.html # Not Found
+	500 500.html # Internal Server Error
+}
+```
+
+将错误记录到自定义日志文件并提供自定义错误页面：
+
+```
+errors ../error.log {
+	404 404.html # Not Found
+	500 500.html # Internal Server Error
+}
+```
+
+定义默认，全部错误页面：
+
+```
+errors {
+	* default_error.html
+}
+```
+
+使客户端可以看到错误（仅用于调试）：
+
+```
+errors visible
+```
+
+自定义错误日志滚动：
+
+```
+errors {
+	rotate_size 50  # Rotate after 50 MB
+	rotate_age  90  # Keep rotated files for 90 days
+	rotate_keep 20  # Keep at most 20 log files
+	rotate_compress # Compress rotated log files in gzip format
+}
+```
 
 
 ## expvar
