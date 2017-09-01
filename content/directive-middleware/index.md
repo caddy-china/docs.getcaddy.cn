@@ -128,44 +128,28 @@ filemanager [url] [scope] {
 }
 ```
 
-- url
+- **url** 是您将访问文件管理器的URL路径。默认为/。
 
-是您将访问文件管理器的URL路径。默认为/。
+- **database** 是存储设置的数据库的路径。
 
-- database
-
-是存储设置的数据库的路径。
-
-- no_auth
-
-禁用身份验证
+- **no_auth** 禁用身份验证
 
 以下选项只是默认值：它们将仅用作新用户的默认选项。创建用户后，其设置应通过 Web UI 进行更改。当使用 no_auth 选项时，以下将定义用户权限。
 
 范围是您要浏览的目录的路径，相对或绝对，默认为./。
 语言环境是新用户（可用语言）的默认语言。
 
-- allow_commands
+- **allow_commands** allow commands选项的默认值。
 
-allow commands选项的默认值。
+- **allow_edit** allow edit选项的默认值。
 
-- allow_edit
+- **allow_new** allow new 选项的默认值。
 
-allow edit选项的默认值。
-
-- allow_new
- 
- allow new 选项的默认值。
-
-- allow_publish 
-
-allow publish选项的默认值。
+- **allow_publish** allow publish选项的默认值。
 
 命令是默认的可用命令。
 
-- css 
-
-具有自定义样式表的文件的路径
+- **css** 是具有自定义样式表的文件的路径
 
 
 如果您使用`http.hugo`，`http.jekyll` 或任何其他使用文件管理器作为基础的插件，初始语法略有不同。这个范围和 url 选项是颠倒的，你应该写插件的名字而不是 filemanager 。
@@ -311,6 +295,234 @@ git git@github.com:user/site {
 ## http.jekyll
 
 ## http.jwt
+
+该中间件基于JSON Web令牌（JWT）实现了 Caddy 的授权层。您可以在[jwt.io]（https://jwt.io）上了解有关在应用程序中使用JWT的更多信息。
+
+
+
+
+### 基本语法
+
+```
+jwt [path]
+```
+
+默认情况下，路径下的所有资源将使用JWT验证进行安全保护。要指定需要保护的资源列表，请使用多个声明。请务必阅读插件文档，以正确配置服务器来验证您的 token 。
+
+{{< note title="重要" >}}
+您必须在名为`JWT_SECRET`（HMAC）*或*`JWT_PUBLIC_KEY`（RSA）的环境变量中设置用于构建您的令牌的秘密。否则，您的 token 将默认无法验证。球童将在没有这个值的情况下启动，但是必须在签名请求验证时出现。
+{{< /note >}}
+
+
+### 高级语法
+
+您可以选择使用声明信息来进一步控制对路线的访问。在"jwt"块中，您可以根据声明的值指定允许或拒绝访问的规则。
+如果声明是 json 数组的字符串，则 allow 和 deny 指令将检查数组是否包含指定的字符串值。如果数组中的任何值匹配，则允许或拒绝规则将生效。
+
+```
+jwt {
+   path [path]
+   redirect [location]
+   allow [claim] [value]
+   deny [claim] [value]
+}
+```
+要基于声明授权访问，请使用`allow`语法。要拒绝访问，请使用`deny`关键字。您可以使用多个关键字来实现复杂的访问规则。如果任何`allow`访问规则返回true，则允许访问。如果“deny”规则为真，访问将被拒绝。拒绝规则将允许该声明的任何其他值。   
+
+  例如，假设你有一个带有"user：someone"和"role：member"的令牌。如果您有以下访问块：
+
+```
+jwt {
+   path [path]
+   redirect [location]
+   allow [claim] [value]
+   deny [claim] [value]
+}
+```
+
+中间件将以”role：member“的形式拒绝所有人，但将允许具有特定用户名为”someone“的用户。允许使用“role：admin”或 ”role：foo”的不同用户，因为拒绝规则将允许任何没有角色成员的用户。
+
+如果设置了可选的“redirect”，则如果访问被拒绝，中间件将发送重定向到所提供的位置（HTTP 303）而不是访问被拒绝的代码。
+
+### 传递令牌进行验证的方式
+
+有三种方式传递令牌进行验证：（1）在“授权”标题中，（2）作为cookie，（3）作为URL查询参数。中间件将按照列出的顺序查找那些位置，如果找不到任何令牌，则返回“401”。
+
+
+| Method               | Format                          |
+| -------------------- | ------------------------------- |
+| 授权标题 | `Authorization: Bearer <token>` |
+| Cookie               | `"jwt_token": <token>`          |
+| URL 查询参数| `/protected?token=<token>`      |
+
+### 构造一个有效的标记
+
+JWT由三部分组成：标题，声明和签名。为了正确构建JWT，建议您使用适合您语言的JWT库。至少，此授权中间件期望存在以下字段：
+
+**header**
+
+```JSON
+{
+“typ”：“JWT”，
+“alg”：“HS256 | HS384 | HS512 | RS256 | RS384 | RS512”
+}
+```
+
+**声明**
+
+如果要限制您的令牌的有效期到某个时间段，请使用 “exp” 字段声明令牌的到期时间。这个时间应该是整数格式的 Unix 时间戳。
+```JSON
+{
+“exp”：1460192076
+}
+```
+### 代理令牌中的声明
+
+您可以在索赔部分添加额外的索赔。一旦令牌被验证，您所包含的声明将作为标题传递给下游资源。由于token 已由 Caddy 验证，您可以放心，这些标题代表您的令牌的有效声明。例如，如果您在令牌中包含以下声明：
+
+
+```json
+{
+  "user": "test",
+  "role": "admin",
+  "logins": 10,
+  "groups": ["user", "operator"],
+  "data": {
+    "payload": "something"
+  }
+}
+```
+以下标头将被添加到代理到您的应用程序的请求中：
+
+```
+Token-Claim-User: test
+Token-Claim-Role: admin
+Token-Claim-Logins: 10
+Token-Claim-Groups: user,operator
+Token-Claim-Data.payload: something
+```
+token声明将始终转换为字符串。如果您希望您的声明是另一种类型，请记住在使用声明之前将其转换回来。嵌套的JSON对象将被格式化。在上面的示例中，您可以看到嵌套的“payload”字段被转化为“data.payload”。
+
+
+所有前缀为`Token-Claims -`的请求头都被从上游转发出去，所以用户不能欺骗他们。
+
+HTTP 标头中不允许使用特殊字符的声明将被转义为 URL。例如， Auth0 要求将索引命名为完整的URL，例如
+
+```json
+{
+  "http://example.com/user": "test"
+}
+```
+URL转义会导致一些难以理解的 header
+
+```
+Token-Claims-Http：％2F％2Fexample.com％2Fuser：test
+```
+
+如果您只关心路径的最后一部分，您可以使用`strip_header`指令在路径的最后一部分之前删除所有内容。
+
+```
+jwt {
+  path /
+  strip_header
+}
+```
+当结合上述权利要求时，它将导致 header
+
+```
+Token-Claim-User: test
+```
+
+### 允许公共访问某些路径
+
+在某些情况下，您可能希望允许公开访问特定路径，而不使用有效的 token。例如，您可能希望保护所有路由，除了访问`/login`路径。你可以用`except`指令来做到这一点。
+
+```
+jwt {
+  path /
+  except /login
+}
+```
+
+以`/login`开头的每个路径将从JWT令牌要求中除外。所有其他路径将被保护。在您将路径设置为根目录的情况下，您还可能希望允许访问所谓的裸机或根域，同时保护其他所有内容。您可以使用允许访问裸域的“allowroot”指令。例如，如果您有以下配置块:
+
+```
+jwt {
+  path /
+  except /login
+  allowroot
+}
+```
+对"https://example.com/login" 和 "https://example.com/" 的请求都将被允许，而不需要有效的 token。任何其他路径将需要一个有效的 token。
+
+
+### 允许公共访问不需要令牌
+
+在某些情况下，无论是否存在有效的令牌，都可以访问页面。一个例子可能是Github主页或公共存储库，即使是注销用户也应该可见。在这种情况下，您需要解析可能存在的任何有效的令牌，并将声明传递给应用程序，并将其留给应用程序以决定用户是否可以访问。您可以使用指令`passthrough`为此：
+
+```
+jwt {
+  path /
+  passthrough
+}
+```
+应该注意的是，“passthrough”将始终允许访问所提供的路径，而不管一个令牌是否存在或有效，以及不考虑`allow` /`deny`指令。应用程序将负责处理已解析的请求。
+
+
+### 指定用于验证令牌的密钥
+
+指定用于验证令牌的关键材料有两种方法。如果您在容器中运行Caddy或通过像 Systemd 这样的 init 系统运行，可以使用 HMAC 的环境变量`JWT_SECRET`或用于RSA（PEM编码的公钥）的`JWT_PUBLIC_KEY`来直接指定密钥。您不能同时使用这两者，因为它会在 JWT 规范中打开一个已知的安全漏洞。当您运行多个站点时，所有这些站点都必须使用相同的密钥来验证令牌。
+
+当您从一个Caddyfile运行多个站点时，您可以指定包含PEM编码的公钥或HMAC密码的文件的位置。再次，您不能同时使用这两个网站，因为它会导致安全漏洞。但是，您可以在不同的站点上使用不同的方法，因为配置是独立的。
+
+对于 RSA tokens:
+
+```
+jwt {
+  path /
+  publickey /path/to/key.pem
+} 
+```
+
+对于 HMAC:
+
+```
+jwt {
+  path /
+  secret /path/to/secret.txt
+}
+```
+
+
+当您将密钥材料存储在文件中时，此中间件将缓存结果，并使用文件上的修改时间来确定自上次请求以来密码是否已更改。这允许您在不担心文件锁定问题的情况下，通过编写新的密钥来旋转您的密钥或使令牌无效(尽管您仍然应该检查您的写是否成功，然后使用新密钥发出令 token)。
+
+如果您有多个公共密匙或秘密，应该被认为是有效的，那么在不同的文件中使用多个声明来处理密钥或秘密。如果任何密钥验证了 token ，将允许授权。。
+
+
+```
+jwt {
+  path /
+  publickey /path/to/key1.pem
+  publickey /path/to/key2.pem
+}
+```
+
+
+### 可能的错误状态码
+
+| 代码| 原因|
+| ---- | ------ |
+| 401 | 未授权 - 无令牌，令牌失败验证，令牌已过期|
+| 403 | 禁止 - 令牌有效，但被拒绝，因为允许或DENY规则|
+| 303 | 返回401或403，并重新启动。这优先于401或403状态。|
+
+###
+
+
+
+{{< warning title="警告" >}}
+JWT验证只取决于验证正确的签名，并且令牌未到期。您还可以设置`nbf`字段，以防止在某个时间戳之前进行验证。规范中的其他字段，如 "aud"，"iss，"sub"，"iat"和"jti" 不会影响验证步骤。
+{{< /warning >}}
 
 ## http.login
 
