@@ -732,7 +732,70 @@ markdown /blog {
 
 ## mime
 
+mime在请求中基于文件扩展的响应设置内容类型。
+通常情况下，通过嗅探内容，可以自动地检测到静态文件，但有时候是不可能的。如果您遇到的响应是错误的内容类型，或者是服务于静态文件以外的内容，您可以使用这个中间件来设置正确的内容类型。
+
+### 语法
+
+```
+mime ext type
+```
+
+
+- **ext** 是要匹配的文件扩展名，包括`.`前缀。
+- **type** 是Content-Type
+
+如果您有很多MIME类型要设置，请打开一个代码块：
+
+```
+mime {
+	ext type
+}
+```
+
+每行定义一个MIME扩展类型对。您可以在mime块中具有所需的行数。
+
+### 例子
+
+自定义Flash文件的内容类型：
+
+```
+mime .swf application/x-shockwave-flash
+```
+
+对于多个文件：
+
+```
+mime {
+	.swf application/x-shockwave-flash
+	.pdf application/pdf
+}
+```
+
+
 ## pprof
+
+pprof 在 /debug /pprof 中发布运行时分析数据。您可以在站点上访问 /debug /pprof，以获得可用端点的索引。
+
+{{< note title="注意" >}}
+这是一个调试工具。 某些请求（如收集执行跟踪）可能很慢。 如果您在现场网站上使用pprof，请考虑限制访问或仅暂时启用它。
+{{< /note >
+
+有关更多信息，请参阅[Go的pprof文档](https://golang.org/pkg/net/http/pprof/)并阅读[Profiling Go程序](https://blog.golang.org/profiling-go-programs)。
+
+### 语法
+
+```
+pprof
+```
+
+### 例子
+
+启用 pprof 
+
+```
+pprof
+```
 
 ## proxy
 
