@@ -779,7 +779,7 @@ pprof 在 /debug /pprof 中发布运行时分析数据。您可以在站点上�
 
 {{< note title="注意" >}}
 这是一个调试工具。 某些请求（如收集执行跟踪）可能很慢。 如果您在现场网站上使用pprof，请考虑限制访问或仅暂时启用它。
-{{< /note >
+{{< /note >}}
 
 有关更多信息，请参阅[Go的pprof文档](https://golang.org/pkg/net/http/pprof/)并阅读[Profiling Go程序](https://blog.golang.org/profiling-go-programs)。
 
