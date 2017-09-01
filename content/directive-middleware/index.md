@@ -526,6 +526,76 @@ JWT验证只取决于验证正确的签名，并且令牌未到期。您还可�
 
 ## http.login
 
+基于 github.com/tarent/loginsrv 的 Caddy 登录指令。根据后端检查登录名，然后返回为 JWT 令牌。该指令旨在与 http.jwt 中间件一起使用。
+
+支持以下提供程序（登录后端）：
+
+- Htpasswd
+- OSIAM
+- Simple (配置用户/密码对)
+- Github, Google OAuth2 登录
+
+### 例子
+
+**简单例子**
+
+```
+jwt {
+    path /
+    allow sub bob
+}
+
+login / {
+         simple bob=secret,alice=secret
+}
+```
+
+根上下文 / 由 jwt 中间件保护。用户 alice 和 bob 可以登录
+
+**htpasswd 文件 用户**
+
+```
+header /private Cache-Control "no-cache, no-store, must-revalidate"
+  
+jwt {
+  path /private
+  redirect /login
+  allow sub demo
+}
+
+login {
+  success_url /private
+  htpasswd file=passwords
+}
+```
+
+保护路径 /private 。用户在 htpasswd 文件中 。
+
+**Github 示例更多的定制**
+
+```
+jwt {
+  path /my-account
+  redirect /login
+}
+
+login {
+  github client_id={$github_client_id},client_secret={$github_client_secret}
+
+  success_url /my-account
+  logout_url /
+  template login_template.html
+  jwt_expiry 24h
+  cookie_expiry 2400h
+}
+```
+Githu b登录，从环境变量中获取 Github api 凭证。模板、重定向 url 和过期时间配置。
+
+
+
+
+
+
 ## http.mailout
 
 ## http.minify
