@@ -561,7 +561,7 @@ proxy / web1.local:80 web2.local:90 web3.local:100 {
 
 循环风格：
 
-``
+```
 proxy / web1.local:80 web2.local:90 web3.local:100 {
 	policy round_robin
 }
@@ -597,9 +597,139 @@ proxy / backend:1234 {
 
 ## redir
 
+如果URL匹配指定的规则，redir 会向客户端发送 HTTP 重定向状态代码。你也可以给它定义条件。
+
+### 语法
+
+```
+redir from to [code]
+```
+
+- from 
+
+要匹配的请求路径（它必须完全匹配，除了/，这代表匹配全部）。
+
+-to 
+
+重定向到（可使用的路径[请求占位符](/http-server/#placeholders)）。
+
+
+
+- code
+
+用于响应的HTTP状态代码; 必须在[300-308]（不包括306.）范围内。也可以使用`meta`为浏览器发布元标记进行重定向。默认状态代码是301（永久重定向）。
+
+要创建永久的“全部”重定向，请忽略 from 值：
+
+```
+redir to
+```
+
+如果您有很多重定向，请通过创建表来共享重定向代码：
+
+```
+redir [code] {
+	from to [code]
+}
+```
+每行定义一个重定向，并可以选择覆盖在`表`顶部定义的重定向代码。如果未指定重定向代码，则使用默认值。
+
+一组重定向也可以是有条件的：
+
+```
+redir [code] {
+	if    a cond b
+	if_op [and|or]
+	...
+}
+```
+
+- if
+
+指定重写条件。默认情况下，多个 if 需要同时满足[译者注：`与`] 。a 和 b 可以是任何字符串，可以使用请求占位符。 cond 是条件，可能的值在[rewrite](#rewrite)中可以看到 （也有一个if声明）。
+
+if_op 指定 if 之间如何联系; 默认是and[译者注：and = `与` or = `或`]。
+
+
+### 被保护的路径
+
+默认情况下，重定向会精确匹配路径到您定义的精确位置。您可以在任何"to"参数中使用[可替换值](/http-server/#placeholders)（例如{uri} 或 {path}）来保留请求URL的路径或其他部分。仅支持请求占位符。
+
+### 例子
+
+当请求进入/resources/images/photo.jpg 时，使用HTTP 307（临时重定向）状态码重定向到/resources/images/drawing.jpg：
+
+```
+redir /resources/images/photo.jpg /resources/images/drawing.jpg 307
+```
+
+将所有请求重定向到https://newsite.com，同时保留请求 URI：
+
+```
+redir https://newsite.com{uri}
+```
+
+定义共享 307 状态代码的多个重定向，最后一个除外：
+
+```
+redir 307 {
+	/foo     /info/foo
+	/todo    /notes
+	/api-dev /api       meta
+}
+```
+
+只有转发协议是 HTTP 时重定向：
+
+```
+redir 301 {
+	if {>X-Forwarded-Proto} is http
+	/  https://{host}{uri}
+}
+```
+
+
+
+
+
+### 语法
+
+
 ## request_id
 
 ## rewrite
+
+rewrite 执行内部 URL 重写。这允许客户端请求一个资源，但实际上是另一个资源，而不需要 HTTP 重定向。rewrite 是客户不可见的。
+
+有简单的 rewrite（快速）和复杂的 rewrite（较慢），但它们足够强大以适应大多数动态后端应用程序。
+
+### 语法
+
+```
+rewrite from to
+```
+
+- from
+
+匹配的确切路径
+
+-to 
+
+重写（资源与响应）的目标路径
+
+高级用户可能会打开一个块并进行复杂的重写规则：
+
+```
+rewrite [basepath] {
+	regexp pattern
+	ext    extensions...
+	if     a cond b
+	if_op  [and|or]
+	to     destinations...
+}
+```
+
+
 
 ## root
 
