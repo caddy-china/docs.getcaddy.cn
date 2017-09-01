@@ -1095,3 +1095,38 @@ tls self_signed
 
 
 ## websocket
+
+websocket 便于 websocket 服务器/代理。当创建新的WebSocket连接时，执行命令，并且Caddy中继客户端与该命令的连接。
+
+只要从stdin输入并写入stdout，任何命令都可以执行，因为它将与WebSocket客户端进行通信。该命令不需要知道它正在与Web Socket客户端通信; 只需使用stdin和stdout。
+
+客户端连接时，Caddy不会保留后端进程的活动。开发人员有责任确保程序在客户端准备关闭连接或准备终止之前终止。
+
+{{< note title="注意" >}}
+HTTP/2 不支持协议升级，因此您可能不得不禁用 HTTP/2，以便成功地在安全连接上使用该指令。
+{{< /note >}}
+
+### 语法
+
+```
+websocket [path] command
+```
+
+- path
+
+与请求URL匹配的基本路径
+
+- command
+
+执行的命令
+
+
+如果省略path，则假定默认路径为 `/`（表示所有请求）。
+
+### 例子
+
+简单的WebSockets echo服务器：
+
+```
+websocket /echo cat
+```
