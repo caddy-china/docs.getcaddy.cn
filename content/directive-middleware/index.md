@@ -615,14 +615,14 @@ minify paths...  {
 
 + **paths** 是空格分隔的文件路径来压缩。如果没有指定，整个网站将被细化。
 + **if** 指定条件。默认情况下，多个if一起合并。**a** 和 **b** 是任何字符串，可以使用[请求占位符]（/http-server/#placeholders）。**cond**是条件，可能的值在[rewrite]（/http/#rewrite）中解释（也有一个`if`语句）。
-+ ** if_op ** 指定如何评估ifs; 默认值为`and`。
-+ ** disable ** 用于指示要禁用哪些minifiers; 默认情况下，它们都被激活。
++ **if_op** 指定如何评估ifs; 默认值为`and`。
++ **disable** 用于指示要禁用哪些minifiers; 默认情况下，它们都被激活。
 + **minifier** 设置**value** ** **option**在该分组。当选项为 true 或 false 时，其省略被称为"true"。可能的选项如下。
 
 ### Minifiers选项
 
 | 文件后缀| 选项| 价值| 说明|
-| ------------- | ------------- | ---------- ----------- |
+| ------------- | ------------- | ---------- | ----------- |
 | css，svg | decimals| number| 保留默认属性值。|
 | xml，html | keep_whitespace | true \ | false | 保存`html`，`head`和`body`标签。|
 | html | keep_end_tags | true \ | false | 保留所有结束标签。|
