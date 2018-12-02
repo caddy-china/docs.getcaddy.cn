@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="zh-hans">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title> - Caddy 中文文档 Docs</title>
+    <meta name="generator" content="Hugo 0.52" />
+
+    
+    <meta name="description" content="自动配置 HTTPS 的 HTTP2 服务器">
+    
+    <link rel="canonical" href="https://docs.getcaddy.cn/http/">
+    
+    <meta name="author" content="caddy">
+    
+
+    <meta property="og:url" content="https://docs.getcaddy.cn/http/">
+    <meta property="og:title" content="Caddy 中文文档 Docs">
+    <meta property="og:image" content="https://docs.getcaddy.cn/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Caddy 中文文档 Docs">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://docs.getcaddy.cn/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://docs.getcaddy.cn/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://docs.getcaddy.cn/fonts/icon.eot');
+        src: url('https://docs.getcaddy.cn/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://docs.getcaddy.cn/fonts/icon.woff')
+               format('woff'),
+             url('https://docs.getcaddy.cn/fonts/icon.ttf')
+               format('truetype'),
+             url('https://docs.getcaddy.cn/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/application.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/highlight/atom-one-light.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://docs.getcaddy.cn/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-light-blue palette-accent-light-blue">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/caddy" title="@caddy on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/mholt/caddy" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://docs.getcaddy.cn/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Caddy 中文文档 Docs <span class="version">0.10.7</span></strong>
+        
+          <br>
+          mholt/caddy
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/mholt/caddy/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/mholt/caddy/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="开始使用" href="https://docs.getcaddy.cn/get-started/">
+	
+	开始使用
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="HTTP 服务器" href="https://docs.getcaddy.cn/http-server/">
+	
+	HTTP 服务器
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="标准 HTTP 指令" href="https://docs.getcaddy.cn/http/">
+	
+	标准 HTTP 指令
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="DNS 服务商" href="https://docs.getcaddy.cn/dns/">
+	
+	DNS 服务商
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="指令／中间件" href="https://docs.getcaddy.cn/directive-middleware/">
+	
+	指令／中间件
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="事件钩子" href="https://docs.getcaddy.cn/event-hooks/">
+	
+	事件钩子
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="服务器类型" href="https://docs.getcaddy.cn/server-type/">
+	
+	服务器类型
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="常用教程" href="https://docs.getcaddy.cn/examples/">
+	
+	常用教程
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/caddy" target="_blank" title="@caddy on GitHub">
+              @caddy on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:admin@zuohuadong.cn" title="Email of admin@zuohuadong.cn">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1> </h1>
+
+			
+
+<h2 id="basicauth">basicauth</h2>
+
+<h2 id="bind">bind</h2>
+
+<p>绑定覆盖服务器应该绑定的主机。通常，侦听器绑定到通配符主机。但是，您可以强制侦听器绑定到另一个主机名或IP。该指令只接收主机，而不接受端口。</p>
+
+<p>请注意，绑定站点不一致可能会导致意想不到的后果。例如，如果同一个端口上的两个站点解析为127.0.0.1，其中只有一个站点配置了<code>bind 127.0.0.1</code>，那么只有一个站点是可访问的，因为另一个站点将绑定到端口而没有特定的主机;操作系统将选择更具体的匹配套接字。(虚拟主机不会在不同的监听器之间共享)</p>
+
+<h3 id="语法">语法</h3>
+
+<pre><code>bind host
+</code></pre>
+
+<ul>
+<li><strong>host</strong> 是要绑定到的主机名（或IP地址）</li>
+</ul>
+
+<h3 id="例子">例子</h3>
+
+<p>要使您的 socket 只能访问本机，请绑定到IP 127.0.0.1（localhost）：</p>
+
+<pre><code>bind 127.0.0.1
+</code></pre>
+
+<h2 id="browse">browse</h2>
+
+<h2 id="errors">errors</h2>
+
+<p>错误允许您设置自定义错误页面并启用错误日志记录。</p>
+
+<p>如果没有这个中间件，错误响应(HTTP状态&gt; = 400)不会被记录，客户端会收到一条明文错误消息。
+使用一个错误日志，将记录每个错误的文本，这样您就可以确定哪些错误，而不向客户公开这些细节。使用错误页面，您可以显示自定义错误消息并指示您的访问者该做什么。当您指定自定义错误页面时，将自动启用错误日志记录。</p>
+
+<h3 id="语法-1">语法</h3>
+
+<pre><code>errors [logfile]
+</code></pre>
+
+<ul>
+<li><strong>logfile</strong>
+是相对于当前工作目录创建（或附加到）的错误日志文件的路径。有关如何指定输出位置的更多详细信息，请参阅<a href="#destination">日志位置</a>。默认是<code>stderr</code>。</li>
+</ul>
+
+<p>要指定自定义错误页面，请打开一个代码块：</p>
+
+<pre><code>errors [logfile] {
+	code     file
+	rotate_size     mb
+	rotate_age      days
+	rotate_keep     count
+	rotate_compress
+}
+</code></pre>
+
+<ul>
+<li><p><strong>code</strong> 可以是HTTP状态代码（4xx，5xx或<code>*</code>默认错误页面）。</p></li>
+
+<li><p><strong>file</strong> 是错误页面的静态HTML文件（相对于站点根目录）。</p></li>
+
+<li><p><strong>rotate_size</strong> 是滚动之前日志文件必须达到的大小（以兆字节为单位）。</p></li>
+
+<li><p><strong>rotate_age</strong> 是保留滚动日志文件的天数。</p></li>
+
+<li><p><strong>rotate_keep</strong> 是要保留的最大滚动日志文件数; 旧的滚动日志文件被清除。</p></li>
+
+<li><p><strong>rotate_compress</strong> 是压缩旋转日志文件的选项。gzip是唯一支持的格式。</p></li>
+</ul>
+
+<p><a name="destination"></a></p>
+
+<h3 id="destination">日志位置</h3>
+
+<p>日志位置可以是以下几种：</p>
+
+<ul>
+<li><p>相对于当前工作目录的文件名</p></li>
+
+<li><p><strong>stdout</strong> 或 <strong>stderr</strong> 写入控制台</p></li>
+
+<li><p><strong>visible</strong> 将错误（包括完整堆栈跟踪（如果适用））写入响应中（除了本地调试之外，不推荐）</p></li>
+
+<li><p><strong>syslog</strong> 写入本地系统日志（Windows下除外）</p></li>
+
+<li><p><strong>syslog://host[:port]</strong> 通过UDP写入本地或远程syslog服务器</p></li>
+
+<li><p><strong>syslog+udp://host[:port]</strong> 与上述相同</p></li>
+
+<li><p><strong>syslog+tcp://host[:port]</strong> 通过TCP写入本地或远程syslog服务器</p></li>
+</ul>
+
+<p>默认的日志位置是<code>stderr</code></p>
+
+<h3 id="滚动日志">滚动日志</h3>
+
+<p>日志有可能填满磁盘。为了减轻这种情况，错误日志将根据此默认配置自动滚动：</p>
+
+<pre><code>rotate_size 100 # Rotate a log when it reaches 100 MB
+rotate_age  14  # Keep rotated log files for 14 days
+rotate_keep 10  # Keep at most 10 rotated log files
+rotate_compress # Compress rotated log files in gzip format
+</code></pre>
+
+<p>您可以指定这些子目录来自定义滚动日志。</p>
+
+<h3 id="例子-1">例子</h3>
+
+<p>将错误记录到error.log中：</p>
+
+<pre><code>errors
+</code></pre>
+
+<p>将错误记录到父目录中的自定义文件中：</p>
+
+<pre><code>errors ../error.log
+</code></pre>
+
+<p>记录错误并提供自定义错误页面：</p>
+
+<pre><code>errors {
+	404 404.html # Not Found
+	500 500.html # Internal Server Error
+}
+</code></pre>
+
+<p>将错误记录到自定义日志文件并提供自定义错误页面：</p>
+
+<pre><code>errors ../error.log {
+	404 404.html # Not Found
+	500 500.html # Internal Server Error
+}
+</code></pre>
+
+<p>定义默认，全部错误页面：</p>
+
+<pre><code>errors {
+	* default_error.html
+}
+</code></pre>
+
+<p>使客户端可以看到错误（仅用于调试）：</p>
+
+<pre><code>errors visible
+</code></pre>
+
+<p>自定义错误日志滚动：</p>
+
+<pre><code>errors {
+	rotate_size 50  # Rotate after 50 MB
+	rotate_age  90  # Keep rotated files for 90 days
+	rotate_keep 20  # Keep at most 20 log files
+	rotate_compress # Compress rotated log files in gzip format
+}
+</code></pre>
+
+<h2 id="expvar">expvar</h2>
+
+<h2 id="ext">ext</h2>
+
+<p>当 URL 的路径部分为空时，ext 可以让您的站点拥有干净的URL。
+通过检查一个点(<code>.</code>)路径的最后一个元素，可以检测到URL中的扩展。</p>
+
+<h3 id="语法-2">语法</h3>
+
+<pre><code>ext extensions...
+</code></pre>
+
+<ul>
+<li>extensions&hellip;</li>
+</ul>
+
+<p>一个空间分隔扩展列表(包括<code>.</code>)来尝试。将按所列的顺序尝试扩展。至少需要一个扩展。</p>
+
+<h3 id="例子-2">例子</h3>
+
+<p>假设您有一个名为/contact.html的文件。你可以试着用它来服务 .html</p>
+
+<p>按顺序尝试.html，.htm和.php：</p>
+
+<pre><code>ext .html .htm .php
+</code></pre>
+
+<h2 id="fastcgi">fastcgi</h2>
+
+<p>fastcgi 代理请求到一个 FastCGI 服务器。虽然这个指令最常见的用途是为PHP站点提供服务，但它默认是一个通用的 FastCGI 代理。这个指令可以用不同的请求路径多次使用。</p>
+
+<h3 id="语法-3">语法</h3>
+
+<pre><code>fastcgi path endpoint [preset] {
+	root     directory
+	ext      extension
+	split    splitval
+	index    indexfile
+	env      key value
+	except   ignored_paths...
+	upstream endpoint
+	connect_timeout duration
+	read_timeout    duration
+	send_timeout    duration
+}
+</code></pre>
+
+<ul>
+<li>path</li>
+</ul>
+
+<p>在请求转发之前匹配的基本路径。</p>
+
+<ul>
+<li>endpoint</li>
+</ul>
+
+<p>FastCGI 服务器的地址或 Unix socket 。</p>
+
+<ul>
+<li>preset</li>
+</ul>
+
+<p>可选的预设名称（见下文）。使用预设时，不需要重复预设的单独设置</p>
+
+<ul>
+<li>root</li>
+</ul>
+
+<p>根指定 FastCGI 服务器使用的根目录，如果它不同于虚拟主机的根目录。这在FastCGI 服务器位于不同的服务器、chroot-jailed 和 容器中，则很有用。</p>
+
+<ul>
+<li>ext</li>
+</ul>
+
+<p>指定扩展名，如果请求URL具有该扩展名，则会将请求代理到FastCGI。</p>
+
+<ul>
+<li>split</li>
+</ul>
+
+<p>指定如何分割URL;当它成为 PATH_INFO CGI 变量的一部分后，分割值就变成了第一部分的末尾和 URL 中的任何内容。</p>
+
+<ul>
+<li>index</li>
+</ul>
+
+<p>指定文件未由URL指定时要尝试的默认文件</p>
+
+<ul>
+<li>env</li>
+</ul>
+
+<p>为给定值设置了一个名为 key 的环境变量; ENV 属性可以使用多次，而值可以使用<a href="https://docs.getcaddy.cn/http-server/#placeholders">请求占位符</a>。</p>
+
+<ul>
+<li>except</li>
+</ul>
+
+<p>排除请求路径（可分隔），即使它与基本路径匹配，它也不受 fastcgi处理的影响。</p>
+
+<ul>
+<li>upstream</li>
+</ul>
+
+<p>指定了一个额外的后端来使用。将执行基本的负载平衡。这可以多次指定。</p>
+
+<ul>
+<li>connect_timeout</li>
+</ul>
+
+<p>允许连接到后端的时间。必须是持续时间值(例如: &ldquo;10s&rdquo; )。</p>
+
+<ul>
+<li>read_timeout</li>
+</ul>
+
+<p>允许从后端读取响应的时间。必须是持续时间值。</p>
+
+<ul>
+<li>send_timeout</li>
+</ul>
+
+<p>允许向后端发送请求的时间。必须是持续时间值。</p>
+
+<h3 id="presets-预设">Presets 预设</h3>
+
+<p>预设是某种快速cgi配置的简写。这些预设是可用的:</p>
+
+<p>php 简写</p>
+
+<pre><code>ext   .php
+split .php
+index index.php
+</code></pre>
+
+<p>您不需要指定预置的配置设置。但是，如果需要手动声明它们，则可以覆盖它的单独设置。</p>
+
+<h3 id="examples-例子">Examples 例子</h3>
+
+<p>在 <code>127.0.0.1:9000</code> 处理 FastCGI 的所有请求：</p>
+
+<pre><code>fastcgi / 127.0.0.1:9000
+</code></pre>
+
+<p>将/ blog中的所有请求转发到php-fpm提供的PHP站点（如WordPress）：</p>
+
+<pre><code>fastcgi /blog/ 127.0.0.1:9000 php
+</code></pre>
+
+<p>使用自定义FastCGI配置：</p>
+
+<pre><code>fastcgi / 127.0.0.1:9001 {
+	split .html
+}
+</code></pre>
+
+<p>使用 PHP 预设，但覆盖ext属性：</p>
+
+<pre><code>fastcgi / 127.0.0.1:9001 php {
+	ext .html
+}
+</code></pre>
+
+<p>使用PHP预设，但 FastCGI 服务器正在基于<a href="https://hub.docker.com/_/php/">官方 Docker 映像</a>（容器端口 9000 发布到 127.0.0.1:9001）的容器中运行：</p>
+
+<pre><code>fastcgi / 127.0.0.1:9001 php {
+	root /var/www/html
+}
+</code></pre>
+
+<h2 id="gzip">gzip</h2>
+
+<p>如果客户端支持，gzip 会启用 gzip 压缩。默认情况下，响应不会被 gzip 压缩。如果启用，默认设置将确保未压缩图像，视频和存档（已压缩）。</p>
+
+<p>请注意，即使没有 gzip 指令，Caddy 也可以在.gz（gzip）或.br（brotli）压缩文件中使用，如果它们已经存在于磁盘上，并且客户机支持该编码。</p>
+
+<h3 id="语法-4">语法</h3>
+
+<pre><code>gzip
+</code></pre>
+
+<p>普通的gzip配置对于大多数情况都是足够用的，但是如果需要，您可以像这样：</p>
+
+<pre><code>gzip {
+    ext        extensions...
+    not        paths
+    level      compression_level
+    min_length min_bytes
+}
+</code></pre>
+
+<ul>
+<li><strong>extensions&hellip;</strong> 是压缩文件扩展，用空格分隔的列表。支持通配符 <code>*</code> 匹配所有扩展。</li>
+<li><strong>paths</strong>  是空格分隔的路径列表，不进行压缩.</li>
+<li><strong>compression_level</strong>  是从1（最佳速度）到9（最佳压缩）的数字。默认为9。</li>
+<li><strong>min_bytes</strong>  是在压缩发生之前所需的响应中的最小字节数。默认值不是最小长度。</li>
+</ul>
+
+<h3 id="例子-3">例子</h3>
+
+<p>启用gzip压缩：</p>
+
+<pre><code>gzip
+</code></pre>
+
+<p>启用非常快速最小压缩，除了在 /images 和 /videos 文件夹（注意，但图像和视频不会被 gzip 压缩）</p>
+
+<pre><code>gzip {
+    level 1
+    not   /images /videos
+}
+</code></pre>
+
+<h2 id="header">header</h2>
+
+<p>header 可以操纵响应头。</p>
+
+<p>请注意，如果您希望从代理后端删除响应标头，则必须在<a href="#proxy">代理</a>指令中执行此操作。</p>
+
+<h3 id="语法-5">语法</h3>
+
+<pre><code>header path name value
+</code></pre>
+
+<ul>
+<li><p><strong>path</strong> 是匹配的基本路径。</p></li>
+
+<li><p><strong>name</strong> 是字段的名称。前缀用连字符（<code>-</code>）删除标题或加号（<code>+</code>）来追加而不是覆盖。</p></li>
+
+<li><p><strong>value</strong> 是字段的值。也可以使用<a href="https://docs.getcaddy.cn/http-server/#placeholders">占位符</a>插入动态值。</p></li>
+</ul>
+
+<p>此指令可以多次使用，也可以为同一路径分组多个自定义标题字段：</p>
+
+<pre><code>header path {
+	name value
+}
+</code></pre>
+
+<h3 id="例子-4">例子</h3>
+
+<p>所有页面的自定义 header：</p>
+
+<pre><code>header / X-Custom-Header &quot;My value&quot;
+</code></pre>
+
+<p>从标题中剥离“隐藏”字段：</p>
+
+<pre><code>header / -Hidden
+</code></pre>
+
+<p>特定路径的多个自定义标头，同时删除服务器字段：</p>
+
+<pre><code>header /api {
+	Access-Control-Allow-Origin  *
+	Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;
+	-Server
+}
+</code></pre>
+
+<p>向所有页面添加一些安全标头：</p>
+
+<pre><code>header / {
+	# Enable HTTP Strict Transport Security (HSTS) to force clients to always
+	# connect via HTTPS (do not use if only testing)
+	Strict-Transport-Security &quot;max-age=31536000;&quot;
+	# Enable cross-site filter (XSS) and tell browser to block detected attacks
+	X-XSS-Protection &quot;1; mode=block&quot;
+	# Prevent some browsers from MIME-sniffing a response away from the declared Content-Type
+	X-Content-Type-Options &quot;nosniff&quot;
+	# Disallow the site to be rendered within a frame (clickjacking protection)
+	X-Frame-Options &quot;DENY&quot;
+}
+</code></pre>
+
+<h2 id="import">import</h2>
+
+<h2 id="index">index</h2>
+
+<p>索引设置用于 “index” 文件的文件名列表。当请求目录路径而不是特定的文件时，将对目录进行检查，以检查现有的索引文件。将提供第一个匹配的文件名。</p>
+
+<p>按照这个顺序，默认的索引文件是:</p>
+
+<ol>
+<li>index.html</li>
+<li>index.htm</li>
+<li>index.txt</li>
+<li>default.html</li>
+<li>default.htm</li>
+<li>default.txt</li>
+</ol>
+
+<p>当使用 index 指令时，将不会附加此列表。</p>
+
+<h3 id="语法-6">语法</h3>
+
+<pre><code>index filenames...
+</code></pre>
+
+<ul>
+<li>filenames&hellip;</li>
+</ul>
+
+<p>以空格分隔的文件名作为索引的列表。至少需要一个名称。</p>
+
+<h3 id="例子-5">例子</h3>
+
+<p>只使用 goaway.pn g和 easteregg.html 作为索引文件：</p>
+
+<pre><code>index goaway.png easteregg.html
+</code></pre>
+
+<h2 id="internal">internal</h2>
+
+<h2 id="limits">limits</h2>
+
+<h2 id="log">log</h2>
+
+<p>日志启用请求日志。请求日志也从一些白话语中被称为访问日志。</p>
+
+<h3 id="语法-7">语法</h3>
+
+<p>没有参数，访问日志将以所有请求的通用日志格式写入access.log：</p>
+
+<pre><code>log
+</code></pre>
+
+<p>自定义日志文件位置：</p>
+
+<pre><code>log file
+</code></pre>
+
+<p>是相对于当前工作目录创建（或附加到）日志文件的路径。有关如何指定输出位置的更多详细信息，请参阅日志位置。默认是access.log。</p>
+
+<p>要将此日志限制在某些请求或更改日志格式：</p>
+
+<pre><code>log path file [format]
+</code></pre>
+
+<ul>
+<li><strong>path</strong> 是要匹配的基本请求路径，以便记录。</li>
+<li><strong>file</strong> 是相对于当前工作目录创建（或附加到）的日志文件。</li>
+<li><strong>format</strong>  是要使用的日志格式; 默认为通用日志格式。</li>
+</ul>
+
+<p>大型日志文件会自动滚动。您可以通过打开一个块来自定义滚动日志：</p>
+
+<pre><code>log path file [format] {
+	rotate_size     mb
+	rotate_age      days
+	rotate_keep     count
+	rotate_compress
+}
+</code></pre>
+
+<ul>
+<li><strong>rotate_size</strong> 是滚动之前日志文件必须达到的大小（以兆字节为单位）。</li>
+<li><strong>rotate_age</strong> 是保留旋转日志文件的天数。</li>
+<li><strong>rotate_keep</strong> 是要保留的最大旋转日志文件数; 旧的旋转日志文件被修剪。</li>
+<li><strong>rotate_compress</strong> 是压缩旋转日志文件的选项。gzip是唯一支持的格式。</li>
+</ul>
+
+<h3 id="日志格式">日志格式</h3>
+
+<p>您可以使用任何<a href="https://docs.getcaddy.cn/http-server/#placeholders">占位符</a>值指定自定义日志格式。日志支持请求和响应占位符。</p>
+
+<p>目前有两种预置格式。</p>
+
+<p><strong>{common}（默认）</strong></p>
+
+<pre><code>{remote} - {user} [{when}] \&quot;{method} {uri} {proto}\&quot; {status} {size}
+</code></pre>
+
+<p><strong>{combined} - {common}追加</strong></p>
+
+<pre><code>\&quot;{&gt;Referer}\&quot; \&quot;{&gt;User-Agent}\&quot;
+</code></pre>
+
+<h3 id="日志位置">日志位置</h3>
+
+<p>日志位置可以是以下几种：</p>
+
+<ul>
+<li><p>相对于当前工作目录的文件名</p></li>
+
+<li><p><strong>stdout</strong> 或 <strong>stderr</strong> 写入控制台</p></li>
+
+<li><p><strong>visible</strong> 将错误（包括完整堆栈跟踪（如果适用））写入响应中（除了本地调试之外，不推荐）</p></li>
+
+<li><p><strong>syslog</strong> 写入本地系统日志（Windows下除外）</p></li>
+
+<li><p><strong>syslog://host[:port]</strong> 通过UDP写入本地或远程syslog服务器</p></li>
+
+<li><p><strong>syslog+udp://host[:port]</strong> 与上述相同</p></li>
+
+<li><p><strong>syslog+tcp://host[:port]</strong> 通过TCP写入本地或远程syslog服务器</p></li>
+</ul>
+
+<p>默认的日志位置是<code>stderr</code></p>
+
+<h3 id="滚动日志-1">滚动日志</h3>
+
+<p>日志有可能填满磁盘。为了减轻这种情况，错误日志将根据此默认配置自动滚动：</p>
+
+<pre><code>rotate_size 100 # Rotate a log when it reaches 100 MB
+rotate_age  14  # Keep rotated log files for 14 days
+rotate_keep 10  # Keep at most 10 rotated log files
+rotate_compress # Compress rotated log files in gzip format
+</code></pre>
+
+<p>您可以指定这些子目录来自定义滚动日志。</p>
+
+<h3 id="例子-6">例子</h3>
+
+<p>将所有请求记录到access.log：</p>
+
+<pre><code>log
+</code></pre>
+
+<p>将所有请求记录到stdout：</p>
+
+<pre><code>log stdout
+</code></pre>
+
+<p>自定义日志格式：</p>
+
+<pre><code>log / stdout &quot;{proto} Request: {method} {path}&quot;
+</code></pre>
+
+<p>预定格式：</p>
+
+<pre><code>log / stdout &quot;{combined}&quot;
+</code></pre>
+
+<p>滚动日志：</p>
+
+<pre><code>log requests.log {
+	rotate_size 50  # Rotate after 50 MB
+	rotate_age  90  # Keep rotated files for 90 days
+	rotate_keep 20  # Keep at most 20 log files
+	rotate_compress # Compress rotated log files in gzip format
+}
+</code></pre>
+
+<h2 id="markdown">markdown</h2>
+
+<p>markdown 可以根据需要将 <code>markdown文件</code> 作为 HTML 页面服务。您可以指定整个自定义模板，或者仅在页面上使用 CSS 和 JavaScript 文件，以自定义的外观和行为。</p>
+
+<h3 id="语法-8">语法</h3>
+
+<pre><code>markdown [basepath] {
+	ext         extensions...
+	[css|js]    file
+	template    [name] path
+	templatedir defaultpath
+}
+</code></pre>
+
+<ul>
+<li>basepath</li>
+</ul>
+
+<p>是匹配的基本路径。如果请求 URL 没有以此路径前缀，则 Markdow n将不会激活。默认是站点的根目录。</p>
+
+<ul>
+<li>extensions&hellip;</li>
+</ul>
+
+<p>以空格分隔的文件扩展名列表，用作 Markdown（默认为.md，.markdown 和.mdown）; 这与使用缺省文件扩展名的ext指令不同。</p>
+
+<ul>
+<li>css</li>
+</ul>
+
+<p>表明下一个参数是在页面上使用的 css 文件</p>
+
+<ul>
+<li>js</li>
+</ul>
+
+<p>指出下一个参数是包含在页面上的 JavaScript 文件。</p>
+
+<ul>
+<li>file</li>
+</ul>
+
+<p>添加到页面的JS或CSS文件。</p>
+
+<ul>
+<li>template</li>
+</ul>
+
+<p>定义了一个带有给定名称的模板在给定的路径上。要指定默认模板，请省略名称。Markdown 文件可以使用其前面的名称来选择模板。</p>
+
+<ul>
+<li>templatedir</li>
+</ul>
+
+<p>设置在列出模板时使用给定的 defaultpath 的默认路径。</p>
+
+<p>您可以多次使用 js 和 css 参数来为默认模板添加更多的文件。如果您想接受默认值，应该完全省略花括号。</p>
+
+<h3 id="前端-文档元数据">前端 (文档元数据)</h3>
+
+<p>Markdown 文件可能从前面的事情开始，这是一个关于文件的特殊格式的元数据块。例如，它可以描述用于呈现文件的 HTML 模板，或者定义标题标签的内容。前面的内容可以是 YAML、TOML 或 JSON 格式。</p>
+
+<p>TOML 以 <code>+++</code> 开始和结束：</p>
+
+<pre><code>+++
+template = &quot;blog&quot;
+title = &quot;Blog Homepage&quot;
+sitename = &quot;A Caddy site&quot;
++++
+</code></pre>
+
+<p>YAML 以 <code>---</code> 开始和结束：</p>
+
+<pre><code>---
+template: blog
+title: Blog Homepage
+sitename: A Caddy site
+---
+</code></pre>
+
+<p>JSOn 用 <code>{}</code> 包起来</p>
+
+<pre><code>{
+	&quot;template&quot;: &quot;blog&quot;,
+	&quot;title&quot;: &quot;Blog Homepage&quot;,
+	&quot;sitename&quot;: &quot;A Caddy site&quot;
+}
+</code></pre>
+
+<p>前面的字段 &ldquo;author&rdquo;, &ldquo;copyright&rdquo;, &ldquo;description&rdquo; 和 &ldquo;subject&rdquo; 将用于<code>&lt;meta&gt;</code>在呈现的页面上创建标签。</p>
+
+<h3 id="markdown-模板">Markdown 模板</h3>
+
+<p>模板文件只是带有模板标签的 HTML 文件，称为 actions ，可以根据所提供的文件插入动态内容。元数据中定义的变量可以从<code>{{.Doc.variable}}</code>这样的模板中访问，其中“variable”是变量的名称。该变量<code>.Doc.body</code>保存 markdown 文件的主体。</p>
+
+<p>这是一个简单的示例模板（设计）：</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;{{.Doc.title}}&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Welcome to {{.Doc.sitename}}!
+		&lt;br&gt;&lt;br&gt;
+		{{.Doc.body}}
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>除了这些模板操作之外，所有<a href="https://docs.getcaddy.cn/http-server/#template-actions">标准 Caddy 模板操作</a>都可以在 Markdown 模板中使用。一定要将您渲染的任何HTML(使用 HTML、js 和 urlquery 函数)进行过滤!</p>
+
+<h3 id="例子-7">例子</h3>
+
+<p>在没有特殊格式的情况下，在/ blog中设置Markdown页面（假设.md是Markdown扩展名）：</p>
+
+<pre><code>markdown /blog
+</code></pre>
+
+<p>与上述相同，但使用自定义的 CSS 和 JS 文件：</p>
+
+<pre><code>markdown /blog {
+	ext .md .txt
+	css /css/blog.css
+	js  /js/blog.js
+}
+</code></pre>
+
+<p>使用自定义模板：</p>
+
+<pre><code>markdown /blog {
+	template default.html
+	template blog  blog.html
+	template about about.html
+}
+</code></pre>
+
+<h2 id="mime">mime</h2>
+
+<p>mime在请求中基于文件扩展的响应设置内容类型。
+通常情况下，通过嗅探内容，可以自动地检测到静态文件，但有时候是不可能的。如果您遇到的响应是错误的内容类型，或者是服务于静态文件以外的内容，您可以使用这个中间件来设置正确的内容类型。</p>
+
+<h3 id="语法-9">语法</h3>
+
+<pre><code>mime ext type
+</code></pre>
+
+<ul>
+<li><strong>ext</strong> 是要匹配的文件扩展名，包括<code>.</code>前缀。</li>
+<li><strong>type</strong> 是Content-Type</li>
+</ul>
+
+<p>如果您有很多MIME类型要设置，请打开一个代码块：</p>
+
+<pre><code>mime {
+	ext type
+}
+</code></pre>
+
+<p>每行定义一个MIME扩展类型对。您可以在mime块中具有所需的行数。</p>
+
+<h3 id="例子-8">例子</h3>
+
+<p>自定义Flash文件的内容类型：</p>
+
+<pre><code>mime .swf application/x-shockwave-flash
+</code></pre>
+
+<p>对于多个文件：</p>
+
+<pre><code>mime {
+	.swf application/x-shockwave-flash
+	.pdf application/pdf
+}
+</code></pre>
+
+<h2 id="pprof">pprof</h2>
+
+<p>pprof 在 /debug /pprof 中发布运行时分析数据。您可以在站点上访问 /debug /pprof，以获得可用端点的索引。</p>
+
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>这是一个调试工具。 某些请求（如收集执行跟踪）可能很慢。 如果您在现场网站上使用pprof，请考虑限制访问或仅暂时启用它。</p>
+</div>
+
+<p>有关更多信息，请参阅<a href="https://golang.org/pkg/net/http/pprof/">Go的pprof文档</a>并阅读<a href="https://blog.golang.org/profiling-go-programs">Profiling Go程序</a>。</p>
+
+<h3 id="语法-10">语法</h3>
+
+<pre><code>pprof
+</code></pre>
+
+<h3 id="例子-9">例子</h3>
+
+<p>启用 pprof</p>
+
+<pre><code>pprof
+</code></pre>
+
+<h2 id="proxy">proxy</h2>
+
+<p>proxy 方便了基本的反向代理和稳健的负载均衡器。该 proxy 支持多个后端和添加自定义标头。负载均衡功能包括多个策略，运行状况检查和故障转移。Caddy 还可以代理 WebSocket 连接。</p>
+
+<p>该中间件添加了可以以<a href="#log">日志</a>格式使用的<a href="https://docs.getcaddy.cn/http-server/#placeholders">占位符</a>：{upstream} - 请求被代理的上游主机的名称。</p>
+
+<h3 id="语法-11">语法</h3>
+
+<p>在其最基本的形式中，简单的反向代理使用以下语法：</p>
+
+<pre><code>proxy from to
+</code></pre>
+
+<ul>
+<li>from</li>
+</ul>
+
+<p>是要被代理的请求的基本路径</p>
+
+<ul>
+<li>to</li>
+</ul>
+
+<p>是要代理的目标端点（可能包括端口范围）</p>
+
+<p><strong>但是，包括负载平衡在内的高级功能可以用扩展语法来使用：</strong></p>
+
+<pre><code>proxy from to... {
+	policy name [value]
+	fail_timeout duration
+	max_fails integer
+	max_conns integer
+	try_duration duration
+	try_interval duration
+	health_check path
+	health_check_port port
+	health_check_interval interval_duration
+	health_check_timeout timeout_duration
+	header_upstream name value
+	header_downstream name value
+	keepalive number
+	without prefix
+	except ignored_paths...
+	upstream to
+	insecure_skip_verify
+	preset
+}
+</code></pre>
+
+<ul>
+<li>from</li>
+</ul>
+
+<p>是要被代理的请求的基本路径。</p>
+
+<ul>
+<li>to</li>
+</ul>
+
+<p>是要代理的目的端点。需要至少一个，但可以指定多个。如果未指定方案（http / https），则使用http。Unix 套接字也可以通过前缀 “unix：”来使用。</p>
+
+<ul>
+<li>policy</li>
+</ul>
+
+<p>使用负载均衡策略; 仅适用于多个后端。可以是随机的，least_conn，round_robin，first，ip_hash，uri_hash 或 header。如果选择 header ，还必须提供 header 名称。默认是随机的。</p>
+
+<ul>
+<li>fail_timeout</li>
+</ul>
+
+<p>指定记录对后端的请求失败最长时间。超时&gt;0 启用了请求失败计数，并且在失败的情况下需要在后台进行负载均衡。如果失败的请求数量累积到 max_fail s值，则主机将被视为已关闭，并且不会将请求路由到该主机，直到失败的请求开始被忘记为止。默认情况下，这是禁用（0s），意味着失败的请求将不会被记住，后端将始终被视为可用。必须是持续时间值（如“10s”或“1m”）。</p>
+
+<ul>
+<li>max_fails</li>
+</ul>
+
+<p>在考虑后端关闭之前需要的 fail_timeout 中的失败请求数。如果 fail_timeout 为0，则不使用。必须至少为1，默认值为1。</p>
+
+<ul>
+<li>max_conns</li>
+</ul>
+
+<p>每个后端的最大并发请求数。0表示无限制。达到极限时，其他请求将失败，并显示 Bad Gateway（502）。默认值为0。</p>
+
+<ul>
+<li>try_duration</li>
+</ul>
+
+<p>为每个请求选择可用的上游主机多长时间。默认情况下，此重试被禁用（“0s”）。客户端可能会挂起这么长时间，而代理尝试找到可用的上游主机。仅当对初始选择的上游主机的请求失败时才使用此值。</p>
+
+<ul>
+<li>try_interval</li>
+</ul>
+
+<p>是在选择另一个上游主机来处理请求之间等待多长时间。默认值为250ms。只有在向上游主机的请求失败时才相关。请注意，使用 try_duration 将其设置为0可能会导致非常严格的循环，并且如果所有主机都停留，则可以占满CPU。</p>
+
+<ul>
+<li>health_check</li>
+</ul>
+
+<p>将使用路径来检查每个后台的运行状况。如果后端返回200-399的状态码，则该后端被认为是健康的。如果没有，后端标记为 health_check_interval 不健康，并且请求不会被路由到它。如果未提供此选项，则禁用健康检查。</p>
+
+<ul>
+<li>health_check_port</li>
+</ul>
+
+<p>将使用端口来执行运行状况检查，而不是为上游提供的端口。如果您使用内部端口进行调试，则健康检查端点会从公共视图中隐藏，这很有用。</p>
+
+<ul>
+<li>health_check_interval</li>
+</ul>
+
+<p>指定不健康后端的每个健康检查之间的时间。默认间隔为30秒（“30秒”）。</p>
+
+<ul>
+<li>health_check_timeout</li>
+</ul>
+
+<p>设置健康检查请求的最后期限。如果健康检查在 health_check_timeout 内没有响应，则健康状况检查被认为是失败的。默认值为60秒（“60s”）。</p>
+
+<ul>
+<li>header_upstream</li>
+</ul>
+
+<p>将文件头传递给后端。字段名称是 name，值是 value。多个标题可以多次指定此选项，也可以使用请求占位符插入动态值。默认情况下，现有的字段头将被替换，但您可以通过使用加号（+）前缀字段名称来添加或合并字段值。您可以通过使用减号（ - ）前缀标题名称来删除字段，并将该值留空。</p>
+
+<ul>
+<li>header_downstream</li>
+</ul>
+
+<p>修改后端返回的响应头。它的工作方式与 header_upstream 相同。</p>
+
+<ul>
+<li>keepalive</li>
+</ul>
+
+<p>是保持打开到后端的最大空闲连接数。默认启用;设置为0，禁用 keepalives。在繁忙的服务器上设置更高的值。</p>
+
+<ul>
+<li>without</li>
+</ul>
+
+<p>在将请求代理向上游之前，没有URL前缀。例如，请求/api /foo /api将会导致代理请求/foo。</p>
+
+<ul>
+<li>except</li>
+</ul>
+
+<p>一个空格分隔的路径列表，以排除在代理之外。与 ignored_paths 匹配的请求将通过 thrued。</p>
+
+<ul>
+<li>upstream</li>
+</ul>
+
+<p>指定另一个后端。如果需要，它可以使用像&rdquo;:8080-8085&rdquo;这样的端口范围。当有很多后端路由时，它经常被使用多次。</p>
+
+<p>-insecure_skip_verify</p>
+
+<p>覆盖了后端TLS证书的验证，基本上通过HTTPS禁用安全功能。</p>
+
+<ul>
+<li>preset</li>
+</ul>
+
+<p>配置代理以满足某些条件的可选速记方式。请参阅下面的预设。</p>
+
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>为了在失败事件中执行适当的冗余负载均衡，必须设置fail_timeout 和 try_duration 值为&gt;0。</p>
+</div>
+
+<p>第一个选项之后的所有内容都是可选的，包括由大括号括起来的属性块。</p>
+
+<h3 id="预设">预设</h3>
+
+<p>以下的预设有:</p>
+
+<ul>
+<li>websocket</li>
+</ul>
+
+<p>指示此代理正在转发WebSocket连接。这是简写:</p>
+
+<pre><code>header_upstream Connection {&gt;Connection}
+header_upstream Upgrade {&gt;Upgrade}
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>HTTP/2 不支持协议升级。</p>
+</div>
+
+<ul>
+<li>transparent</li>
+</ul>
+
+<p>从原始请求中传递主机信息，这是大多数后端应用程序所期望的。简写:</p>
+
+<pre><code> header_upstream Host {host}
+header_upstream X-Real-IP {remote}
+header_upstream X-Forwarded-For {remote}
+header_upstream X-Forwarded-Proto {scheme}
+</code></pre>
+
+<h3 id="策略">策略</h3>
+
+<p>有几种负载均衡策略可用:</p>
+
+<ul>
+<li>random (default)</li>
+</ul>
+
+<p>随机选择后端。</p>
+
+<ul>
+<li>least_conn</li>
+</ul>
+
+<p>选择后端与最少的活动连接。</p>
+
+<ul>
+<li>round_robin</li>
+</ul>
+
+<p>以循环方式选择后端。</p>
+
+<ul>
+<li>frist</li>
+</ul>
+
+<p>按照在Caddyfile中定义的顺序选择第一个可用的后端。</p>
+
+<ul>
+<li>ip_hash</li>
+</ul>
+
+<p>通过散列请求 IP 来选择后端，根据后端的总数均匀分布在哈希空间上。</p>
+
+<ul>
+<li>uri_hash</li>
+</ul>
+
+<p>通过散列请求 URI 来选择后端，根据后端的总数均匀分布在哈希空间上</p>
+
+<ul>
+<li>header</li>
+</ul>
+
+<p>通过散列由策略名称后面的[value]指定的给定标题的值进行选择，基于总后端数量均匀分布在散列空间</p>
+
+<h3 id="例子-10">例子</h3>
+
+<p>将/ api内的所有请求代理到后台系统：</p>
+
+<pre><code>proxy /api localhost:9005
+</code></pre>
+
+<p>负载均衡三个后端之间的所有请求（使用随机策略）：</p>
+
+<pre><code>proxy / web1.local:80 web2.local:90 web3.local:100
+</code></pre>
+
+<p>与上述相同，具有 header 关联性：</p>
+
+<pre><code>proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy header X-My-Header
+}
+</code></pre>
+
+<p>循环风格：</p>
+
+<pre><code>proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy round_robin
+}
+</code></pre>
+
+<p>使用健康检查和代理标头来传递主机名，IP和方案上游：</p>
+
+<pre><code>proxy / web1.local:80 web2.local:90 web3.local:100 {
+	policy round_robin
+	health_check /health
+	transparent
+}
+</code></pre>
+
+<p>代理WebSocket连接：</p>
+
+<pre><code>proxy /stream localhost:8080 {
+	websocket
+}
+</code></pre>
+
+<p>排除 /static 或 /robots.txt 的代理请求：</p>
+
+<pre><code>proxy / backend:1234 {
+	except /static /robots.txt
+}
+</code></pre>
+
+<h2 id="push">push</h2>
+
+<h2 id="redir">redir</h2>
+
+<p>如果URL匹配指定的规则，redir 会向客户端发送 HTTP 重定向状态代码。你也可以给它定义条件。</p>
+
+<h3 id="语法-12">语法</h3>
+
+<pre><code>redir from to [code]
+</code></pre>
+
+<ul>
+<li>from</li>
+</ul>
+
+<p>要匹配的请求路径（它必须完全匹配，除了/，这代表匹配全部）。</p>
+
+<p>-to</p>
+
+<p>重定向到（可使用的路径<a href="https://docs.getcaddy.cn/http-server/#placeholders">请求占位符</a>）。</p>
+
+<ul>
+<li>code</li>
+</ul>
+
+<p>用于响应的HTTP状态代码; 必须在[300-308]（不包括306.）范围内。也可以使用<code>meta</code>为浏览器发布元标记进行重定向。默认状态代码是301（永久重定向）。</p>
+
+<p>要创建永久的“全部”重定向，请忽略 from 值：</p>
+
+<pre><code>redir to
+</code></pre>
+
+<p>如果您有很多重定向，请通过创建表来共享重定向代码：</p>
+
+<pre><code>redir [code] {
+	from to [code]
+}
+</code></pre>
+
+<p>每行定义一个重定向，并可以选择覆盖在<code>表</code>顶部定义的重定向代码。如果未指定重定向代码，则使用默认值。</p>
+
+<p>一组重定向也可以是有条件的：</p>
+
+<pre><code>redir [code] {
+	if    a cond b
+	if_op [and|or]
+	...
+}
+</code></pre>
+
+<ul>
+<li>if</li>
+</ul>
+
+<p>指定重写条件。默认情况下，多个 if 需要同时满足[译者注：<code>与</code>] 。a 和 b 可以是任何字符串，可以使用请求占位符。 cond 是条件，可能的值在<a href="#rewrite">rewrite</a>中可以看到 （也有一个if声明）。</p>
+
+<p>if_op 指定 if 之间如何联系; 默认是and[译者注：and = <code>与</code> or = <code>或</code>]。</p>
+
+<h3 id="被保护的路径">被保护的路径</h3>
+
+<p>默认情况下，重定向会精确匹配路径到您定义的精确位置。您可以在任何&rdquo;to&rdquo;参数中使用<a href="https://docs.getcaddy.cn/http-server/#placeholders">可替换值</a>（例如{uri} 或 {path}）来保留请求URL的路径或其他部分。仅支持请求占位符。</p>
+
+<h3 id="例子-11">例子</h3>
+
+<p>当请求进入/resources/images/photo.jpg 时，使用HTTP 307（临时重定向）状态码重定向到/resources/images/drawing.jpg：</p>
+
+<pre><code>redir /resources/images/photo.jpg /resources/images/drawing.jpg 307
+</code></pre>
+
+<p>将所有请求重定向到<a href="https://newsite.com，同时保留请求">https://newsite.com，同时保留请求</a> URI：</p>
+
+<pre><code>redir https://newsite.com{uri}
+</code></pre>
+
+<p>定义共享 307 状态代码的多个重定向，最后一个除外：</p>
+
+<pre><code>redir 307 {
+	/foo     /info/foo
+	/todo    /notes
+	/api-dev /api       meta
+}
+</code></pre>
+
+<p>只有转发协议是 HTTP 时重定向：</p>
+
+<pre><code>redir 301 {
+	if {&gt;X-Forwarded-Proto} is http
+	/  https://{host}{uri}
+}
+</code></pre>
+
+<h3 id="语法-13">语法</h3>
+
+<h2 id="request-id">request_id</h2>
+
+<h2 id="rewrite">rewrite</h2>
+
+<p>rewrite 执行内部 URL 重写。这允许客户端请求一个资源，但实际上是另一个资源，而不需要 HTTP 重定向。rewrite 是客户不可见的。</p>
+
+<p>有简单的 rewrite（快速）和复杂的 rewrite（较慢），但它们足够强大以适应大多数动态后端应用程序。</p>
+
+<h3 id="语法-14">语法</h3>
+
+<pre><code>rewrite from to
+</code></pre>
+
+<ul>
+<li>from</li>
+</ul>
+
+<p>匹配的确切路径</p>
+
+<p>-to</p>
+
+<p>重写（资源与响应）的目标路径</p>
+
+<p>高级用户可能会打开一个块并进行复杂的重写规则：</p>
+
+<pre><code>rewrite [basepath] {
+	regexp pattern
+	ext    extensions...
+	if     a cond b
+	if_op  [and|or]
+	to     destinations...
+}
+</code></pre>
+
+<ul>
+<li>basepath</li>
+</ul>
+
+<p>与正则表达式改写前匹配的基本路径。默认为/。</p>
+
+<ul>
+<li>regexp（简写：&rdquo;r&rdquo;）</li>
+</ul>
+
+<p>将匹配给定正则表达式模式的路径 。
+&gt; 超高负载服务器应避免使用正则表达式。</p>
+
+<ul>
+<li>extensions&hellip;</li>
+</ul>
+
+<p>包含或忽略的文件扩展名（带<code>.</code>）以空格分隔。前缀以扩展名 <code>!</code> 排除。正斜杠 <code>/</code> 符号匹配没有文件扩展名的路径。</p>
+
+<ul>
+<li>if</li>
+</ul>
+
+<p>指定重写条件。多个if之间默认为 and (<code>与</code>) 的关系。a 和 b 可以是任何字符串，可以使用<a href="https://docs.getcaddy.cn/http-server/#placeholders">请求占位符</a>。 <code>cond</code>是条件，可能的值如下所述。</p>
+
+<ul>
+<li>if_op</li>
+</ul>
+
+<p>指定 if 之间如何联系; 默认是and[译者注：and = <code>与</code> or = <code>或</code>]。</p>
+
+<ul>
+<li>destinations&hellip;</li>
+</ul>
+
+<p>一个或多个空格分隔的路径来重写，支持 <a href="https://docs.getcaddy.cn/http-server/#placeholders">请求占位符</a>以及编号的正则表达式捕获，如{1}，{2}等。重写将按顺序检查每个目标位置并重写存在的第一个目标规则。每一个都被作为一个文件进行检查，或者作为一个目录结束。如果没有其他目标规则，最后一个目标规则将作为默认值。</p>
+
+<h3 id="if-条件">if 条件</h3>
+
+<p>if关键字是描述的规则的强大方法。它需要的格式 <code>a cond b</code>，其中的值 <code>a</code> 和 <code>b</code> 被 <code>cond</code> 分隔开，形成一个条件。它可以是这样的:</p>
+
+<ul>
+<li>is = a等于b</li>
+<li>not = a不等于b</li>
+<li>has = a有b作为子串（b是a的子字符串）</li>
+<li>not_has = b不是a的子串</li>
+<li>starts_with = b是a的前缀</li>
+<li>not_starts_with = b不是a的前缀</li>
+<li>ends_with = b是a的后缀</li>
+<li>not_ends_with = b不是a的后缀</li>
+<li>match = <code>任何</code>匹配b，其中b是正则表达式</li>
+<li>not_match = a不匹配b，其中b是正则表达式</li>
+</ul>
+
+<p>注意：作为一般规则，您可以cond通过使用前缀来对任何条件进行否定<code>not_</code>。</p>
+
+<h3 id="例子-12">例子</h3>
+
+<p>将所有内容重写为 /index.php。（<code>rewrite / /index.php</code>只匹配/）</p>
+
+<pre><code>rewrite / {
+	regexp .*
+	to /index.php
+}
+</code></pre>
+
+<p>当请求进入/mobile 时，实际上是 /mobile/index</p>
+
+<pre><code>rewrite /mobile /mobile/index
+</code></pre>
+
+<p>如果文件不是favicon.ico，并且它不是有效的文件或目录，请提供维护页面（如果存在），或者最后重写为index.php。</p>
+
+<pre><code>rewrite {
+	if {file} not favicon.ico
+	to {path} {path}/ /maintenance.html /index.php
+}
+</code></pre>
+
+<p>如果用户代理包含&rdquo;mobile&rdquo;，且路径不是有效的文件/目录，rewrite 到移动索引页。</p>
+
+<pre><code>rewrite {
+	if {&gt;User-agent} has mobile
+	to {path} {path}/ /mobile/index.php
+}
+</code></pre>
+
+<p>用查询字符串 rewrite /app 到 /index 并且带<code>{1}</code>匹配<code>(.*)</code>。</p>
+
+<pre><code>rewrite /app {
+	r  (.*)
+	to /index?path={1}
+}
+</code></pre>
+
+<p>将 /app/example 的请求重写到 /index.php?category=example.</p>
+
+<pre><code>rewrite /app {
+	r  ^/(\w+)/?$
+	to /index?category={1}
+}
+</code></pre>
+
+<h2 id="root">root</h2>
+
+<p>root 指定站点的根目录。这在网站的根目录（/）与 Caddy 执行的目录不同时非常有用。</p>
+
+<p>默认的root是当前的工作目录。相对的根路径是相对于当前工作目录。</p>
+
+<h3 id="语法-15">语法</h3>
+
+<pre><code>root path
+</code></pre>
+
+<ul>
+<li>path</li>
+</ul>
+
+<p>站点根目录</p>
+
+<h3 id="例子-13">例子</h3>
+
+<p>从 jake 的p ublic_html 文件夹中运行，而不是当前工作目录:</p>
+
+<pre><code>root /home/jake/public_html
+</code></pre>
+
+<h2 id="shutdown">shutdown</h2>
+
+<h2 id="startup">startup</h2>
+
+<p>启动在服务器开始时执行命令。这对于通过运行脚本或启动后台进程（如php-fpm）来准备服务站点非常有用。（另请参见 <a href="#shutdown">shutdown</a>）</p>
+
+<p>在启动时执行的每个命令都是阻塞的，除非您使用空格和<code>&amp;</code>后缀命令，否则将导致命令在后台运行。命令的输出和错误分别转到<code>stdout</code>和<code>stderr</code>。没有stdin。</p>
+
+<p>在<code>Caddyfile</code>中，命令只执行一次。</p>
+
+<h3 id="语法-16">语法</h3>
+
+<pre><code>startup command
+</code></pre>
+
+<ul>
+<li>command</li>
+</ul>
+
+<p>执行的命令; 其后可能是参数</p>
+
+<h3 id="例子-14">例子</h3>
+
+<p>在开始监听之前启动php-fpm：</p>
+
+<pre><code>startup /etc/init.d/php-fpm start、
+</code></pre>
+
+<p>在 Windows 上，当命令路径包含空格时，可能需要使用引号：</p>
+
+<pre><code>startup &quot;\&quot;C:\Program Files\PHP\v7.0\php-cgi.exe\&quot; -b 127.0.0.1:9123&quot; &amp;
+</code></pre>
+
+<h2 id="status">status</h2>
+
+<h2 id="templates">templates</h2>
+
+<h2 id="timeouts">timeouts</h2>
+
+<h2 id="tls">tls</h2>
+
+<p>tls配置HTTPS连接。由于 HTTPS 已自动启用，因此该指令只能用于覆盖默认设置。如果有的话，要小心使用。</p>
+
+<p>Caddy 支持 SNI(服务器名指示)，所以您可以在您的机器上的同一个端口上服务多个HTTPS站点。此外，Caddy还为所有合格证书实施 OCSP 封装。Caddy 还会自动轮换所有 TLS 会话密钥。</p>
+
+<p>tls 指令将忽略被显式定义为 http:// 或在端口80上的站点。这允许您在一个与 HTTP 和 HTTPS 站点共享的服务器块中使用 tls 指令。</p>
+
+<p>如果在启动服务器时并不是所有的主机名都不知道，那么您可以使用<a href="https://docs.getcaddy.cn/http-server/#on-demand">按需TLS功能</a>，它在 TLS 握手期间发出证书，而不是在启动时发出证书。</p>
+
+<div class="admonition note">
+<p class="admonition-title">Caddy 对于密码套件，曲线，密钥类型和协议都有合理的默认值。</p>
+<p>他们的选择和排序可能随着新版本而改变。你可能不需要自己改变它们。调整 TLS 配置需要自担风险。</p>
+</div>
+
+<h3 id="语法-17">语法</h3>
+
+<pre><code>tls off
+</code></pre>
+
+<p>禁用站点的 TLS 。不推荐，除非你知道自己在做什么。关闭 TLS，自动 HTTPS也被禁用，因此默认端口（2015）将不会更改。</p>
+
+<pre><code>tls email
+</code></pre>
+
+<ul>
+<li>email</li>
+</ul>
+
+<p>用于生成具有受信任CA的证书的电子邮件地址。通过在这里提供电子邮件，您将不会在运行 Caddy 时被提示。</p>
+
+<p>虽然不需要使用上面的语法来启用 TLS，但是它允许您指定用于您的 CA 帐户的电子邮件地址，而不是提示一个或使用以前运行的另一个。</p>
+
+<p>要使用自己的证书和秘钥：</p>
+
+<pre><code>tls cert key
+</code></pre>
+
+<ul>
+<li>cert</li>
+</ul>
+
+<p>证书文件。如果证书是由 CA 签名的，那么这个证书文件应该是一个合成证书:域名证书，然后是 CA 的证书(根证书通常不需要)。</p>
+
+<ul>
+<li>key</li>
+</ul>
+
+<p>与证书文件匹配的私钥文件。</p>
+
+<p>您可以多次使用此指令来指定多个证书和密钥对。</p>
+
+<p>或者让 Caddy 在内存中生成并使用不受信任的自签名证书：</p>
+
+<pre><code>tls self_signed
+</code></pre>
+
+<p>上面的语法使用了 Caddy 的默认 TLS 设置，其中包含了您自己的证书和密钥或者自签名证书，在大多数情况下应该是足够的。
+高级用户可以打开一个设置块，以获得更多的控制，可选择指定他们自己的证书和密钥:</p>
+
+<pre><code>tls [cert key] {
+    ca        uri
+    protocols min max
+    ciphers   ciphers...
+    curves    curves...
+    clients   [request|require|verify_if_given] clientcas...
+    load      dir
+    max_certs limit
+    key_type  type
+    dns       provider
+    alpn      protos...
+    must_staple
+}
+</code></pre>
+
+<ul>
+<li>ca</li>
+</ul>
+
+<p>指定与ACME兼容的证书颁发机构端点来请求证书。</p>
+
+<ul>
+<li>cert 和 key</li>
+</ul>
+
+<p>证书和密钥与上述相同。</p>
+
+<ul>
+<li>protocols</li>
+</ul>
+
+<p>规定了支持的最小和最大协议版本。见下面的有效值。如果min和max相同，则只需要指定一次。</p>
+
+<ul>
+<li>ciphers</li>
+</ul>
+
+<p>一列空间分隔的密码，将被支持，覆盖默认值。如果您列出了任何一个，只有您指定的那些将被允许并且优先于给定的。请参阅下面的有效值。</p>
+
+<ul>
+<li>curves</li>
+</ul>
+
+<p>以给定顺序支持的空格分隔曲线的列表，覆盖默认值。有效曲线如下。</p>
+
+<ul>
+<li>clents</li>
+</ul>
+
+<p>在 TLS 客户端身份验证过程中用于验证的空间分离客户根 CA 的列表。如果使用，客户将被要求通过他们的浏览器提交他们的证书，这将会在客户端证书颁发机构的列表中得到验证。如果客户的证书没有由其中一个root ca 签名，则客户端将不被允许连接。注意，这个设置适用于整个监听器，而不仅仅是一个站点。您可以在客户端 CA 列表前使用一个关键字修改客户端身份验证的严格性:
+- * <strong>request</strong>  仅要求客户端提供证书，但如果没有提供或提交无效的，则不会失败。
+- * <strong>require</strong>  需要客户端证书，但不验证它。
+- * <strong>verify_if_given</strong>  如果没有提交，verify_if_given 将不会失败，但拒绝所有未通过验证的内容。
+- * <strong>默认</strong> 默认情况下，如果没有设置标志，但是找到了 CA 文件，则需要同时执行这两种操作:要求客户机证书并验证它们。</p>
+
+<ul>
+<li>load</li>
+</ul>
+
+<p>从中加载证书和密钥的目录。整个目录及其子文件夹将被搜索到.pem文件。每个.pem 文件必须包含 PEM 编码的证书（链）和关键块，并联在一起。</p>
+
+<ul>
+<li>max_certs</li>
+</ul>
+
+<p>启用按需的TLS，在第一次握手时获得证书，而不是在启动时。如果在 Caddyfile 中提供完整的主机名并在启动时知道，则不建议使用此方法。这个限制值限制了允许在这个站点上(在TLS握手期间)发出的证书数量。它一定是一个正整数。此值在流程退出后重新设置(通过重新加载保存)。</p>
+
+<ul>
+<li>key_type</li>
+</ul>
+
+<p>是生成证书密钥时使用的密钥类型（仅适用于托管或TLS或自签名证书）。有效值为 rsa2048，rsa4096，rsa8192，p256和p384。默认是rsa2048。</p>
+
+<ul>
+<li>dns</li>
+</ul>
+
+<p>是dns提供者的名称;指定它可以实现 <a href="https://docs.getcaddy.cn/http-server/#dns-challenge">DNS 域名验证</a>。请注意，您需要提供凭据才能正常工作。</p>
+
+<ul>
+<li>alpn</li>
+</ul>
+
+<p>是用于应用层协议协商（ALPN）的空格分隔协议的列表。对于 HTTPS 服务器，可以通过此设置启用/禁用HTTP 版本。默认是 <code>h2 http/1.1</code>。</p>
+
+<ul>
+<li>must_staple</li>
+</ul>
+
+<p>启用管理证书的必备程序。小心使用。</p>
+
+<h3 id="协议">协议</h3>
+
+<p>按照优先级降序支持以下协议：</p>
+
+<blockquote>
+<p>tls1.2（默认最大值）
+tls1.1（默认最小值）
+TLS1.0</p>
+</blockquote>
+
+<p>请注意，设置最小的协议版本过高将限制能够连接的客户端，但有利于更好的隐私。[译者注：由于安全性原因，不建议使用 tls2.0 和 tls3.0 协议版本]</p>
+
+<p>支持的协议和默认协议版本可以随时更改。</p>
+
+<h3 id="密码套件">密码套件</h3>
+
+<p>目前支持以下密码套件：</p>
+
+<blockquote>
+<p>ECDHE-ECDSA-AES256-GCM-SHA384
+ECDHE-RSA-AES256-GCM-SHA384
+ECDHE-ECDSA-AES128-GCM-SHA256
+ECDHE-RSA-AES128-GCM-SHA256
+ECDHE-ECDSA-WITH-CHACHA20-POLY1305
+ECDHE-RSA-WITH-CHACHA20-POLY1305
+ECDHE-RSA-AES256-CBC-SHA
+ECDHE-RSA-AES128-CBC-SHA
+ECDHE-ECDSA-AES256-CBC-SHA
+ECDHE-ECDSA-AES128-CBC-SHA
+RSA-AES256-CBC-SHA
+RSA-AES128-CBC-SHA
+ECDHE-RSA-3DES-EDE-CBC-SHA
+RSA-3DES-EDE-CBC-SHA</p>
+</blockquote>
+
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>注意：出于安全考虑，HTTP/2 规范将拉黑超过275个密码套件。除非你知道你在做什么，否则最好接受默认的密码套件设置。</p>
+</div>
+
+<p>密码套件可以随时添加到Caddy或从Caddy中删除。类似地，默认密码套件可以随时更改。</p>
+
+<h3 id="曲线">曲线</h3>
+
+<p>EC密码套件支持以下曲线：</p>
+
+<blockquote>
+<p>X25519
+P256
+P384
+P521</p>
+</blockquote>
+
+<h3 id="例子-15">例子</h3>
+
+<p>记住，默认情况下启用TLS，并且通常不需要此指令！这些示例适用于手动管理证书或需要自定义设置的高级用户。</p>
+
+<p>使用 HTTPS 使用自定义证书和私钥：</p>
+
+<pre><code>tls ../cert.pem ../key.pem
+</code></pre>
+
+<p>根据需要在TLS握手期间获得证书，限制10个新证书：</p>
+
+<pre><code>tls {
+    max_certs 10
+}
+</code></pre>
+
+<p>加载所有在 /www/certificates 中发现的pem证书和密钥:</p>
+
+<pre><code>tls {
+    load /www/certificates
+}
+</code></pre>
+
+<p>在内存中提供具有自签名证书的站点（浏览器不受信任，但方便本地开发）：</p>
+
+<pre><code>tls self_signed
+</code></pre>
+
+<h2 id="websocket">websocket</h2>
+
+<p>websocket 便于 websocket 服务器/代理。当创建新的WebSocket连接时，执行命令，并且Caddy中继客户端与该命令的连接。</p>
+
+<p>只要从stdin输入并写入stdout，任何命令都可以执行，因为它将与WebSocket客户端进行通信。该命令不需要知道它正在与Web Socket客户端通信; 只需使用stdin和stdout。</p>
+
+<p>客户端连接时，Caddy不会保留后端进程的活动。开发人员有责任确保程序在客户端准备关闭连接或准备终止之前终止。</p>
+
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>HTTP/2 不支持协议升级，因此您可能不得不禁用 HTTP/2，以便成功地在安全连接上使用该指令。</p>
+</div>
+
+<h3 id="语法-18">语法</h3>
+
+<pre><code>websocket [path] command
+</code></pre>
+
+<ul>
+<li>path</li>
+</ul>
+
+<p>与请求URL匹配的基本路径</p>
+
+<ul>
+<li>command</li>
+</ul>
+
+<p>执行的命令</p>
+
+<p>如果省略path，则假定默认路径为 <code>/</code>（表示所有请求）。</p>
+
+<h3 id="例子-16">例子</h3>
+
+<p>简单的WebSockets echo服务器：</p>
+
+<pre><code>websocket /echo cat
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://docs.getcaddy.cn/http-server/" title="">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://docs.getcaddy.cn/server-type/" title="">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/docs.getcaddy.cn\/';
+      var repo_id  = 'mholt\/caddy';
+    
+    </script>
+
+    <script src="https://docs.getcaddy.cn/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

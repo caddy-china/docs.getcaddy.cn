@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="zh-hans">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>开始使用 - Caddy 中文文档 Docs</title>
+    <meta name="generator" content="Hugo 0.52" />
+
+    
+    <meta name="description" content="自动配置 HTTPS 的 HTTP2 服务器">
+    
+    <link rel="canonical" href="https://docs.getcaddy.cn/get-started/">
+    
+    <meta name="author" content="caddy">
+    
+
+    <meta property="og:url" content="https://docs.getcaddy.cn/get-started/">
+    <meta property="og:title" content="Caddy 中文文档 Docs">
+    <meta property="og:image" content="https://docs.getcaddy.cn/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Caddy 中文文档 Docs">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://docs.getcaddy.cn/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://docs.getcaddy.cn/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://docs.getcaddy.cn/fonts/icon.eot');
+        src: url('https://docs.getcaddy.cn/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://docs.getcaddy.cn/fonts/icon.woff')
+               format('woff'),
+             url('https://docs.getcaddy.cn/fonts/icon.ttf')
+               format('truetype'),
+             url('https://docs.getcaddy.cn/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/application.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://docs.getcaddy.cn/stylesheets/highlight/atom-one-light.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://docs.getcaddy.cn/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-light-blue palette-accent-light-blue">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        开始使用
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/caddy" title="@caddy on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/mholt/caddy" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://docs.getcaddy.cn/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Caddy 中文文档 Docs <span class="version">0.10.7</span></strong>
+        
+          <br>
+          mholt/caddy
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/mholt/caddy/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/mholt/caddy/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="开始使用" href="https://docs.getcaddy.cn/get-started/">
+	
+	开始使用
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="HTTP 服务器" href="https://docs.getcaddy.cn/http-server/">
+	
+	HTTP 服务器
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="标准 HTTP 指令" href="https://docs.getcaddy.cn/http/">
+	
+	标准 HTTP 指令
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="DNS 服务商" href="https://docs.getcaddy.cn/dns/">
+	
+	DNS 服务商
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="指令／中间件" href="https://docs.getcaddy.cn/directive-middleware/">
+	
+	指令／中间件
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="事件钩子" href="https://docs.getcaddy.cn/event-hooks/">
+	
+	事件钩子
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="服务器类型" href="https://docs.getcaddy.cn/server-type/">
+	
+	服务器类型
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="常用教程" href="https://docs.getcaddy.cn/examples/">
+	
+	常用教程
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/caddy" target="_blank" title="@caddy on GitHub">
+              @caddy on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:admin@zuohuadong.cn" title="Email of admin@zuohuadong.cn">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>开始使用 </h1>
+
+			
+
+<p><a name="quick-start"></a></p>
+
+<h2 id="quick-start">快速开始</h2>
+
+<ol>
+<li><a href="https://caddyserver.com/download">下载 Caddy</a> 并将其放在你的 <strong>PATH</strong> （环境变量） 当中。[译者注：Linux 一般为 /bin/local/ 目录]</li>
+<li><code>cd</code> 到你网站的目录。</li>
+<li>运行 <code>caddy</code> 。</li>
+</ol>
+
+<p>完成了！从你的浏览器打开 <code>http://localhost:2015</code> 看一下是否运行。在默认情况下，Caddy服务于当前的工作目录。</p>
+
+<div class="admonition note">
+<p class="admonition-title">如果你看到 404 错误</p>
+<p>说明 Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导吗？阅读<a href="#beginner">初学者教程</a>）</p>
+</div>
+
+<p>接下来，<a href="#caddyfile">学习使用 Caddyfile 配置 Caddy</a>。</p>
+
+<p><a name="beginner"></a></p>
+
+<h2 id="beginner">新手教程</h2>
+
+<p>本教程将帮助你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，那就<a href="#quick-start">快速开始</a>）尽管 Caddy 很容易使用，但仍然期望您已经熟悉使用您的机器。</p>
+
+<ul>
+<li>提取，移动和重命名文件</li>
+<li>管理用户和文件权限</li>
+<li>使用终端或命令行</li>
+<li>配置防火墙</li>
+</ul>
+
+<p>有了这些前提条件，您就可以开始了。</p>
+
+<h3 id="topic"><strong>Topics</strong></h3>
+
+<ol>
+<li><a href="#download">下载</a></li>
+<li><a href="#install">安装</a></li>
+<li><a href="#run">运行</a></li>
+<li><a href="#configure">配置</a></li>
+</ol>
+
+<p><a name="download"></a></p>
+
+<h3 id="download">下载</h3>
+
+<p>从 <a href="https://caddyserver.com/download">下载页面</a> 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy的下载页面不同于其他web服务器:它允许您使用插件自定义您的构建。</p>
+
+<p>对于本教程，你不需要任何插件。</p>
+
+<p>有时我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 <a href="https://github.com/mholt/caddy">GitHub</a> 下载 <a href="https://github.com/mholt/caddy/releases/latest">最新版本</a></p>
+
+<p><a name="install"></a></p>
+
+<h3 id="install">安装</h3>
+
+<p>你下载的文件是压缩包。你需要提取 Caddy 二进制文件（可执行文件）。</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS</th>
+<th>Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>右键 .zip 文件，然后选择「全部提取」。提取到任意文件夹，完成后你可以删除压缩包。</td>
+<td>双击 .zip 文件夹，或者运行：<br /> <code>unzip caddy*.zip caddy</code></td>
+<td>运行命令：<br /> <code>tar -xzf caddy*.tar.gz caddy</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>接下来，我们把 Caddy 二进制文件移动到一个可以轻松执行的文件夹中。</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>将可执行文件移动到容易获取的文件夹。例如 <code>C:\Caddy</code> 。</td>
+<td>任何 <code>$PATH</code> 位置都可以：<br /> <code>mv ./caddy /usr/local/bin</code> <br /> 如果你得到 <strong>权限拒绝</strong> 的错误，你需要运行 <code>sudo</code> 。</td>
+</tr>
+</tbody>
+</table>
+
+<p>现在 Caddy 在我们可以轻松获取的地方，让我们来<a href="#run">运行</a>吧！</p>
+
+<p><a name="run"></a></p>
+
+<h3 id="run">运行</h3>
+
+<p>默认情况下，Caddy 将使用当前目录（正在执行的目录，而不是二进制文件所在文件夹）作为站点的根目录。这使得运行本地网站变得容易！</p>
+
+<p>使用终端或命令行，切换到你的站点所在文件夹：</p>
+
+<pre><code class="language-shell">cd path/to/my/site
+</code></pre>
+
+<p>并运行 Caddy ：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>假设你将 .exe 文件放在 C:\Caddy 中，运行：<br /> <code>C:\Caddy\caddy.exe</code></td>
+<td><code>caddy</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="admonition note">
+<p class="admonition-title">如果你看到 404 错误</p>
+<p>说明 Caddy 正在工作，但是你的站点的根目录缺少索引文件。</p>
+</div>
+
+<p>你可以按 <strong>Ctrl + C</strong> 退出 Caddy，它将尽可能终止。</p>
+
+<p><a name="configure"></a></p>
+
+<h3 id="configure">配置</h3>
+
+<p>你的站点已经适合生产环境，但是并不理想，因为我们将它运行在 <code>localhost</code> 上（您的家庭电脑）：</p>
+
+<ol>
+<li>该站点正在 2015 端口上运行，而不是 80（标准 HTTP 端口）。</li>
+<li>该站点不受 HTTPS 保护。</li>
+</ol>
+
+<p>通过提供给 Caddy 网站的名称很容易解决这两个问题。通过「name」，我们的意思是一个域名。我们将使用 <code>example.com</code> ，但是你要使用你的真实域名。如果你的计算机可以通过网络 80 和 443 端口获得更广泛的互联网访问，你的域名指向你所在的计算机，则接下来将正常工作[译者注：HTTPS 和 HTTP2 将会正常工作]。如果没有，或者你没有真正的域名，请暂时使用 <code>localhost</code> 作为你的域名。</p>
+
+<p>站点的名称也可以作为 host 或者 hostname 。指定 host 的一种方法是使用命令参数：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>C:\Caddy\caddy.exe -host example.com</code></td>
+<td><code>caddy -host example.com</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>你第一次使用真实的 hostname （而不是 localhost）运行 Caddy 时，系统会要求你输入你的 E-Mail 地址。因为 Caddy 需要验证你是否拥有该域名，并自动申请 SSL 证书。</p>
+
+<p>提交你的 E-Mail 后，你是否看到类似 <code>permission denied</code> 的错误？这是因为 Caddy 正在试图绑定 80 和 443 端口为一个真实的站点，但是这样需要 root 或者管理员权限：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>右键 cmd.exe ，然后单击「以管理员身份运行」。然后再运行 Caddy：<br /> <code>C:\Caddy\caddy.exe -host example.com</code></td>
+<td>使用 sudo 以 root 方式运行 Caddy：<br /> <code>sudo caddy -host example.com</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>如果你有权限，并在此运行 Caddy，你会看到：</p>
+
+<pre><code>Activating privacy features... done.
+https://example.com
+http://example.com
+</code></pre>
+
+<p>使用真实的域名触发了 Caddy 的隐私功能，它们运行在 80 和 443 端口上。如果你仅使用 <code>localhost</code> 作为主机名，则 Caddy 将继续使用 2015 端口工作，除非你使用 <code>-port</code> 选项进行更改。</p>
+
+<p><a href="cli">命令行</a>非常适合快速配置 Caddy。但是如果你想每次重用同一个配置怎么办呢？使用 Caddyfile 很简单。</p>
+
+<p><strong>Caddyfile</strong> 是一个文本文件，告诉 Caddy 如何提供服务，它通常和你的网站在一起，我们来做一个：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>在你的网站文件夹创建一个名为 Caddyfile （拓展名不为 .txt）的文本文件[译者注：无拓展名]，并在其中放置一行（使用你的实际域名或 localhost）：<br /> <code>example.com</code></td>
+<td>使用你的实际域名（或 localhost）：<br /> <code>echo example.com &gt; Caddyfile</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>运行 Caddy 会自动找到 Caddyfile 文件：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>C:\Caddy\caddy.exe</code></td>
+<td><code>caddy</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>这是因为 Caddy 的第一行始终要提供站点的地址（或名称）。</p>
+
+<p>如果 Caddyfile 不在当前目录，可以告诉 Caddy 从哪里得到 Caddyfile：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>C:\Caddy\caddy.exe -conf C:\path\to\Caddyfile</code></td>
+<td><code>caddy -conf ../path/to/Caddyfile</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>你几乎知道这是危险的。接下来，学习<a href="#caddyfile">学习如何运用 Caddyfile</a>。你会喜欢，因为这很容易。</p>
+
+<p><a name="caddyfile"></a></p>
+
+<h2 id="caddyfile">Caddyfile</h2>
+
+<p>本教程将向你介绍如何为 Caddy 配置 Caddyfile 。</p>
+
+<p>Caddyfile 是一个文本文件，它配置 Caddy 的运行方式。</p>
+
+<p><strong>Caddyfile 第一行始终是要站点的地址</strong>，例如：</p>
+
+<pre><code>localhost:8080
+</code></pre>
+
+<p>当你将其保存在名为 Caddyfile 的文件中时，Caddy 会在你启动的时候找到它：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>C:\Caddy\caddy.exe</code></td>
+<td><code>caddy</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>如果 Caddyfile 位于不同位置或者具有其他名称，请告诉 Caddy 它的位置：</p>
+
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>macOS／Linux</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>C:\Caddy\caddy.exe -conf C:\path\to\Caddyfile</code></td>
+<td><code>caddy -conf ../path/to/Caddyfile</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>站点地址之后的行以指令开头。指令是 Caddy 识别的关键字。例如，<a href="gzip">gzip</a> 是一个 HTTP 指令：</p>
+
+<pre><code>localhost:8080
+gzip
+</code></pre>
+
+<p>指令可以在后面跟一个或者多个参数：</p>
+
+<pre><code>localhost:8080
+gzip
+log ../access.log
+</code></pre>
+
+<p>有些指令需要更多的配置，而不止一行。对于这些指令，您可以打开一个块并设置更多的参数。开始的大括号必须在一行的末尾:</p>
+
+<pre><code>localhost:8080
+gzip
+log ../access.log
+markdown /blog {
+    css /blog.css
+    js  /scripts.js
+}
+</code></pre>
+
+<p>如果指令块为空，则应该完全省略大括号。</p>
+
+<p>包含空格的参数必须使用引号 <code>&quot;</code> 扩起来。</p>
+
+<p>Caddyfile 也可以使用 <code>#</code> 开头的注释：</p>
+
+<pre><code># Comments can start a line
+foobar # or go at the end
+</code></pre>
+
+<p>使用单个 Caddyfile 配置多个站点，你 <strong>必须</strong> 使用大括号来分离没个站点的配置：</p>
+
+<pre><code>mysite.com {
+    root /www/mysite.com
+}
+
+sub.mysite.com {
+    root /www/sub.mysite.com
+    gzip
+    log ../access.log
+}
+</code></pre>
+
+<p>和指令一样，开始的大括号必须在同一行的末尾，结束的大括号必须独占一行。<strong>所有的指令必须在网站的定义中</strong>。</p>
+
+<p>对于共享配置的站点，请指定多个地址：</p>
+
+<pre><code>localhost:8080, https://site.com, http://mysite.com {
+    ...
+}
+</code></pre>
+
+<p>站点地址也可以在特定路径下定义，或者具有通配符代替左侧的单域名标签：</p>
+
+<pre><code>example.com/static, *.example.com {
+    ...
+}
+</code></pre>
+
+<p>请注意，使用站点地址中的路径将以最长匹配的前缀路由请求。如果你的基本路径是目录，则可以将正斜线 <code>/</code> 放置于后缀路径。</p>
+
+<p>在地址和参数中允许使用环境变量。它们必须使用大括号括起来，你可以使用 Unix 或者 Windows 变量格式：</p>
+
+<pre><code>localhost:{$PORT}
+root {%SITE_ROOT%}
+</code></pre>
+
+<p>这两种语法都适用于任何平台。单个环境变量不会扩展成多个参数/值。</p>
+
+<p>Caddyfile 中 <strong>没有继承或脚本</strong>，<strong>你可能不会多次指定相同的站点地址</strong>。是的，这意味着有时你需要多 复制+粘贴 一些重复的行。如果你有很多重复的行，可以使用 <code>import</code> 指令来减少重复。</p>
+
+<p>好吧，这该足够让你了解 Caddy 文档，去使用它！</p>
+
+<h2 id="命令行界面">命令行界面</h2>
+
+<p>本页介绍了 Caddy 的命令行界面。要获得快速参考并查看默认值，请运行 <code>-help</code> 或 <code>-h</code> ，例如：<code>caddy -h</code> 。</p>
+
+<h3 id="flags-命令参数">Flags 命令参数</h3>
+
+<ul>
+<li>-agree</li>
+</ul>
+
+<p>表示您已阅读并同意让我们加密订阅者协议。如果没有指定此标志，则可能会在运行时提示您同意条款。因此，在自动化环境中建议使用此标志。</p>
+
+<ul>
+<li>-ca</li>
+</ul>
+
+<p>基础 URL 到证书颁发机构的 ACME 服务器目录。用于创建TLS证书。</p>
+
+<ul>
+<li>-catimeout</li>
+</ul>
+
+<p>更改 ACME CA HTTP 的超时时间。通常不需要更改此项，除非您的网络遇到与 ACME CA 服务器的重大延迟。在这些情况下，提高此值可以帮助您。接受持续时间值; 默认是10s。</p>
+
+<ul>
+<li>-conf</li>
+</ul>
+
+<p>用于配置 Caddy 的 Caddyfile 。必须是文件的有效路径，无论是相对还是绝对。</p>
+
+<ul>
+<li>-cpu</li>
+</ul>
+
+<p>CPU上限。可以是百分比（例如“75％”）或指定要使用多少个内核的数字（例如3）。</p>
+
+<ul>
+<li>-disable-http-challenge</li>
+</ul>
+
+<p>禁用用于获取证书的 ACME HTTP 的验证。</p>
+
+<ul>
+<li>-disable-tls-sni-challenge</li>
+</ul>
+
+<p>禁用获得证书的 ACME tls - sni 的验证。</p>
+
+<ul>
+<li>-email</li>
+</ul>
+
+<p>如果没有为 Caddyfile 指定证书，则使用电子邮件地址来生成 <a href="https://docs.getcaddy.cn/http/#tls">TLS 证书</a>。这不是必须的，但强烈建议这样，如果你丢失了私钥，你可以恢复你的帐户。如果没有电子邮件，Caddy 可能会在运行时提示您发送邮件地址。如果在Caddyfile中没有指定，则建议在自动化环境中使用此选项。</p>
+
+<ul>
+<li>-grace</li>
+</ul>
+
+<p>持续时间。如果你非常频繁地重新加载(每秒多次)，那么就缩短这段时间。语法与Go的相同。Parse Duration function (5s, 1m30s, etc).</p>
+
+<ul>
+<li>-help 或 -h</li>
+</ul>
+
+<p>显示基本标志帮助。在显示帮助后，Caddy 将终止;它不会为网站服务。</p>
+
+<p>-host</p>
+
+<p>要侦听的默认主机名或IP地址。</p>
+
+<ul>
+<li>-http-port</li>
+</ul>
+
+<p>用于HTTP的端口(默认为80)。改变这种情况会产生意想不到的后果，要小心。ACME HTTP 验证需要端口80。</p>
+
+<ul>
+<li>-https-port</li>
+</ul>
+
+<p>端口用于 HTTPS (默认的443)。改变这种情况会产生意想不到的后果，要小心。ACME tls - sni 验证需要端口 443。</p>
+
+<ul>
+<li>-http2</li>
+</ul>
+
+<p>HTTP/2 的支持。通过设置为 false 来禁用它。要禁用特定站点，使用 <a href="https://docs.getcaddy.cn/http/#tls">tls</a> 指令的 “alpn” 设置。</p>
+
+<ul>
+<li>-log</li>
+</ul>
+
+<p>使流程日志。该值必须是日志文件、<code>stdout</code> 或 <code>stderr</code> 的路径。如果不存在日志文件，Caddy 将创建该日志文件。该文件将用于记录运行时发生的信息和错误。日志文件在变大时被滚动覆盖，因此在长时间运行的过程中使用是安全的。</p>
+
+<ul>
+<li>-pidfile</li>
+</ul>
+
+<p>pidfile ，使用自动化的环境。Caddy 将编写一个包含当前进程 ID 的文件。</p>
+
+<ul>
+<li>-plugins</li>
+</ul>
+
+<p>列出已注册为 Caddy 的插件。显示后，Caddy 将终止 ; 它不会为网站服务。</p>
+
+<ul>
+<li>-port</li>
+</ul>
+
+<p>本地监听端口。</p>
+
+<ul>
+<li>-quic</li>
+</ul>
+
+<p>使实验 QUIC 支持。请参阅<a href="https://github.com/mholt/caddy/wiki/QUIC">QUIC wiki页面</a>，了解如何使用 QUIC 实验功能。</p>
+
+<ul>
+<li>-quiet</li>
+</ul>
+
+<p>静默模式。启用后 Caddy 不会打印信息初始化输出，服务可正常运行。</p>
+
+<p>-revoke</p>
+
+<p>用于撤销SSL证书的主机名。在撤销完成后，Caddy 将停止;如果使用此选项，则将停止站点。</p>
+
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>证书必须在Caddy 的管理下。撤销是指仅限私钥。不要撤销证书以更新它。</p>
+</div>
+
+<p>-root</p>
+
+<p>路径到默认站点根目录，用于服务文件。</p>
+
+<p>-type</p>
+
+<p>更改服务器类型，默认是 http。如果您的 Caddyfile 是另一个服务器类型，请使用此选项来告诉它使用哪个服务器类型。</p>
+
+<p>-validate</p>
+
+<p>解析 Caddyfile 并退出。如果语法有效，消息将被打印到 stdout 和进程日志(如果有的话)，并将退出，状态为0。如果不是，将返回一个非零退出状态的错误。</p>
+
+<p>-version</p>
+
+<p>打印版本。它也可以打印生成信息，如果不是从标记的版本。印刷后，Caddy将终止;如果使用此选项，则不提供站点。</p>
+
+<h3 id="signals-信号">Signals 信号</h3>
+
+<p>在符合 posix的 系统中，Caddy可以通过 Signals 信号来控制。在这里，我们粗略地列出它们，从最有力的动作到强制的动作。</p>
+
+<ul>
+<li>TERM</li>
+</ul>
+
+<p>强行退出而不执行关机挂钩。</p>
+
+<ul>
+<li>INT</li>
+</ul>
+
+<p>在执行关闭钩子后，强制退出流程。这是在 Windows 上运行的唯一“信号”(Ctrl + C)。即使关闭钩子仍在运行，第二个 SIGINT 也会立即终止。</p>
+
+<p>HUP</p>
+
+<p>强制地停止服务器，但不会执行关闭钩子。.</p>
+
+<p>QUIT</p>
+
+<p>在执行关闭钩子后，强制地停止服务器。</p>
+
+<p>USR1</p>
+
+<p>重新加载配置文件，然后强制地重新启动服务器。</p>
+
+<h3 id="短-caddyfile">短 Caddyfile</h3>
+
+<p>Caddy 也接受非标记参数，这被理解为速记 Caddyfile 文本。这对于快速的临时服务器实例非常有用。
+每个未标记的参数是用于服务默认主机和端口的 Caddyfile 中的一行。记得在引号中包含空格或其他特殊字符。</p>
+
+<p>例如，让您浏览默认主机和端口上文件的服务器:</p>
+
+<pre><code>$ caddy browse
+</code></pre>
+
+<p>在一个自定义端口上即时地为 markdown 文件提供服务:</p>
+
+<pre><code>$ caddy -port 8080 markdown
+</code></pre>
+
+<p>带有访问日志，实现上述功能：</p>
+
+<pre><code>$ caddy -port 8080 browse markdown &quot;log access.log&quot;
+</code></pre>
+
+<p>此简易功能仅用于快速，简单的配置。</p>
+
+<h3 id="pipe-a-caddyfile">Pipe a Caddyfile</h3>
+
+<p>高级用户可能希望将 Caddyfile 的内容从开发环境中导入 Caddy 。如果您在Caddyfile 中使用 pipe，则必须使用带有 <code>stdin</code> 值的 <code>-conf</code> 标志，例如</p>
+
+<pre><code>$ echo &quot;localhost:1234&quot; | caddy -conf stdin
+</code></pre>
+
+<p>当您使用从您可以控制的父进程中动态生成的 Caddyfile 启动 Caddy 时，配置 Caddyfile 是非常方便的。</p>
+
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>如果您在 Caddyfile 中使用 pipe，则稍后在程序中将无法从 stdin 读取，因为父进程必须发送 EOF才能关闭 pipe，以便 Caddy 可以解除阻止并开始投放。这将导致问题，例如，如果 Caddy 必须提示您提供电子邮件地址或协议条款。所以当 pipe 输入时，使用标志来避免后来需要 stdin（例如 -email 标志）</p>
+</div>
+
+<h3 id="环境变量">环境变量</h3>
+
+<p>凯蒂识别某些环境变量。</p>
+
+<ul>
+<li>HOME</li>
+</ul>
+
+<p>主文件夹。如果使用托管 TLS（自动HTTPS），则可以在此处创建一个.caddy文件夹，并且可能在将来会持续其他状态，或者配置为这样做。</p>
+
+<p>CADDYPATH</p>
+
+<p>如果设置，则Caddy将使用此文件夹来存储资源，而不是默认的$HOME/.caddy。</p>
+
+<p>CASE_SENSITIVE_PATH</p>
+
+<p>如果0或者false，Caddy会在访问文件系统上的资产或匹配中间件处理程序的请求时，以不区分大小写的方式处理请求路径。默认值为1 / true（区分大小写的路径）</p>
+
+<p>退出代码</p>
+
+<ul>
+<li>0 - 正常或预期退出</li>
+<li>1 - 服务器完成启动之前的错误</li>
+<li>2 - 双重SIGINT（强制退出）</li>
+<li>3 - 用SIGQUIT错误停止</li>
+<li>4 - 关闭回调（s）返回错误</li>
+</ul>
+
+<p>需要说明的是，如果退出状态为1，则不能自动重新启动。</p>
+
+<p><a name="caddyfile-syntax"></a></p>
+
+<h2 id="caddyfile-syntax">Caddyfile 语法</h2>
+
+<p>这个页面描述了Caddyfile的语法。如果这是你第一次写Caddyfile，试试 <a href="https://docs.getcaddy.cn/get-started/#caddyfile">Caddyfile引导教程</a>。此页面不适用于初学者; 它是技术性的，有点无聊。</p>
+
+<p>虽然这篇文章是冗长的，但是 Caddyfile 被设计成易读的。你会发现很容易记住，不麻烦，而且容易写出。</p>
+
+<p>术语 “Caddyfile” 通常指的是一个文件，但更一般地意味着一个 Caddy 的配置文本。Caddyfile 可用于配置任何 Caddy 服务器类型：HTTP，DNS等。Carddyfile 的基本结构和语法对于所有服务器类型都是相同的，但会有语义变化。由于这种变化性，本文档仅将 Caddyfile 视为适用于所有服务器类型的通用配置语法。可以在各自的文档中找到具体类型的 Caddyfile文 档。例如，HTTP服务器记录其Caddyfile 的语义。</p>
+
+<p><strong>主题</strong></p>
+
+<ul>
+<li>1. <a href="#fileformat">文件格式和编码</a></li>
+<li>2. <a href="#lexical-syntax">词汇语法</a></li>
+<li>3. <a href="#structure">结构体</a></li>
+<li>4. <a href="#labels">标签</a></li>
+<li>5. <a href="#directives">指令</a></li>
+<li>6. <a href="#environment-variables">环境变量</a></li>
+<li>7. <a href="#import">import</a></li>
+<li>8. <a href="#examples">例子</a></li>
+</ul>
+
+<p><a name="fileformat"></a></p>
+
+<h3 id="fileformat">文件格式和编码</h3>
+
+<p>Caddyfile 是用 UTF-8 编码的纯 Unicode 文本。每个代码点是不同的; 具体来说，小写和大写字符是不同的。前导字节顺序标记（0xFEFF）（如果存在）将被忽略。</p>
+
+<p><a name="lexical-syntax"></a></p>
+
+<h3 id="lexical-syntax">词汇语法</h3>
+
+<p><code>token</code> 是在Caddyfile空格分隔的字符的序列。以引号开始的令牌从<code>&quot;</code>字面上读取（包括空格），直到<code>&quot;</code>未转义的下一个引号实例。引用文字可以像这样反斜杠转义：<code>\&quot;</code>。只有引号是可以避免的。“自动引用”无效。</p>
+
+<ul>
+<li>行</li>
+</ul>
+
+<p><code>\n</code>仅用（换行）字符分隔。<code>\r</code>除非引用，否则回车将被丢弃。空白、未引号的行是允许和忽略的。</p>
+
+<p>注释被词法分析器丢弃。注释以不引用的哈希开始，#并继续到行尾。注释可能会开始一行或出现在行的中间作为不引用标记的一部分。为了本文档的目的，不再考虑注释和空白行。</p>
+
+<p>然后由解析器对结构进行令牌的评估。</p>
+
+<ul>
+<li>注释</li>
+</ul>
+
+<p>注释被解析器丢弃。注释以未引用的 哈希 <code>#</code> 开头，并继续到该行的末尾。注释可以开始一行，或出现在行的中间作为不引用标记的一部分。为了本文档的目的，不再考虑注释和空白行。</p>
+
+<p>然后由解析器对 token 进行评估。</p>
+
+<p><a name="structure"></a></p>
+
+<h3 id="structure">结构体</h3>
+
+<p>Caddyfile 没有全局作用域。Caddyfile 中最全局的单元是一个<strong>entry 条目</strong>。条目由一个标签列表和一个与这些标签关联的定义组成。<strong>label 标签</strong>是一个字符串标识符，<strong>definition 定义</strong>是一个集合在一起的 token 的主体(一个或多个行):</p>
+
+<pre><code>list of labels
+    definition (block)
+
+</code></pre>
+
+<p>只有一个条目的 Caddyfile 可以只包含标签行，然后在下一行上定义，如下所示。然而，一个包含多个条目的 Caddyfile 必须将每个定义包含在大括号<code>{ }</code>中。打开的花括号<code>{</code>必须在标签行的末尾，而结束的花括号<code>}</code>必须是这一行的唯一标记:</p>
+
+<pre><code>list of labels {
+    definition (block)
+}
+list of labels {
+    definition (block)
+}
+</code></pre>
+
+<p>在大括号内的块内建议使用一致的标签缩进。</p>
+
+<p>Caddyfile 的第一行始终是一个标签行。注释行、空行和导入行会导致异常。</p>
+
+<p><a name="labels"></a></p>
+
+<h3 id="labels">Labels 标签</h3>
+
+<p>标签是出现在块外的唯一标记（除了一个例外是导入指令）。标签行可能只有一个标签：</p>
+
+<pre><code>label
+</code></pre>
+
+<p>或多个标签，以空格分隔：</p>
+
+<pre><code>label1 label2 ...
+</code></pre>
+
+<p>如果许多标签要封闭，标签可能会以逗号后缀。号后缀的标签后面可以带有换行符，在这种情况下，下一行将被视为同一行的一部分：</p>
+
+<pre><code>label1,
+label2
+</code></pre>
+
+<p>混合使用也是可以的（但不建议），只要行的最后一个标签有一个逗号，如果下一行继续是标签列表：</p>
+
+<pre><code>label1 label2,
+label3, label4,
+label5
+</code></pre>
+
+<p>一个带有多个标签的定义被复制到每个标签上，就好像它们是单独定义的，但同样定义相同。</p>
+
+<p><a name="directives"></a></p>
+
+<h3 id="directives">Directives 指令</h3>
+
+<p>定义的主体遵循标签行。定义体中的每一行的第一个标记是一个<strong>directive 指令</strong>。在同一条线上的指令之后的每一个标记都是一个<strong>argument 参数</strong>。参数是可选的:</p>
+
+<pre><code>directive1
+directive2 arg1 arg2
+directive3 arg3
+</code></pre>
+
+<p>逗号是不被接受的参数分隔符; 它们将被视为参数值的一部分。参数仅由同一行空格分隔。</p>
+
+<p>指令可以通过打开块来跨越多行。块由花括号括起来{ }。开放的大括号{必须在指令的第一行的末尾，而关闭的大括号}必须是其行上唯一的标记：</p>
+
+<pre><code>directive {
+    ...
+}
+</code></pre>
+
+<p>在指令块内，每行的第一个token可能被视为<strong>subdirective 子目录</strong>或<strong>property 属性</strong>，具体取决于它的使用方式（其他也适用）。和以前一样，他们可以有参数：</p>
+
+<pre><code>directive arg1 {
+    subdir arg2 arg3
+    ...
+}
+</code></pre>
+
+<p>子指令无法打开新的块。换句话说，不支持嵌套的指令块。如果指令块为空，则花括号应完全省略。</p>
+
+<p><a name="environment-variables"></a></p>
+
+<h3 id="environment-variables">Environment Variables 环境变量</h3>
+
+<p>任何 token （标签，指令，参数等）可能包含或仅包含一个环境变量，该变量采用 Unix 窗体或Windows 窗体，用大括号<code>{}</code>括起来，不加空格:</p>
+
+<pre><code>label_{$ENV_VAR_1}
+directive {%ENV_VAR_2%}
+</code></pre>
+
+<p>任何一种形式都适用于任何操作系统 单个环境变量不会扩展到多个 token，参数或值。</p>
+
+<p><a name="import"></a></p>
+
+<h3 id="import">Import 导入</h3>
+
+<p><a href="https://docs.getcaddy.cn/http/#import">import</a> 指令是一个特殊的例子，因为它可以出现在定义块之外。其结果是，没有任何标签可以接受“导入”的值。</p>
+
+<p>在导入行中，该行将被替换为导入文件的内容，未修改。更多信息请参阅 <a href="https://docs.getcaddy.cn/http/#import">import 文档</a></p>
+
+<p><a name="examples"></a></p>
+
+<h3 id="examples">例子</h3>
+
+<p>一个非常简单的Caddyfile，只有一个条目：</p>
+
+<pre><code>label1
+
+directive1 argument1
+directive2
+</code></pre>
+
+<p>将先前的示例附加到另一个条目中，介绍了大括号的需要:</p>
+
+<pre><code>label1 {
+	directive1 arg1
+	directive2
+}
+label2, label3 {
+	directive3 arg2
+	directive4 arg3 arg4
+}
+</code></pre>
+
+<p>有些人喜欢总是使用大括号，即使只有一个条目; 这很好，但不必要：</p>
+
+<pre><code>label1 {
+	directive1 arg1
+	directive2
+}
+</code></pre>
+
+<p>例如，指令打开一个块:</p>
+
+<pre><code>label1
+
+directive arg1 {
+    subdir arg2 arg3
+}
+directive arg4
+</code></pre>
+
+<p>类似地，但在一个缩进的定义体中，并有一个注释:</p>
+
+<pre><code>label1 {
+	directive1 arg1
+	directive2 arg2 {
+	    subdir1 arg3 arg4
+	    subdir2
+	    # nested blocks not supported
+	}
+	directive3
+}
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://docs.getcaddy.cn/server-type/" title="">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/docs.getcaddy.cn\/';
+      var repo_id  = 'mholt\/caddy';
+    
+    </script>
+
+    <script src="https://docs.getcaddy.cn/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

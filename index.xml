@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Caddy 中文文档 Docs</title>
+    <link>https://docs.getcaddy.cn/</link>
+    <description>Recent content on Caddy 中文文档 Docs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Tue, 29 Aug 2017 18:53:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://docs.getcaddy.cn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Caddy 中文文档</title>
+      <link>https://docs.getcaddy.cn/readme/</link>
+      <pubDate>Tue, 29 Aug 2017 18:53:19 +0800</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/readme/</guid>
+      <description>如何使用 Caddy 1. 制作一个 Caddy文件 这个 Caddyfile 是配置 Caddy 的文本文件。它的设计很简单，难以弄错。
+Caddyfile 的第一行始终是要提供的站点的地址。
+您可以根据需要定义多个站点(使用{}); Caddy支持虚拟主机和许多其他功能！
+matt.life # 网站域名 ext .html # 排除 URLs errors error.log { # 错误日志 404 error-404.html # 指定错误页面 } # PHP 配置 fastcgi /blog localhost:9000 php # API 负载均衡 proxy /api localhost:5001 localhost:5002  运行 Caddy 你需要做的是运行 caddy ！ 如果 Caddyfile 位于当前文件夹中，则自动加载您的Caddyfile 。对于生产环境，默认情况下会启用 HTTPS （自动申请证书）！
+$ caddy Activating privacy features... done. http://matt.life https://matt.life  打开浏览器 输入您的网站的地址，查看它。正式网站将重定向到HTTPS。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/directive-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/directive-middleware/</guid>
+      <description>http.authz http.awses http.awslambda http.cache http.cgi 该插件实现了Caddy的通用网关接口（CGI）。它可以通过命令行脚本在您的网站上生成动态内容。如果要收集有关入站 HTTP 请求的信息，比如您的脚本会检查某些环境变量，例如 PATH_INFO 和 QUERY_STRING。然后，要将动态生成的网页返回给客户端，您的脚本只需将内容写入标准输出中即可。在POST请求的情况下，您的脚本从标准输入读取额外的入站内容。
+例子 CGI 脚本
+In the Caddyfile: cgi /report /usr/local/cgi-bin/report In /usr/local/cgi-bin/report: #!/bin/bash printf &amp;quot;Content-type: text/plain\n\n&amp;quot; printf &amp;quot;PATH_INFO [%s]\n&amp;quot; $PATH_INFO printf &amp;quot;QUERY_STRING [%s]\n&amp;quot; $QUERY_STRING exit 0  当 https://example.com/report或https://example.com/report/weekly 等请求到达时，cgi中间件将检测到匹配项，并调用名为/usr/local/cgi-bin/report 的脚本。
+环境变量 PATH_INFO 和 QUERY_STRING 被填充并自动传递给脚本。文档中描述了包含许多其他标准CGI变量。如果您需要传递任何特殊的环境变量，或者允许任何属于 Caddy 进程的环境变量传递给您的脚本，则需要使用文档中描述的高级指令语法。
+完整文档
+http.cors 支持跨源资源共享
+例子 简单的使用
+cors  允许所有来源访问所有资源
+只允许某些域名
+cors / http://mytrusteddomain.tld http://myotherdomain.com  只允许来自几个特定域名的跨域请求
+完整配置
+cors / { origin http://allowedSite.com origin http://anotherSite.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/dns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/dns/</guid>
+      <description> tls.dns.cloudflare tls.dns.digitalocean tls.dns.dnsimple tls.dns.dnspod tls.dns.dyn tls.dns.exoscale tls.dns.gandi tls.dns.googlecloud tls.dns.linode tls.dns.namecheap tls.dns.ovh tls.dns.rackspace tls.dns.rfc2136 tls.dns.route53 tls.dns.vultr </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/event-hooks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/event-hooks/</guid>
+      <description> hook.service 将 caddy 作为服务运行
+这个插件是由官方开发人员和Henrique Dias编码的，他是文件管理器的主要贡献者。
+注意
+注意：请注意，如果您使用不是默认值的名称安装服务，则每次使用命令使用该参数时，都需要指定该服务 -name 自定义名称。
+ 例子 由于官方文档的例子存在一定误导，此处没有按照原文翻译。
+安装服务
+caddy -service install -conf=/etc/Caddyfile  -conf=路径 可以指定Caddyfile 的路径
+卸载服务
+caddy -service uninstall  开始服务
+caddy -service start  停止服务
+caddy -service stop  重新启动服务
+caddy -service restart  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/examples/</guid>
+      <description>Gitladb https://gitlab.example.com { log git.access.log errors git.errors.log { 404 /opt/gitlab/embedded/service/gitlab-rails/public/404.html 422 /opt/gitlab/embedded/service/gitlab-rails/public/422.html 500 /opt/gitlab/embedded/service/gitlab-rails/public/500.html 502 /opt/gitlab/embedded/service/gitlab-rails/public/502.html } proxy / http://127.0.0.1:8181 { fail_timeout 300s transparent header_upstream X-Forwarded-Ssl on } }  socket
+ https://gitlab.domain.tld { errors { 404 /opt/gitlab/embedded/service/gitlab-rails/public/404.html 422 /opt/gitlab/embedded/service/gitlab-rails/public/422.html 500 /opt/gitlab/embedded/service/gitlab-rails/public/500.html 502 /opt/gitlab/embedded/service/gitlab-rails/public/502.html } proxy / unix:/home/git/gitlab/tmp/sockets/gitlab.socket { fail_timeout 300s transparent } }  hhvm localhost:8080 { fastcgi / unix:/var/run/hhvm/sock php }  Laravel example.com { root ./public fastcgi / 127.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/http-server/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/http-server/</guid>
+      <description>HTTP Caddyfile 这个页面记录了 HTTP 服务器如何使用 Caddyfile。如果您还没有了解，先阅读Caddyfile教程，或者先读一下Caddyfile语法。
+主题
+ 站点地址 路径匹配 指令 占位符  
+站点地址 HTTP服务器使用站点地址作为标签。在窗体方案中指定地址://主机:端口/路径，其中除一个外都是可选的。scheme://host:port/path
+主机部分通常是localhost或域名。默认端口是2015(除非该站点符合自动HTTPS的条件，在这种情况下，它被更改为443)。协议是指定端口的另一种方法。“http”或“https”是有效的，分别代表端口80和443。如果指定了协议和端口，则端口优先。例如，这个假设自动HTTPS应用于它可以使用的地方):
+:2015 # 主机: (any), 端口: 2015 localhost # 主机: localhost; 端口: 2015 localhost:8080 # 主机: localhost; 端口: 8080 example.com # 主机: example.com; 端口s: 80-&amp;gt;443 http://example.com # 主机: example.com; 端口: 80 https://example.com # 主机: example.com; 端口s: 80-&amp;gt;443 http://example.com:1234 # 主机: example.com; 端口: 1234 https://example.com:80 # Error! HTTPS on port 80 *.example.com # 主机: *.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/http/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/http/</guid>
+      <description>basicauth bind 绑定覆盖服务器应该绑定的主机。通常，侦听器绑定到通配符主机。但是，您可以强制侦听器绑定到另一个主机名或IP。该指令只接收主机，而不接受端口。
+请注意，绑定站点不一致可能会导致意想不到的后果。例如，如果同一个端口上的两个站点解析为127.0.0.1，其中只有一个站点配置了bind 127.0.0.1，那么只有一个站点是可访问的，因为另一个站点将绑定到端口而没有特定的主机;操作系统将选择更具体的匹配套接字。(虚拟主机不会在不同的监听器之间共享)
+语法 bind host   host 是要绑定到的主机名（或IP地址）  例子 要使您的 socket 只能访问本机，请绑定到IP 127.0.0.1（localhost）：
+bind 127.0.0.1  browse errors 错误允许您设置自定义错误页面并启用错误日志记录。
+如果没有这个中间件，错误响应(HTTP状态&amp;gt; = 400)不会被记录，客户端会收到一条明文错误消息。 使用一个错误日志，将记录每个错误的文本，这样您就可以确定哪些错误，而不向客户公开这些细节。使用错误页面，您可以显示自定义错误消息并指示您的访问者该做什么。当您指定自定义错误页面时，将自动启用错误日志记录。
+语法 errors [logfile]   logfile 是相对于当前工作目录创建（或附加到）的错误日志文件的路径。有关如何指定输出位置的更多详细信息，请参阅日志位置。默认是stderr。  要指定自定义错误页面，请打开一个代码块：
+errors [logfile] { code file rotate_size mb rotate_age days rotate_keep count rotate_compress }   code 可以是HTTP状态代码（4xx，5xx或*默认错误页面）。
+ file 是错误页面的静态HTML文件（相对于站点根目录）。
+ rotate_size 是滚动之前日志文件必须达到的大小（以兆字节为单位）。
+ rotate_age 是保留滚动日志文件的天数。
+ rotate_keep 是要保留的最大滚动日志文件数; 旧的滚动日志文件被清除。
+ rotate_compress 是压缩旋转日志文件的选项。gzip是唯一支持的格式。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://docs.getcaddy.cn/server-type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/server-type/</guid>
+      <description>dns DNS服务器插件。
+目前CoreDNS能够：
+ 从文件中提供区域数据; DNSSEC（仅NSEC）和DNS均支持（file）。
+ 从初级检索区域数据，即作为辅助服务器（仅限AXFR）（secondary）。
+ 即时签署区域数据（dnssec）。
+ 负载平衡响应（负载均衡）。
+ 允许区域传输，即充当主服务器（file）。
+ 自动从磁盘加载区域文件（auto）。
+ 缓存（cache）。
+ 健康检查终点（health）。
+ 使用etcd作为后端，即替换为101.5％ [SkyDNS]（https://github.com/skynetservices/skydns）（`etcd`）。
+ 使用k8s（kubernetes）作为后端（kubernetes）。
+ 作为代理将查询转发给其他（递归）名称服务器（proxy）。
+ 提供指标（使用Prometheus）（metrics）。
+ 提供查询（log）和错误（error）日志记录。
+ 支持CH类：version.bind和朋友（chaos）。
+ 分析支持（pprof）。
+ 重写查询（qtype，qclass和qname）（rewrite）。
+ 回显所使用的IP地址，传输和端口号（whoami）
+  例子 CoreDNS
+example.org:53 { whoami proxy . 8.8.8.8:53 }  在1053端口上为 (NSEC)dnssec- signed example.org 服务，错误和日志被发送到 stdout。允许区域传输给每个人，但特别提到一个IP地址，这样 CoreDNS 可以发送通知给它。
+example.org:1053 { file /var/lib/coredns/example.org.signed { transfer to * transfer to 2001:500:8f::53 } errors stdout log stdout }  转发与递归名称服务器不匹配的所有内容，并将任何查询重写为HINFO</description>
+    </item>
+    
+    <item>
+      <title>开始使用</title>
+      <link>https://docs.getcaddy.cn/get-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.getcaddy.cn/get-started/</guid>
+      <description>快速开始  下载 Caddy 并将其放在你的 PATH （环境变量） 当中。[译者注：Linux 一般为 /bin/local/ 目录] cd 到你网站的目录。 运行 caddy 。  完成了！从你的浏览器打开 http://localhost:2015 看一下是否运行。在默认情况下，Caddy服务于当前的工作目录。
+如果你看到 404 错误
+说明 Caddy 正在工作，但是你的站点的根目录缺少索引文件。（需要更多的指导吗？阅读初学者教程）
+ 接下来，学习使用 Caddyfile 配置 Caddy。
+
+新手教程 本教程将帮助你第一次安装、运行和配置 Caddy。假设你从来没有使用过 web 服务器！（如果有，那就快速开始）尽管 Caddy 很容易使用，但仍然期望您已经熟悉使用您的机器。
+ 提取，移动和重命名文件 管理用户和文件权限 使用终端或命令行 配置防火墙  有了这些前提条件，您就可以开始了。
+Topics  下载 安装 运行 配置  
+下载 从 下载页面 下载 Caddy。你可以获得几乎任何系统和架构的 Caddy。Caddy的下载页面不同于其他web服务器:它允许您使用插件自定义您的构建。
+对于本教程，你不需要任何插件。
+有时我们对构建服务器进行维护。如果下载页面关闭，你可以随时从 GitHub 下载 最新版本
+
+安装 你下载的文件是压缩包。你需要提取 Caddy 二进制文件（可执行文件）。</description>
+    </item>
+    
+  </channel>
+</rss>

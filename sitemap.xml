@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/readme/</loc>
+    <lastmod>2017-08-29T18:53:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/directive-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/dns/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/event-hooks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/examples/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/http-server/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/http/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/server-type/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/</loc>
+    <lastmod>2017-08-29T18:53:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://docs.getcaddy.cn/get-started/</loc>
+  </url>
+  
+</urlset>
